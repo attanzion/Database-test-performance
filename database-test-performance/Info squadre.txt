@@ -1,0 +1,192 @@
+1,Juventus, 1. Serie A, it ITA
+2,Inter, 1. Serie A,  it ITA
+3,Atalanta, 1. Serie A,  it ITA
+4,Lazio, 1. Serie A,  it ITA
+5,Roma, 1. Serie A,  it ITA
+6,Milan, 1. Serie A,  it ITA
+7,Napoli, 1. Serie A,  it ITA
+8,Sassuolo, 1. Serie A,  it ITA
+9,Hellas Verona, 1. Serie A,  it ITA
+10,Fiorentina, 1. Serie A,  it ITA
+11,Parma, 1. Serie A,  it ITA
+12,Bologna, 1. Serie A,  it ITA
+13,Udinese, 1. Serie A,  it ITA
+14,Cagliari , 1. Serie A,  it ITA
+15,Sampdoria , 1. Serie A,  it ITA
+16,Torino , 1. Serie A,  it ITA
+17,Genoa , 1. Serie A,  it ITA
+18,Lecce , 1. Serie A,  it ITA
+19,Brescia , 1. Serie A,  it ITA
+20,SPAL , 1. Serie A,  it ITA
+1,Liverpool, 1. Premier League, eng ENG
+2,Manchester City, 1. Premier League, eng ENG
+3,Manchester Utd, 1. Premier League, eng ENG
+4,Chelsea, 1. Premier League, eng ENG
+5,Leicester City, 1. Premier League, eng ENG
+6,Tottenham, 1. Premier League, eng ENG
+7,Wolves, 1. Premier League, eng ENG
+8,Arsenal, 1. Premier League, eng ENG
+9,Sheffield Utd, 1. Premier League, eng ENG
+10,Burnley, 1. Premier League, eng ENG
+11,Southampton, 1. Premier League, eng ENG
+12,Everton, 1. Premier League, eng ENG
+13,Newcastle Utd, 1. Premier League, eng ENG
+14,Crystal Palace, 1. Premier League, eng ENG
+15,Brighton, 1. Premier League, eng ENG
+16,West Ham, 1. Premier League, eng ENG
+17,Aston Villa, 1. Premier League, eng ENG
+18,Bournemouth, 1. Premier League, eng ENG
+19,Watford, 1. Premier League, eng ENG
+20,Norwich City, 1. Premier League, eng ENG
+1,Paris S-G, 1. Ligue 1, fr FRA
+2,Marseille, 1. Ligue 1, fr FRA
+3,Rennes, 1. Ligue 1, fr FRA
+4,Lille, 1. Ligue 1, fr FRA
+5,Reims, 1. Ligue 1, fr FRA
+6,Nice, 1. Ligue 1, fr FRA
+7,Lyon, 1. Ligue 1, fr FRA
+8,Montpellier, 1. Ligue 1, fr FRA
+9,Monaco, 1. Ligue 1, fr FRA
+10,Strasbourg, 1. Ligue 1, fr FRA
+11,Angers, 1. Ligue 1, fr FRA
+12,Bordeaux, 1. Ligue 1, fr FRA
+13,Nantes, 1. Ligue 1, fr FRA
+14,Brest, 1. Ligue 1, fr FRA
+15,Metz, 1. Ligue 1, fr FRA
+16,Dijon, 1. Ligue 1, fr FRA
+17,Saint-Étienne, 1. Ligue 1, fr FRA
+18,Nîmes, 1. Ligue 1, fr FRA
+19,Amiens, 1. Ligue 1, fr FRA
+20,Toulouse, 1. Ligue 1, fr FRA
+1,Bayern Munich, 1. Bundesliga, de GER
+2,Dortmund, 1. Bundesliga, de GER
+3,RB Leipzig, 1. Bundesliga, de GER
+4,M'Gladbach, 1. Bundesliga, de GER
+5,Leverkusen, 1. Bundesliga, de GER
+6,Hoffenheim, 1. Bundesliga, de GER
+7,Wolfsburg, 1. Bundesliga, de GER
+8,Freiburg, 1. Bundesliga, de GER
+9,Eint Frankfurt, 1. Bundesliga, de GER
+10,Hertha BSC, 1. Bundesliga, de GER
+11,Union Berlin, 1. Bundesliga, de GER
+12,Schalke 04, 1. Bundesliga, de GER
+13,Mainz 05, 1. Bundesliga, de GER
+14,Köln, 1. Bundesliga, de GER
+15,Augsburg, 1. Bundesliga, de GER
+16,Werder Bremen, 1. Bundesliga, de GER
+17,Düsseldorf, 1. Bundesliga, de GER
+18,Paderborn 07, 1. Bundesliga, de GER
+1,Real Madrid, 1. La Liga, es ESP
+2,Barcelona, 1. La Liga, es ESP
+3,Atlético Madrid, 1. La Liga, es ESP
+4,Sevilla, 1. La Liga, es ESP
+5,Villarreal, 1. La Liga, es ESP
+6,Real Sociedad, 1. La Liga, es ESP
+7,Granada, 1. La Liga, es ESP
+8,Getafe, 1. La Liga, es ESP
+9,Valencia, 1. La Liga, es ESP
+10,Osasuna, 1. La Liga, es ESP
+11,Athletic Club, 1. La Liga, es ESP
+12,Levante, 1. La Liga, es ESP
+13,Valladolid, 1. La Liga, es ESP
+14,Eibar, 1. La Liga, es ESP
+15,Betis, 1. La Liga, es ESP
+16,Alavés, 1. La Liga, es ESP
+17,Celta Vigo, 1. La Liga, es ESP
+18,Leganés, 1. La Liga, es ESP
+19,Mallorca, 1. La Liga, es ESP
+20,Espanyol, 1. La Liga, es ESP
+1,Boca Juniors, 1. Primera Div, ar ARG
+2,River Plate, 1. Primera Div, ar ARG
+3,Vélez Sarsf, 1. Primera Div, ar ARG
+4,Racing Club, 1. Primera Div, ar ARG
+5,Argentinos Jun, 1. Primera Div, ar ARG
+6,Defensa y Just, 1. Primera Div, ar ARG
+7,Lanús, 1. Primera Div, ar ARG
+8,San Lorenzo, 1. Primera Div, ar ARG
+9,Rosario Cent, 1. Primera Div, ar ARG
+10,Newell's OB, 1. Primera Div, ar ARG
+11,Arsenal de Sarandì, 1. Primera Div, ar ARG
+12,Talleres, 1. Primera Div, ar ARG
+13,Estudiantes, 1. Primera Div, ar ARG
+14,Independiente, 1. Primera Div, ar ARG
+15,Tucumán, 1. Primera Div, ar ARG
+16,CA Unión, 1. Primera Div, ar ARG
+17,Banfield, 1. Primera Div, ar ARG
+18,CC Córdoba, 1. Primera Div, ar ARG
+19,Gimnasia ELP, 1. Primera Div, ar ARG
+20,Patronato, 1. Primera Div, ar ARG
+21,CA Huracán, 1. Primera Div, ar ARG
+22,Aldosivi, 1. Primera Div, ar ARG
+23,Colón, 1. Primera Div, ar ARG
+24,Godoy Cruz, 1. Primera Div, ar ARG
+1,Ajax, 1. Dutch Eredivisie, nl NED
+2,AZ Alkmaar, 1. Dutch Eredivisie, nl NED
+3,Feyenoord, 1. Dutch Eredivisie, nl NED
+4,PSV Eindhoven, 1. Dutch Eredivisie, nl NED
+5,Willem II, 1. Dutch Eredivisie, nl NED
+6,Utrecht, 1. Dutch Eredivisie, nl NED
+7,Vitesse, 1. Dutch Eredivisie, nl NED
+8,Heracles Almelo, 1. Dutch Eredivisie, nl NED
+9,Groningen, 1. Dutch Eredivisie, nl NED
+10,Heerenveen, 1. Dutch Eredivisie, nl NED
+11,Sparta R'dam, 1. Dutch Eredivisie, nl NED
+12,Emmen, 1. Dutch Eredivisie, nl NED
+13,VVV-Venlo, 1. Dutch Eredivisie, nl NED
+14,Twente, 1. Dutch Eredivisie, nl NED
+15,Zwolle, 1. Dutch Eredivisie, nl NED
+16,Fortuna Sittard, 1. Dutch Eredivisie, nl NED
+17,ADO Den Haag, 1. Dutch Eredivisie, nl NED
+18,RKC Waalwijk, 1. Dutch Eredivisie, nl NED
+1,Porto, 1. Primeira Liga, pt POR
+2,Benfica, 1. Primeira Liga, pt POR
+3,Braga, 1. Primeira Liga, pt POR
+4,Sporting CP, 1. Primeira Liga, pt POR
+5,Rio Ave, 1. Primeira Liga, pt POR
+6,Famalicão, 1. Primeira Liga, pt POR
+7,Vitória, 1. Primeira Liga, pt POR
+8,Moreirense, 1. Primeira Liga, pt POR
+9,Santa Clara, 1. Primeira Liga, pt POR
+10,Gil Vicente FC, 1. Primeira Liga, pt POR
+11,Marítimo, 1. Primeira Liga, pt POR
+12,Boavista, 1. Primeira Liga, pt POR
+13,Paços, 1. Primeira Liga, pt POR
+14,Tondela, 1. Primeira Liga, pt POR
+15,Belenenses, 1. Primeira Liga, pt POR
+16,Vitória Setúbal, 1. Primeira Liga, pt POR
+17,Portimonense, 1. Primeira Liga, pt POR
+18,Aves, 1. Primeira Liga, pt POR
+1,Zenit, 1. Russian Premier League, ru RUS
+2,Dynamo Mosc, 1. Russian Premier League, ru RUS
+3,Loko Moscow, 1. Russian Premier League, ru RUS
+4,Krasnodar, 1. Russian Premier League, ru RUS
+5,CSKA Moscow, 1. Russian Premier League, ru RUS
+6,Sochi, 1. Russian Premier League, ru RUS
+7,Spartak Moscow, 1. Russian Premier League, ru RUS
+8,Akhmat Grozny, 1. Russian Premier League, ru RUS
+9,Ufa, 1. Russian Premier League, ru RUS
+10,Rostov, 1. Russian Premier League, ru RUS
+11,Tambov, 1. Russian Premier League, ru RUS
+12,Ural, 1. Russian Premier League, ru RUS
+13,Rubin Kazan, 1. Russian Premier League, ru RUS
+14,Arsenal Tula, 1. Russian Premier League, ru RUS
+15,FC Khimki, 1. Russian Premier League, ru RUS
+16,Rotor Volgograd, 1. Russian Premier League, ru RUS
+1,América, 1. Liga MX, mx MEX
+2,Cruz Azul, 1. Liga MX, mx MEX
+3,León, 1. Liga MX, mx MEX
+4,UNAM, 1. Liga MX, mx MEX
+5,Toluca, 1. Liga MX, mx MEX
+6,UANL, 1. Liga MX, mx MEX
+7,Querétaro, 1. Liga MX, mx MEX
+8,Puebla, 1. Liga MX, mx MEX
+9,Pachuca, 1. Liga MX, mx MEX
+10,Guadalajara, 1. Liga MX, mx MEX
+11,Monterrey, 1. Liga MX, mx MEX
+12,Atlético, 1. Liga MX, mx MEX
+13,Santos, 1. Liga MX, mx MEX
+14,FC Juárez, 1. Liga MX, mx MEX
+15,Mazatlán FC, 1. Liga MX, mx MEX
+16,Necaxa, 1. Liga MX, mx MEX
+17,Tijuana, 1. Liga MX, mx MEX
+18,Atlas, 1. Liga MX, mx MEX

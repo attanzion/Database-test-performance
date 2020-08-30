@@ -66,10 +66,10 @@ public class Generatore {
 		
 		try {
 			
-			BufferedReader reader_nomi = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\Eclipse Workspace\\Football_Stats - TEST\\Nomi.txt"));
-			BufferedReader reader_cognomi = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\Eclipse Workspace\\Football_Stats - TEST\\Cognomi.txt"));
-			BufferedReader reader_nazionalità = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\Eclipse Workspace\\Football_Stats - TEST\\Nazionali.txt"));
-			BufferedReader reader_info_squad = new BufferedReader(new FileReader("C:\\Users\\andre\\Desktop\\Eclipse Workspace\\Football_Stats - TEST\\Info squadre.txt"));
+			BufferedReader reader_nomi = new BufferedReader(new FileReader("C:\\Users\\andre\\git\\database-test-performace\\Database-test-performance\\database-test-performance\\Nomi.txt"));
+			BufferedReader reader_cognomi = new BufferedReader(new FileReader("C:\\Users\\andre\\git\\database-test-performace\\Database-test-performance\\database-test-performance\\Cognomi.txt"));
+			BufferedReader reader_nazionalità = new BufferedReader(new FileReader("C:\\Users\\andre\\git\\database-test-performace\\Database-test-performance\\database-test-performance\\Nazionali.txt"));
+			BufferedReader reader_info_squad = new BufferedReader(new FileReader("C:\\Users\\andre\\git\\database-test-performace\\Database-test-performance\\database-test-performance\\Info squadre.txt"));
 			
 			String line_nomi = reader_nomi.readLine();
 			
