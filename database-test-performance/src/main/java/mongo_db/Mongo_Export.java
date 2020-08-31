@@ -156,6 +156,44 @@ public class Mongo_Export {
         }
 
     }
+    
+    /**
+     * Funzione che cancella i calciatori, presenti negli arraylist passati come argomento, dal database.
+     * @param all_por
+     * @param all_gioc
+     */
+    
+    public void Delete_Calciatori(ArrayList<Portiere> all_por, ArrayList<Giocatore> all_gioc) {
+    	
+    	try {
+    		
+    		Mongo mongo = new Mongo();
+            
+            mongo.Connection("localhost", 27017, "FootballStats", "Calciatori");   //Connessione a MongoDB.
+            
+            MongoCollection<Document> collection = mongo.getMongoCollection();
+            
+            for (Giocatore giocatore : all_gioc) {
+            	
+            	collection.deleteOne(eq("Link calciatore", giocatore.getLink_calciatore()));
+				
+			}
+            
+            for (Portiere portiere : all_por) {
+            	
+            	collection.deleteOne(eq("Link calciatore", portiere.getLink_calciatore()));
+				
+			}
+            
+            mongo.Disconnection();
+			
+		} catch (Exception e) {
+			
+			System.out.println("Errore in Mongo_Export - Delete_Calciatori(). \n \n" + e);
+			
+		}
+    	
+    }
 
 }
     

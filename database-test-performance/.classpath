@@ -23,5 +23,14 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/andre/.m2/repository/com/google/guava/guava/25.0-jre/guava-25.0-jre.jar" sourcepath="C:/Users/andre/.m2/repository/com/google/guava/guava/25.0-jre/guava-25.0-jre-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="com.google.guava"/>
+			<attribute name="maven.artifactId" value="guava"/>
+			<attribute name="maven.version" value="25.0-jre"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

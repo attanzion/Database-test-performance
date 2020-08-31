@@ -36,7 +36,7 @@ public class Mongo_Export_3 {
     		
     		MongoCollection<Document> collection = mongo.getMongoCollection();
     		
-    		System.out.println("EXPORT GIOCATORI -  Configurazione 2. \n \n");
+    		System.out.println("EXPORT GIOCATORI -  Configurazione 3. \n \n");
     		
     		for (Giocatore giocatore : all_gioc) {       //Per ogni giocatore in 'all_gioc'
     			
