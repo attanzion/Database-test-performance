@@ -194,6 +194,36 @@ public class Mongo_Export {
 		}
     	
     }
+    
+    /**
+     * Funzione che inserisce una nuova stagione di un calciatore, nell'array di documenti 'Stagioni'.
+     * @param nome
+     * @param link
+     * @param document
+     */
+    
+    public void Insert_new_season(String nome, String link, Document document) {
+    	
+			try {
+				
+
+	    		Mongo mongo = new Mongo();
+	            
+	            mongo.Connection("localhost", 27017, "FootballStats", "Calciatori");   //Connessione a MongoDB.
+	            
+	            MongoCollection<Document> collection = mongo.getMongoCollection();
+	            
+	            collection.updateOne(eq("Link calciatore", link),  push("Stagioni", document));
+	            
+	            mongo.Disconnection();
+				
+			} catch (Exception e) {
+				
+				System.out.println("Errore in Mongo_Export - Insert_new_season(). \n \n" + e);
+				
+			}
+		    	
+	 }
 
 }
     

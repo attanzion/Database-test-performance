@@ -1,9 +1,13 @@
 package mongo_db;
 
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Updates.push;
+
 import java.util.ArrayList;
 
 import org.bson.Document;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 
 import classi.Giocatore;
@@ -188,4 +192,53 @@ public class Mongo_Export_2 {
     	
     }
 
+    /**
+     * Funzione che inserisce una nuova stagione di un calciatore come 'Ultima stagione', spostando la vecchia ultima stagione in 'Penultima stagione' e la vecchia penutima stagione aggiunta nell'array delle stagioni ('Stagioni').
+     * @param nome
+     * @param link
+     * @param document
+     */
+    
+    public void Insert_new_season(String nome, String link, Document document) {
+    	
+			try {
+				
+
+	    		Mongo mongo = new Mongo();
+	            
+	            mongo.Connection("localhost", 27017, "FootballStats_2", "Calciatori");   //Connessione a MongoDB.
+	            
+	            MongoCollection<Document> collection = mongo.getMongoCollection();
+	            
+	            ArrayList<Document> doc_list = collection.find(eq("Link calciatore", link)).into(new ArrayList<Document>());
+	            
+	            Document ultima_stagione = new Document();
+	            Document penultima_stagione = new Document();
+	            
+	            for (Document d : doc_list) {
+					
+	            	ultima_stagione = (Document) d.get("Ultima stagione");
+	            	penultima_stagione = (Document) d.get("Penultima stagione");
+	            	
+				}
+	            
+	            BasicDBObject updateFields = new BasicDBObject();
+	            updateFields.append("Ultima stagione", document);
+	            updateFields.append("Penultima stagione", ultima_stagione);
+	            BasicDBObject setQuery = new BasicDBObject();
+	            setQuery.append("$set", updateFields);
+	            
+	            collection.updateOne(eq("Link calciatore", link),  push("Stagioni", penultima_stagione));
+	            collection.updateOne(eq("Link calciatore", link), setQuery);
+	            
+	            mongo.Disconnection();
+				
+			} catch (Exception e) {
+				
+				System.out.println("Errore in Mongo_Export_2 - Insert_new_season(). \n \n" + e);
+				
+			}
+		    	
+	 }
+    
 }
