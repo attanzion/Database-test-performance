@@ -202,10 +202,9 @@ public class Mongo_Export {
      * @param document
      */
     
-    public void Insert_new_season(String nome, String link, Document document) {
+    public void Insert_new_season(ArrayList<Portiere> all_por, ArrayList<Giocatore> all_gioc, Document document, Document document_por) {
     	
-			try {
-				
+			try {	
 
 	    		Mongo mongo = new Mongo();
 	            
@@ -213,7 +212,22 @@ public class Mongo_Export {
 	            
 	            MongoCollection<Document> collection = mongo.getMongoCollection();
 	            
-	            collection.updateOne(eq("Link calciatore", link),  push("Stagioni", document));
+	            for (Giocatore giocatore : all_gioc) {
+					
+	            	 collection.updateOne(eq("Link calciatore", giocatore.getLink_calciatore()),  push("Stagioni", document));
+	            	 
+	            	 System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - AGGIORNATO.");
+	            	
+				}
+	            
+	            for (Portiere portiere : all_por) {
+					
+	            	 collection.updateOne(eq("Link calciatore", portiere.getLink_calciatore()),  push("Stagioni", document_por));
+	            	 
+	            	 System.out.println("PORTIERE: " + portiere.getNome_calciatore() + " - AGGIORNATO.");
+	            	
+				}
+	           
 	            
 	            mongo.Disconnection();
 				

@@ -16,11 +16,7 @@ public class Main {
 //		pe.Inserimento(1);
 		
 		Document d = new Document();
-		d.put("Prova", 10);
 		
-		Mongo_Export_2 me = new Mongo_Export_2();
-		
-		me.Insert_new_season("", "https://fbref.com/en/players/NHFlV9RM/Gemino-Dunford", d);
 		
 	}
 

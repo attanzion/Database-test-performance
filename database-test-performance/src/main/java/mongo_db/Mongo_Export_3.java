@@ -1,9 +1,13 @@
 package mongo_db;
 
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Updates.push;
+
 import java.util.ArrayList;
 
 import org.bson.Document;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 
 import classi.Giocatore;
@@ -434,5 +438,143 @@ public class Mongo_Export_3 {
     	
     }
 
+    
+    /**
+     * Funzione che inserisce una nuova stagione di un calciatore come 'Ultima stagione', spostando la vecchia ultima stagione in 'Penultima stagione' e la vecchia penutima stagione aggiunta nell'array delle stagioni ('Stagioni').
+     * @param nome
+     * @param link
+     * @param document
+     */
+    
+    public void Insert_new_season(ArrayList<Portiere> all_por, ArrayList<Giocatore> all_gioc, Document document, Document document_por) {
+    	
+			try {
+				
+
+	    		Mongo mongo = new Mongo();
+	            
+	            mongo.Connection("localhost", 27017, "FootballStats_3", "Calciatori");   //Connessione a MongoDB.
+	            
+	            MongoCollection<Document> collection = mongo.getMongoCollection();
+	            
+	            for(Giocatore giocatore : all_gioc ) {
+	            
+	            ArrayList<Document> doc_list = collection.find(eq("Link calciatore", giocatore.getLink_calciatore())).into(new ArrayList<Document>());
+	            
+	            Document ultima_stagione = new Document();
+	            Document penultima_stagione = new Document();
+	            
+	            for (Document d : doc_list) {
+					
+	            	ultima_stagione = (Document) d.get("Ultima stagione");
+	            	penultima_stagione = (Document) d.get("Penultima stagione");
+	            	
+				}
+	            
+	            BasicDBObject updateFields = new BasicDBObject();
+	            updateFields.append("Ultima stagione", document);
+	            updateFields.append("Penultima stagione", ultima_stagione);
+	            BasicDBObject setQuery = new BasicDBObject();
+	            setQuery.append("$set", updateFields);
+	            
+	            collection.updateOne(eq("Link calciatore", giocatore.getLink_calciatore()),  push("Stagioni", penultima_stagione));
+	            collection.updateOne(eq("Link calciatore", giocatore.getLink_calciatore()), setQuery);
+	            
+	            
+	            BasicDBObject updateArray = new BasicDBObject();
+	            updateArray.append("games", document.getInteger("games"));
+	            updateArray.append("games_starts", document.getInteger("games_starts"));
+	            updateArray.append("minutes", document.getInteger("minutes"));
+	            updateArray.append("goals", document.getInteger("goals"));
+	            updateArray.append("assists", document.getInteger("assists"));
+	            updateArray.append("pens_made", document.getInteger("pens_made"));
+	            updateArray.append("pens_att", document.getInteger("pens_att"));
+	            updateArray.append("cards_yellow", document.getInteger("cards_yellow"));
+	            updateArray.append("cards_red", document.getInteger("cards_red"));
+	            updateArray.append("goals_per90", document.getDouble("goals_per90"));
+	            updateArray.append("assists_per90", document.getDouble("assists_per90"));
+	            updateArray.append("goals_assists_per90", document.getDouble("goals_assists_per90"));
+	            updateArray.append("goals_pens_per90", document.getDouble("goals_pens_per90"));
+	            updateArray.append("goals_assists_pens_per90", document.getDouble("goals_assists_pens_per90"));
+	            updateArray.append("xg", document.getDouble("xg"));
+	            updateArray.append("npxg", document.getDouble("npxg"));
+	            updateArray.append("xa", document.getDouble("xa"));
+	            updateArray.append("xg_per90", document.getDouble("xg_per90"));
+	            updateArray.append("xa_per90", document.getDouble("xa_per90"));
+	            updateArray.append("xg_xa_per90", document.getDouble("xg_xa_per90"));
+	            updateArray.append("npxg_per90", document.getDouble("npxg_per90"));
+	            updateArray.append("npxg_xa_per90", document.getDouble("npxg_xa_per90"));
+	            
+	            BasicDBObject setQuery_array = new BasicDBObject();
+	            setQuery_array.append("$push", updateArray);
+	            
+	            collection.updateOne(eq("Link calciatore", giocatore.getLink_calciatore()), setQuery_array);
+	            
+	            System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - AGGIORNATO.");
+	            
+	            }
+	            
+	            for(Portiere portiere : all_por) {
+	            	
+	            	ArrayList<Document> doc_list = collection.find(eq("Link calciatore", portiere.getLink_calciatore())).into(new ArrayList<Document>());
+		            
+		            Document ultima_stagione = new Document();
+		            Document penultima_stagione = new Document();
+		            
+		            for (Document d : doc_list) {
+						
+		            	ultima_stagione = (Document) d.get("Ultima stagione");
+		            	penultima_stagione = (Document) d.get("Penultima stagione");
+		            	
+					}
+		            
+		            BasicDBObject updateFields = new BasicDBObject();
+		            updateFields.append("Ultima stagione", document);
+		            updateFields.append("Penultima stagione", ultima_stagione);
+		            BasicDBObject setQuery = new BasicDBObject();
+		            setQuery.append("$set", updateFields);
+		            
+		            collection.updateOne(eq("Link calciatore", portiere.getLink_calciatore()),  push("Stagioni", penultima_stagione));
+		            collection.updateOne(eq("Link calciatore", portiere.getLink_calciatore()), setQuery);
+		            
+		            
+		            BasicDBObject updateArray = new BasicDBObject();
+		            updateArray.append("games_gk", document_por.getInteger("games_gk"));
+		            updateArray.append("games_starts_gk", document_por.getInteger("games_starts_gk"));
+		            updateArray.append("minutes_gk", document_por.getInteger("minutes_gk"));
+		            updateArray.append("goals_against_gk", document_por.getInteger("goals_against_gk"));
+		            updateArray.append("shot_on_target_against", document_por.getInteger("shot_on_target_against"));
+		            updateArray.append("saves", document_por.getInteger("saves"));
+		            updateArray.append("wins_gk", document_por.getInteger("wins_gk"));
+		            updateArray.append("draws_gk", document_por.getInteger("draws_gk"));
+		            updateArray.append("losses_gk", document_por.getInteger("losses_gk"));
+		            updateArray.append("clean_sheets", document_por.getInteger("clean_sheets"));
+		            updateArray.append("pens_att_gk", document_por.getInteger("pens_att_gk"));
+		            updateArray.append("pens_allowed", document_por.getInteger("pens_allowed"));
+		            updateArray.append("pens_saved", document_por.getInteger("pens_saved"));
+		            updateArray.append("pens_missed_gk", document_por.getInteger("pens_missed_gk"));
+		            updateArray.append("goals_against_gk_per90", document_por.getDouble("goals_against_gk_per90"));
+		            updateArray.append("save_pct", document_por.getDouble("save_pct"));
+		            updateArray.append("clean_sheets_pct", document_por.getDouble("clean_sheets_pct"));
+		            
+		            BasicDBObject setQuery_array = new BasicDBObject();
+		            setQuery_array.append("$push", updateArray);
+		            
+		            collection.updateOne(eq("Link calciatore", portiere.getLink_calciatore()), setQuery_array);
+		            
+		            System.out.println("GIOCATORE: " + portiere.getNome_calciatore() + " - AGGIORNATO.");
+	            	
+	            }
+	            
+	            mongo.Disconnection();
+				
+			} catch (Exception e) {
+				
+				System.out.println("Errore in Mongo_Export_3 - Insert_new_season(). \n \n" + e);
+				
+			}
+		    	
+	 }
+    
 }
 

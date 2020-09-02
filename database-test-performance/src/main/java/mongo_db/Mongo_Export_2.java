@@ -199,7 +199,7 @@ public class Mongo_Export_2 {
      * @param document
      */
     
-    public void Insert_new_season(String nome, String link, Document document) {
+    public void Insert_new_season(ArrayList<Portiere> all_por, ArrayList<Giocatore> all_gioc, Document document, Document document_por) {
     	
 			try {
 				
@@ -210,7 +210,9 @@ public class Mongo_Export_2 {
 	            
 	            MongoCollection<Document> collection = mongo.getMongoCollection();
 	            
-	            ArrayList<Document> doc_list = collection.find(eq("Link calciatore", link)).into(new ArrayList<Document>());
+	            for(Giocatore giocatore : all_gioc) {
+	            
+	            ArrayList<Document> doc_list = collection.find(eq("Link calciatore", giocatore.getLink_calciatore())).into(new ArrayList<Document>());
 	            
 	            Document ultima_stagione = new Document();
 	            Document penultima_stagione = new Document();
@@ -228,8 +230,39 @@ public class Mongo_Export_2 {
 	            BasicDBObject setQuery = new BasicDBObject();
 	            setQuery.append("$set", updateFields);
 	            
-	            collection.updateOne(eq("Link calciatore", link),  push("Stagioni", penultima_stagione));
-	            collection.updateOne(eq("Link calciatore", link), setQuery);
+	            collection.updateOne(eq("Link calciatore", giocatore.getLink_calciatore()),  push("Stagioni", penultima_stagione));
+	            collection.updateOne(eq("Link calciatore", giocatore.getLink_calciatore()), setQuery);
+	            
+	            System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - AGGIORNATO.");
+	            
+	            }
+	            
+	            for(Portiere portiere : all_por) {
+	            	
+	            	ArrayList<Document> doc_list = collection.find(eq("Link calciatore", portiere.getLink_calciatore())).into(new ArrayList<Document>());
+		            
+		            Document ultima_stagione = new Document();
+		            Document penultima_stagione = new Document();
+		            
+		            for (Document d : doc_list) {
+						
+		            	ultima_stagione = (Document) d.get("Ultima stagione");
+		            	penultima_stagione = (Document) d.get("Penultima stagione");
+		            	
+					}
+		            
+		            BasicDBObject updateFields = new BasicDBObject();
+		            updateFields.append("Ultima stagione", document_por);
+		            updateFields.append("Penultima stagione", ultima_stagione);
+		            BasicDBObject setQuery = new BasicDBObject();
+		            setQuery.append("$set", updateFields);
+		            
+		            collection.updateOne(eq("Link calciatore", portiere.getLink_calciatore()),  push("Stagioni", penultima_stagione));
+		            collection.updateOne(eq("Link calciatore", portiere.getLink_calciatore()), setQuery);
+	            	
+	            	System.out.println("PORTIERE: " + portiere.getNome_calciatore() + " - AGGIORNATO.");
+	            	
+	            }
 	            
 	            mongo.Disconnection();
 				
