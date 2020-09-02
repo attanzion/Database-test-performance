@@ -50,7 +50,7 @@ public class Generatore_stagioni {
 			stagione_calciatore.addStats(new Stats("age", age, "int"));
 			stagione_calciatore.addStats(new Stats("squad", squad, "string"));
 			stagione_calciatore.addStats(new Stats("country", country, "string"));
-			stagione_calciatore.addStats(new Stats("com_level", comp_level, "string"));
+			stagione_calciatore.addStats(new Stats("comp_level", comp_level, "string"));
 			stagione_calciatore.addStats(new Stats("lg_finish", lg_finish, "string"));
 			
 			if(!ruolo.equals("GK")) {

@@ -123,4 +123,21 @@ public class Mongo {
 
     }
     
+    /**
+     * Funzione che cancella il database.
+     * @param nome_database
+     */
+    
+    public void Drop_database(String nome_database) {
+    	
+    	this.Connection("localhost", 27017, nome_database, "Calciatori");
+    	
+    	this.database.drop();
+    	
+    	this.Disconnection();
+    	
+    	System.out.println("");
+    	
+    }
+    
 }

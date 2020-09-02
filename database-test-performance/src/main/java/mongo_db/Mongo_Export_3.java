@@ -529,7 +529,7 @@ public class Mongo_Export_3 {
 					}
 		            
 		            BasicDBObject updateFields = new BasicDBObject();
-		            updateFields.append("Ultima stagione", document);
+		            updateFields.append("Ultima stagione", document_por);
 		            updateFields.append("Penultima stagione", ultima_stagione);
 		            BasicDBObject setQuery = new BasicDBObject();
 		            setQuery.append("$set", updateFields);
