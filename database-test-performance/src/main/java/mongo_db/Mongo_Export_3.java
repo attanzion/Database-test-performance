@@ -1,5 +1,6 @@
 package mongo_db;
 
+import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.push;
 
@@ -9,6 +10,7 @@ import org.bson.Document;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Updates;
 
 import classi.Giocatore;
 import classi.Portiere;
@@ -41,6 +43,8 @@ public class Mongo_Export_3 {
     		MongoCollection<Document> collection = mongo.getMongoCollection();
     		
     		System.out.println("EXPORT GIOCATORI -  Configurazione 3. \n \n");
+    		
+    		 int count_gioc = 1;
     		
     		for (Giocatore giocatore : all_gioc) {       //Per ogni giocatore in 'all_gioc'
     			
@@ -245,7 +249,9 @@ public class Mongo_Export_3 {
     			
                  collection.insertOne(doc_giocatore);
                  
-                 System.out.println(giocatore.getNome_calciatore() + " EXPORTED! \n");
+                 System.out.println(giocatore.getNome_calciatore() + " EXPORTED! \nCalciatore num: " + count_gioc);
+                 
+                 count_gioc++;
                  
     		}
     		
@@ -424,7 +430,9 @@ public class Mongo_Export_3 {
 	   			
 	                collection.insertOne(doc_giocatore);
 	                
-	                System.out.println(portiere.getNome_calciatore() + " EXPORTED! \n");
+	                System.out.println(portiere.getNome_calciatore() + " EXPORTED! \nCalciatore num: " + count_gioc);
+	                
+	                count_gioc++;
                 
    		}
     		
@@ -456,6 +464,8 @@ public class Mongo_Export_3 {
 	            mongo.Connection("localhost", 27017, "FootballStats_3", "Calciatori");   //Connessione a MongoDB.
 	            
 	            MongoCollection<Document> collection = mongo.getMongoCollection();
+	            
+	            int count_gioc = 1;
 	            
 	            for(Giocatore giocatore : all_gioc ) {
 	            
@@ -510,7 +520,9 @@ public class Mongo_Export_3 {
 	            
 	            collection.updateOne(eq("Link calciatore", giocatore.getLink_calciatore()), setQuery_array);
 	            
-	            System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - AGGIORNATO.");
+	            System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - AGGIORNATO. \nCalciatore num: " + count_gioc);
+	            
+	            count_gioc++;
 	            
 	            }
 	            
@@ -562,7 +574,9 @@ public class Mongo_Export_3 {
 		            
 		            collection.updateOne(eq("Link calciatore", portiere.getLink_calciatore()), setQuery_array);
 		            
-		            System.out.println("GIOCATORE: " + portiere.getNome_calciatore() + " - AGGIORNATO.");
+		            System.out.println("PORTIERE: " + portiere.getNome_calciatore() + " - AGGIORNATO. \nCalciatore num: " + count_gioc);
+		            
+		            count_gioc++;
 	            	
 	            }
 	            
@@ -575,6 +589,55 @@ public class Mongo_Export_3 {
 			}
 		    	
 	 }
+    
+    /**
+     * Funzione che aggiorna alcuni valori dell'ultima stagione di un calciatore, per il portiere 'goals_against_gk' e 'saves', per il giocatore 'goals' e 'assists'.
+     * Inoltre aggiorna anche i valori negli array rispettivi (prima con un 'pop' poi con un 'push').
+     * @param all_por
+     * @param all_gioc
+     */
+    
+    public void Update_last_season(ArrayList<Portiere> all_por, ArrayList<Giocatore> all_gioc) {
+    	
+    	try {
+    		
+    		Mongo mongo = new Mongo();
+            
+            mongo.Connection("localhost", 27017, "FootballStats_3", "Calciatori");   //Connessione a MongoDB.
+            
+            MongoCollection<Document> collection = mongo.getMongoCollection();
+            
+            int count_gioc = 1;
+            
+            for(Giocatore giocatore : all_gioc) {
+            	
+            	collection.updateOne(eq("Link calciatore", giocatore.getLink_calciatore()), Updates.combine(Updates.popLast("goals"), Updates.popLast("assists")));
+            	collection.updateOne(and(eq("Link calciatore", giocatore.getLink_calciatore())), Updates.combine(Updates.set("Ultima stagione.goals", 222), Updates.set("Ultima stagione.assists", 222), Updates.push("goals", 222), Updates.push("assists", 222)));
+            	
+            	System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - CAMPI AGGIORNATI. \nCalciatore num: " + count_gioc);
+            	
+            	count_gioc++;
+            	
+            }
+            
+            for(Portiere portiere : all_por) {
+            	
+            	collection.updateOne(eq("Link calciatore", portiere.getLink_calciatore()), Updates.combine(Updates.popLast("goals_against_gk"), Updates.popLast("saves")));
+            	collection.updateOne(eq("Link calciatore", portiere.getLink_calciatore()), Updates.combine(Updates.set("Ultima stagione.goals_against_gk", 222),Updates.set("Ultima stagione.saves", 222), Updates.push("goals_against_gk", 222), Updates.push("saves", 222)));
+            	
+            	System.out.println("PORTIERE: " + portiere.getNome_calciatore() + " - CAMPI AGGIORNATI. \nCalciatore num: " + count_gioc);
+            	
+            	count_gioc++;
+            	
+            }
+			
+		} catch (Exception e) {
+			
+			System.out.println("Errore in Mongo_Export - Update_last_season(). \n \n" + e);
+			
+		}
+    	
+    }
     
 }
 
