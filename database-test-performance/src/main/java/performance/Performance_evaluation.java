@@ -57,23 +57,30 @@ public class Performance_evaluation {
 		long ms_2 = 0;
 		long ms_3 = 0;
 		
+		/** Inserimento nullo per eliminare il ritardo del primo 'time' avviato. */
 		time = Stopwatch.createStarted();
 		mongo_export.Insert_Calciatori(all_por_null, all_gioc_null);
 		mongo_export.Delete_Calciatori(all_por_null, all_gioc_null);
 		time.stop();
+		/**----------------------------------------------------------------------*/
 		
+		/** Start timer CONFIGURAZIONE 1 */
 		time = Stopwatch.createStarted();
-		mongo_export.Insert_Calciatori(all_por, all_gioc);
+		mongo_export.Insert_Calciatori(all_por, all_gioc);			/** Inserimento calciatori in FootballStats. */
 		time.stop();
+		/**----------------------------------------------------------------------*/
 		
+		/** Start timer CONFIGURAZIONE 2 */
 		time_2 = Stopwatch.createStarted();
-		mongo_export_2.Insert_Calciatori(all_por, all_gioc);
+		mongo_export_2.Insert_Calciatori(all_por, all_gioc);		/** Inserimento calciatori in FootballStats_2. */
 		time_2.stop();
+		/**----------------------------------------------------------------------*/
 		
+		/** Start timer CONFIGURAZIONE 3 */
 		time_3 = Stopwatch.createStarted();
-		mongo_export_3.Insert_Calciatori(all_por, all_gioc);
+		mongo_export_3.Insert_Calciatori(all_por, all_gioc);		/** Inserimento calciatori in FootballStats_3. */
 		time_3.stop();
-		
+		/**----------------------------------------------------------------------*/
 		
 		ms = time.elapsed(TimeUnit.MILLISECONDS);
 		ms_2 = time_2.elapsed(TimeUnit.MILLISECONDS);
@@ -139,19 +146,25 @@ public class Performance_evaluation {
 			mongo_export.Insert_Calciatori(all_por_null, all_gioc_null);
 			mongo_export.Delete_Calciatori(all_por_null, all_gioc_null);
 			time.stop();		
-			/******/
+			/**----------------------------------------------------------------------*/
 			
+			/** Start timer CONFIGURAZIONE 1 */
 			time = Stopwatch.createStarted();
 			mongo_export.Insert_new_season(all_por, all_gioc, this.Standard_document_stagione_giocatore(), this.Standard_document_stagione_portiere());
 			time.stop();
+			/**----------------------------------------------------------------------*/
 			
+			/** Start timer CONFIGURAZIONE 2 */
 			time_2 = Stopwatch.createStarted();
 			mongo_export_2.Insert_new_season(all_por, all_gioc, this.Standard_document_stagione_giocatore(), this.Standard_document_stagione_portiere());
 			time_2.stop();
+			/**----------------------------------------------------------------------*/
 			
+			/** Start timer CONFIGURAZIONE 3 */
 			time_3 = Stopwatch.createStarted();
 			mongo_export_3.Insert_new_season(all_por, all_gioc, this.Standard_document_stagione_giocatore(), this.Standard_document_stagione_portiere());
-			time_3.stop();		
+			time_3.stop();	
+			/**----------------------------------------------------------------------*/
 			
 			ms = time.elapsed(TimeUnit.MILLISECONDS);
 			ms_2 = time_2.elapsed(TimeUnit.MILLISECONDS);
@@ -223,19 +236,25 @@ public class Performance_evaluation {
 			mongo_export.Insert_Calciatori(all_por_null, all_gioc_null);
 			mongo_export.Delete_Calciatori(all_por_null, all_gioc_null);
 			time.stop();		
-			/******/
+			/**----------------------------------------------------------------------*/
 			
+			/** Start timer CONFIGURAZIONE 1 */
 			time = Stopwatch.createStarted();
-			mongo_export.Update_last_season(all_por, all_gioc);
+			mongo_export.Update_last_season(all_por, all_gioc);			/** Aggiornamento campi per i documenti in FootballStats. */
 			time.stop();
+			/**----------------------------------------------------------------------*/
 			
+			/** Start timer CONFIGURAZIONE 2 */
 			time_2 = Stopwatch.createStarted();
-			mongo_export_2.Update_last_season(all_por, all_gioc);
+			mongo_export_2.Update_last_season(all_por, all_gioc);		/** Aggiornamento campi per i documenti in FootballStats_2. */
 			time_2.stop();
+			/**----------------------------------------------------------------------*/
 			
+			/** Start timer CONFIGURAZIONE 3 */
 			time_3 = Stopwatch.createStarted();
-			mongo_export_3.Update_last_season(all_por, all_gioc);
-			time_3.stop();		
+			mongo_export_3.Update_last_season(all_por, all_gioc);		/** Aggiornamento campi per i documenti in FootballStats_3. */
+			time_3.stop();	
+			/**----------------------------------------------------------------------*/
 			
 			ms = time.elapsed(TimeUnit.MILLISECONDS);
 			ms_2 = time_2.elapsed(TimeUnit.MILLISECONDS);
