@@ -1,0 +1,40 @@
+Time 1: 1586 ms
+Time 2: 1157 ms
+Time 3: 1708 ms
+
+Time 1: 1208 ms
+Time 2: 1022 ms
+Time 3: 1106 ms
+
+Time 1: 1101 ms
+Time 2: 881 ms
+Time 3: 1161 ms
+
+Time 1: 824 ms
+Time 2: 865 ms
+Time 3: 1055 ms
+
+Time 1: 861 ms
+Time 2: 890 ms
+Time 3: 1341 ms
+
+Time 1: 870 ms
+Time 2: 863 ms
+Time 3: 1141 ms
+
+Time 1: 889 ms
+Time 2: 939 ms
+Time 3: 1137 ms
+
+Time 1: 852 ms
+Time 2: 905 ms
+Time 3: 1125 ms
+
+Time 1: 933 ms
+Time 2: 821 ms
+Time 3: 1126 ms
+
+Time 1: 880 ms
+Time 2: 868 ms
+Time 3: 1164 ms
+
