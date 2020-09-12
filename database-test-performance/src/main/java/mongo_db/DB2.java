@@ -33,9 +33,17 @@ public class DB2 {
      * @param collection
      */
     
-    public void Insert_Calciatori(Giocatore giocatore, Portiere portiere, MongoCollection<Document> collection) {
+    public void Insert_Calciatori(ArrayList<Giocatore> all_gioc, ArrayList<Portiere> all_por) {
     	
-    	if(portiere == null) {
+    		Mongo mongo = new Mongo();
+    	
+    		mongo.Connection("localhost", 27017, "FootballStats_2", "Calciatori");   //Connessione a MongoDB.
+        	
+    		MongoCollection<Document> collection = mongo.getMongoCollection();
+    		   		
+    		try {
+    	
+    		for(Giocatore giocatore : all_gioc) {
     		
     		ArrayList<Document> stagioni = new ArrayList<Document>();
 			ArrayList<Stagione_Calciatore> stag_c = giocatore.getStag_g();
@@ -98,9 +106,13 @@ public class DB2 {
             doc_giocatore.put("Penultima stagione", doc_penultima_stagione);
             doc_giocatore.put("Stagioni", stagioni);
 			
-            collection.insertOne(doc_giocatore); 
+            collection.insertOne(doc_giocatore);
+            
+            System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - Inserito.");
+            
+    	} 
     		
-    	} else if(giocatore == null) {
+    		for(Portiere portiere : all_por) {
     		
     		 ArrayList<Document> stagioni = new ArrayList<Document>();
   			 ArrayList<Stagione_Calciatore> stag_c = portiere.getStag_p();
@@ -164,9 +176,16 @@ public class DB2 {
                doc_portiere.put("Stagioni", stagioni);
   			
                collection.insertOne(doc_portiere);
+               
+               System.out.println("PORTIERE: " + portiere.getNome_calciatore() + " - Inserito.");
     		
     	}
+				
+			} catch (Exception e) {
+				System.out.println("Errore in DB2 - Insert_Calciatori().");
+			}
     	
+    		mongo.Disconnection();
     	
     }
     

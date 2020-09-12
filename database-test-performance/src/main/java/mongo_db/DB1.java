@@ -39,9 +39,17 @@ public class DB1 {
      * @param collection
      */
     
-    public void Insert_Calciatori(Giocatore giocatore, Portiere portiere, MongoCollection<Document> collection) {
+    public void Insert_Calciatori(ArrayList<Giocatore> all_gioc, ArrayList<Portiere> all_por) {
     	
-    	if(portiere == null) {
+    	Mongo mongo = new Mongo();
+    	
+    	mongo.Connection("localhost", 27017, "FootballStats", "Calciatori");   //Connessione a MongoDB.
+        
+        MongoCollection<Document> collection = mongo.getMongoCollection();       
+		
+		try {
+    	
+    		for(Giocatore giocatore : all_gioc) {
     		
     		 ArrayList<Document> stagioni = new ArrayList<Document>();
 
@@ -82,9 +90,12 @@ public class DB1 {
              }
              
              collection.insertOne(doc_giocatore);   //Si memorizza il documento nel database
+             
+             System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - Inserito.");
     		
-    	} else if(giocatore == null) {
-    		
+    }
+    		for(Portiere portiere : all_por) {
+    			
     		ArrayList<Document> stagioni = new ArrayList<Document>();
 
             Document doc_portiere = new Document();     //Si crea un documento con le info principali
@@ -124,9 +135,17 @@ public class DB1 {
            }
             
             collection.insertOne(doc_portiere);    //Si memorizza il documento nel database
-    		
-    	}
+            
+            System.out.println("PORTIERE: " + portiere.getNome_calciatore() + " - Inserito.");
+            
+}
+
+				
+			} catch (Exception e) {
+				System.out.println("Errore in DB1 - Insert_Calciatori().");
+			}
     	
+    		mongo.Disconnection();
     	
     }
     

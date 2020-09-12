@@ -33,9 +33,17 @@ public class DB3 {
      * @param collection
      */
     
-    public void Insert_Calciatori(Giocatore giocatore, Portiere portiere, MongoCollection<Document> collection) {
+    public void Insert_Calciatori(ArrayList<Giocatore> all_gioc, ArrayList<Portiere> all_por) {
     	
-    	if(portiere == null) {
+    		Mongo mongo = new Mongo();
+    	
+    		mongo.Connection("localhost", 27017, "FootballStats_3", "Calciatori");   //Connessione a MongoDB.
+        
+    		MongoCollection<Document> collection = mongo.getMongoCollection();
+    		
+    		try {
+    	
+    		for(Giocatore giocatore : all_gioc) {
     		
     		ArrayList<Integer> games = new ArrayList<Integer>();
 			ArrayList<Integer> games_starts = new ArrayList<Integer>();
@@ -237,8 +245,12 @@ public class DB3 {
              doc_giocatore.put("Stagioni", stagioni);
 			
              collection.insertOne(doc_giocatore);
+             
+             System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - Inserito.");
     		
-    	} else if(giocatore == null) {
+    	} 
+    		
+    		for(Portiere portiere : all_por) {
     		
     		 ArrayList<Integer> games_gk = new ArrayList<Integer>();
 			 ArrayList<Integer> games_starts_gk = new ArrayList<Integer>();
@@ -410,9 +422,15 @@ public class DB3 {
                doc_portiere.put("Stagioni", stagioni);
   			
                collection.insertOne(doc_portiere);
+               System.out.println("PORTIERE: " + portiere.getNome_calciatore() + " - Inserito.");
     		
     	}
+				
+			} catch (Exception e) {
+				System.out.println("Errore in DB3 - Insert_Calciatori().");
+			}
     	
+    		mongo.Disconnection();
     	
     }
     

@@ -46,8 +46,7 @@ public class Performance_evaluation {
 			int count_gioc = 1;
 	        
 	    	long nano = 0;
-
-			
+		
 			switch (configuration) {
 			
 			case 1:
@@ -161,7 +160,7 @@ public class Performance_evaluation {
 		    		thread.start();
 		    		thread.join();
 		    		
-		    		System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - Inserito nel db 'FootballStats_2'. \nCalciatore numero:  " + count_gioc);
+		    		System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - Inserito nel db 'FootballStats_3'. \nCalciatore numero:  " + count_gioc);
 		    		
 		    		nano = nano + insert.getNano();
 		    		
@@ -179,7 +178,7 @@ public class Performance_evaluation {
 		    		thread.start();
 		    		thread.join();
 		    		
-		    		System.out.println("PORTIERE: " + portiere.getNome_calciatore() + " - Inserito nel db 'FootballStats'. \nCalciatore numero:  " + count_gioc);
+		    		System.out.println("PORTIERE: " + portiere.getNome_calciatore() + " - Inserito nel db 'FootballStats_3'. \nCalciatore numero:  " + count_gioc);
 		    		
 		    		nano = nano + insert.getNano();
 		    		
@@ -202,6 +201,306 @@ public class Performance_evaluation {
 		
 		return ms;
 		
+	}
+	
+	/**
+	 * 
+	 * @param all_gioc
+	 * @param all_por
+	 * @param configuration
+	 * @return
+	 */
+	
+	public long Update_new_season(final ArrayList<Giocatore> all_gioc, final ArrayList<Portiere> all_por, int configuration) {
+		
+		long ms = 0;
+		
+		try {
+			
+			final Mongo mongo = new Mongo();
+			
+			int count_gioc = 1;
+	        
+	    	long nano = 0;
+	    	
+	    	if(configuration == 1) {
+	    	
+	    	this.Delete_and_Insert(all_gioc, all_por);	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */    
+	    	
+	    	}
+			
+	    	switch (configuration) {
+	    	
+				case 1:
+					
+					mongo.Connection("localhost", 27017, "FootballStats", "Calciatori");   //Connessione a MongoDB.
+		            
+		            MongoCollection<Document> collection = mongo.getMongoCollection();
+					
+		            /** Aggiunta nuova stagione per i giocatori. */
+					for (Giocatore giocatore : all_gioc) {
+						
+						Mongo_Export update_new_season = new Mongo_Export(giocatore, null, collection, 2, this.Standard_document_stagione_giocatore());
+						
+						Thread thread = new Thread(update_new_season);
+						thread.start();
+						thread.join();
+						
+						System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - Nuova stagione inserita.\n Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
+						
+						nano = nano + update_new_season.getNano();
+						
+						count_gioc++;
+						
+					}
+					/**--------------------------------------------*/
+					
+					/** Aggiunta nuova stagione per i giocatori. */
+					for (Portiere portiere : all_por) {
+						
+						Mongo_Export update_new_season = new Mongo_Export(null, portiere, collection, 2, this.Standard_document_stagione_portiere());
+						
+						Thread thread = new Thread(update_new_season);
+						thread.start();
+						thread.join();
+						
+						System.out.println("PORTIERE: " + portiere.getNome_calciatore() + " - Nuova stagione inserita.\n Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
+						
+						nano = nano + update_new_season.getNano();
+						
+						count_gioc++;
+						
+					}
+					/**--------------------------------------------*/
+					
+					ms = TimeUnit.NANOSECONDS.toMillis(nano);
+			    	
+			    	mongo.Disconnection();
+					
+					break;
+					
+				case 2:
+					
+					mongo.Connection("localhost", 27017, "FootballStats_2", "Calciatori");   //Connessione a MongoDB.
+		            
+		            MongoCollection<Document> collection_2 = mongo.getMongoCollection();
+					
+		            /** Aggiunta nuova stagione per i giocatori. */
+					for (Giocatore giocatore : all_gioc) {
+						
+						Mongo_Export_2 update_new_season = new Mongo_Export_2(giocatore, null, collection_2, 2, this.Standard_document_stagione_giocatore());
+						
+						Thread thread = new Thread(update_new_season);
+						thread.start();
+						thread.join();
+						
+						System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - Nuova stagione inserita.\n Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
+						
+						nano = nano + update_new_season.getNano();
+						
+						count_gioc++;
+						
+					}
+					/**--------------------------------------------*/
+					
+					/** Aggiunta nuova stagione per i giocatori. */
+					for (Portiere portiere : all_por) {
+						
+						Mongo_Export_2 update_new_season = new Mongo_Export_2(null, portiere, collection_2, 2, this.Standard_document_stagione_portiere());
+						
+						Thread thread = new Thread(update_new_season);
+						thread.start();
+						thread.join();
+						
+						System.out.println("PORTIERE: " + portiere.getNome_calciatore() + " - Nuova stagione inserita.\n Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
+						
+						nano = nano + update_new_season.getNano();
+						
+						count_gioc++;
+						
+					}
+					/**--------------------------------------------*/
+					
+					ms = TimeUnit.NANOSECONDS.toMillis(nano);
+			    	
+			    	mongo.Disconnection();
+					
+					break;
+					
+				case 3:
+					
+					mongo.Connection("localhost", 27017, "FootballStats_3", "Calciatori");   //Connessione a MongoDB.
+		            
+		            MongoCollection<Document> collection_3 = mongo.getMongoCollection();
+					
+		            /** Aggiunta nuova stagione per i giocatori. */
+					for (Giocatore giocatore : all_gioc) {
+						
+						Mongo_Export_3 update_new_season = new Mongo_Export_3(giocatore, null, collection_3, 2, this.Standard_document_stagione_giocatore());
+						
+						Thread thread = new Thread(update_new_season);
+						thread.start();
+						thread.join();
+						
+						System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - Nuova stagione inserita.\n Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
+						
+						nano = nano + update_new_season.getNano();
+						
+						count_gioc++;
+						
+					}
+					/**--------------------------------------------*/
+					
+					/** Aggiunta nuova stagione per i giocatori. */
+					for (Portiere portiere : all_por) {
+						
+						Mongo_Export_3 update_new_season = new Mongo_Export_3(null, portiere, collection_3, 2, this.Standard_document_stagione_portiere());
+						
+						Thread thread = new Thread(update_new_season);
+						thread.start();
+						thread.join();
+						
+						System.out.println("PORTIERE: " + portiere.getNome_calciatore() + " - Nuova stagione inserita.\n Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
+						
+						nano = nano + update_new_season.getNano();
+						
+						count_gioc++;
+						
+					}
+					/**--------------------------------------------*/
+					
+					ms = TimeUnit.NANOSECONDS.toMillis(nano);
+			    	
+			    	mongo.Disconnection();
+					
+					break;
+	
+				default:
+					break;
+					
+			}
+	    	
+		} catch (Exception e) {
+			System.out.println("Errore in Performance_evaluation() - Update_new_season().");
+		}
+		
+		return ms;
+		
+	}
+	
+	/**
+	 * Funzione che cancella i databases e li ricrea inserendo i documenti di 'all_gioc' e 'all_por' in tutti e tre i database.
+	 * @param all_gioc
+	 * @param all_por
+	 */
+	
+	public void Delete_and_Insert(final ArrayList<Giocatore> all_gioc, final ArrayList<Portiere> all_por) {
+		
+		    Mongo mongo = new Mongo();
+			DB1 db1 = new DB1();
+			DB2 db2 = new DB2();
+			DB3 db3 = new DB3();
+		
+		try {
+
+			System.out.println("CANCELLAZIONE DEI DATABASE.....\n");
+	    	
+	    	/** Cancellazione dei tre database. */
+	    	mongo.Drop_database("FootballStats");
+	    	mongo.Drop_database("FootballStats_2");
+	    	mongo.Drop_database("FootballStats_3");
+	    	/**---------------------------------*/
+	    	
+	    	System.out.println("INSERIMENTO IN 'FootballStats' DI " + (all_gioc.size() + all_por.size()) + " CALCIATORI.\n");
+	    	db1.Insert_Calciatori(all_gioc, all_por);
+	    	
+	    	System.out.println("INSERIMENTO IN 'FootballStats_2' DI " + (all_gioc.size() + all_por.size()) + " CALCIATORI.\n");
+	    	db2.Insert_Calciatori(all_gioc, all_por);
+	    	
+	    	System.out.println("INSERIMENTO IN 'FootballStats_3' DI " + (all_gioc.size() + all_por.size()) + " CALCIATORI.\n");
+	    	db3.Insert_Calciatori(all_gioc, all_por);
+			
+		} catch (Exception e) {
+			System.out.println("Errore in Performance_evaluation() - Delete_and_Insert().");
+		}
+		
+	}
+	
+	/**
+	 * Funzione che restituisce il documento da aggiungere a tutti i giocatori (stagione uguale per tutti).
+	 * @return d_g
+	 */
+	
+	public Document Standard_document_stagione_giocatore() {
+
+		Document d_g = new Document();
+		d_g.put("season", "2050-2051");
+		d_g.put("age", 55);
+		d_g.put("squad", "Ancona");
+		d_g.put("country", "it ITA");
+		d_g.put("comp_level", "Promozione italiana");
+		d_g.put("lg_finish", "1st");
+		d_g.put("games", 111);
+        d_g.put("games_starts", 111);
+        d_g.put("minutes", 111);
+        d_g.put("goals", 111);
+        d_g.put("assists", 111);
+        d_g.put("pens_made", 111);
+        d_g.put("pens_att", 111);
+        d_g.put("cards_yellow", 111);
+        d_g.put("cards_red", 111);
+        d_g.put("goals_per90", 1.11);
+        d_g.put("assists_per90", 1.11);
+        d_g.put("goals_assists_per90", 1.11);
+        d_g.put("goals_pens_per90", 1.11);
+        d_g.put("goals_assists_pens_per90", 1.11);
+        d_g.put("xg", 1.11);
+        d_g.put("npxg", 1.11);
+        d_g.put("xa", 1.11);
+        d_g.put("xg_per90", 1.11);
+        d_g.put("xa_per90", 1.11);
+        d_g.put("xg_xa_per90", 1.11);
+        d_g.put("npxg_per90", 1.11);
+        d_g.put("npxg_xa_per90", 1.11);
+
+        return d_g;
+
+	}
+
+	/**
+	 * Funzione che restituisce il documento da aggiungere a tutti i portieri (stagione uguale per tutti).
+	 * @return d_p
+	 */
+
+	public Document Standard_document_stagione_portiere() {
+
+		Document d_p = new Document();
+		d_p.put("season", "2050-2051");
+		d_p.put("age", 55);
+		d_p.put("squad", "Ancona");
+		d_p.put("country", "it ITA");
+		d_p.put("comp_level", "Promozione italiana");
+		d_p.put("lg_finish", "1st");
+        d_p.put("games_gk", 111);
+        d_p.put("games_starts_gk",111);
+        d_p.put("minutes_gk", 111);
+        d_p.put("goals_against_gk", 111);
+        d_p.put("goals_against_gk_per90", 1.11);
+        d_p.put("shot_on_target_against", 111);
+        d_p.put("saves", 111);
+        d_p.put("save_pct", 1.11);
+        d_p.put("wins_gk", 111);
+        d_p.put("draws_gk", 111);
+        d_p.put("losses_gk", 111);
+        d_p.put("clean_sheets", 111);
+        d_p.put("clean_sheets_pct", 1.11);
+        d_p.put("pens_att_gk", 111);
+        d_p.put("pens_allowed", 111);
+        d_p.put("pens_saved", 111);
+        d_p.put("pens_missed_gk", 111);
+
+		return d_p;
+
 	}
 
 }
