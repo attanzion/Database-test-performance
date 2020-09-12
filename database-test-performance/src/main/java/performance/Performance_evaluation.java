@@ -204,11 +204,11 @@ public class Performance_evaluation {
 	}
 	
 	/**
-	 * 
+	 * Funzione che calcola i millisecondi dell'esecuzione dell'aggiunta di una nuova stagione in tutti i calciatori in 'all_gioc' e 'all_por', per tutte le configurazioni.
 	 * @param all_gioc
 	 * @param all_por
 	 * @param configuration
-	 * @return
+	 * @return ms
 	 */
 	
 	public long Update_new_season(final ArrayList<Giocatore> all_gioc, final ArrayList<Portiere> all_por, int configuration) {
@@ -255,7 +255,7 @@ public class Performance_evaluation {
 					}
 					/**--------------------------------------------*/
 					
-					/** Aggiunta nuova stagione per i giocatori. */
+					/** Aggiunta nuova stagione per i portieri. */
 					for (Portiere portiere : all_por) {
 						
 						Mongo_Export update_new_season = new Mongo_Export(null, portiere, collection, 2, this.Standard_document_stagione_portiere());
@@ -303,7 +303,7 @@ public class Performance_evaluation {
 					}
 					/**--------------------------------------------*/
 					
-					/** Aggiunta nuova stagione per i giocatori. */
+					/** Aggiunta nuova stagione per i portieri. */
 					for (Portiere portiere : all_por) {
 						
 						Mongo_Export_2 update_new_season = new Mongo_Export_2(null, portiere, collection_2, 2, this.Standard_document_stagione_portiere());
@@ -351,7 +351,7 @@ public class Performance_evaluation {
 					}
 					/**--------------------------------------------*/
 					
-					/** Aggiunta nuova stagione per i giocatori. */
+					/** Aggiunta nuova stagione per i portieri. */
 					for (Portiere portiere : all_por) {
 						
 						Mongo_Export_3 update_new_season = new Mongo_Export_3(null, portiere, collection_3, 2, this.Standard_document_stagione_portiere());
@@ -388,13 +388,199 @@ public class Performance_evaluation {
 		
 	}
 	
+	  /**
+     * Funzione che calcola i millisecondi che ci son voluti per aggiornare alcuni valori dell'ultima stagione di un calciatore, per il portiere 'goals_against_gk' e 'saves', per il giocatore 'goals' e 'assists', per tutte le configurazioni.
+     * I valori vengono modificati da 111 a 222.
+     * @param all_por
+     * @param all_gioc
+     * @param configuration
+     */
+	
+	public long Update_last_season(final ArrayList<Giocatore> all_gioc, final ArrayList<Portiere> all_por, int configuration) {
+		
+		long ms = 0;
+		
+		final Mongo mongo = new Mongo();
+		
+		try {
+		
+		int count_gioc = 1;
+        
+    	long nano = 0;
+    	
+    	if(configuration == 1) {
+    	
+    	this.Delete_and_Insert(all_gioc, all_por);	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
+    	
+    	this.Add_Same_Season(all_gioc, all_por); 	/**Aggiunta stessa stagione a tutti i calciatori.*/
+    	
+    	} 
+    	
+    	switch (configuration) {
+    	
+			case 1:
+				
+				mongo.Connection("localhost", 27017, "FootballStats", "Calciatori");   //Connessione a MongoDB.
+	            
+	            MongoCollection<Document> collection = mongo.getMongoCollection();
+				
+	            /** Update campi ultima stagione per i giocatori. */
+					for (Giocatore giocatore : all_gioc) {
+						
+						Mongo_Export update_last_season = new Mongo_Export(giocatore, null, collection, 3);
+						
+						Thread thread = new Thread(update_last_season);
+						thread.start();
+						thread.join();
+						
+						System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - 'Goals' e 'Assists' dell'ultima stagione, aggiornati.\n Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
+						
+						nano = nano + update_last_season.getNano();
+						
+						count_gioc++;
+						
+					}
+					/**--------------------------------------------*/
+					
+					/** Update campi ultima stagione per i portieri. */
+					for (Portiere portiere : all_por) {
+						
+						Mongo_Export update_last_season = new Mongo_Export(null, portiere, collection, 3);
+						
+						Thread thread = new Thread(update_last_season);
+						thread.start();
+						thread.join();
+						
+						System.out.println("PORTIERE: " + portiere.getNome_calciatore() + " - 'Goals_against_gk' e 'Saves' dell'ultima stagione, aggiornati.\n Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
+						
+						nano = nano + update_last_season.getNano();
+						
+						count_gioc++;
+						
+					}
+					/**--------------------------------------------*/
+				
+				ms = TimeUnit.NANOSECONDS.toMillis(nano);
+		    	
+		    	mongo.Disconnection();
+				
+				break;
+				
+			case 2:
+				
+				mongo.Connection("localhost", 27017, "FootballStats_2", "Calciatori");   //Connessione a MongoDB.
+	            
+	            MongoCollection<Document> collection_2 = mongo.getMongoCollection();
+				
+	            /** Update campi ultima stagione per i giocatori. */
+					for (Giocatore giocatore : all_gioc) {
+						
+						Mongo_Export_2 update_last_season = new Mongo_Export_2(giocatore, null, collection_2, 3);
+						
+						Thread thread = new Thread(update_last_season);
+						thread.start();
+						thread.join();
+						
+						System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - 'Goals' e 'Assists' dell'ultima stagione, aggiornati.\n Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
+						
+						nano = nano + update_last_season.getNano();
+						
+						count_gioc++;
+						
+					}
+					/**--------------------------------------------*/
+					
+					/** Update campi ultima stagione per i portieri. */
+					for (Portiere portiere : all_por) {
+						
+						Mongo_Export_2 update_last_season = new Mongo_Export_2(null, portiere, collection_2, 3);
+						
+						Thread thread = new Thread(update_last_season);
+						thread.start();
+						thread.join();
+						
+						System.out.println("PORTIERE: " + portiere.getNome_calciatore() + " - 'Goals_against_gk' e 'Saves' dell'ultima stagione, aggiornati.\n Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
+						
+						nano = nano + update_last_season.getNano();
+						
+						count_gioc++;
+						
+					}
+					/**--------------------------------------------*/
+				
+				ms = TimeUnit.NANOSECONDS.toMillis(nano);
+		    	
+		    	mongo.Disconnection();
+				
+				break;
+				
+			case 3:
+	
+				mongo.Connection("localhost", 27017, "FootballStats_3", "Calciatori");   //Connessione a MongoDB.
+			    
+			    MongoCollection<Document> collection_3 = mongo.getMongoCollection();
+				
+			    /** Update campi ultima stagione per i giocatori. */
+					for (Giocatore giocatore : all_gioc) {
+						
+						Mongo_Export_3 update_last_season = new Mongo_Export_3(giocatore, null, collection_3, 3);
+						
+						Thread thread = new Thread(update_last_season);
+						thread.start();
+						thread.join();
+						
+						System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - 'Goals' e 'Assists' dell'ultima stagione, aggiornati.\n Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
+						
+						nano = nano + update_last_season.getNano();
+						
+						count_gioc++;
+						
+					}
+					/**--------------------------------------------*/
+					
+					/** Update campi ultima stagione per i portieri. */
+					for (Portiere portiere : all_por) {
+						
+						Mongo_Export_3 update_last_season = new Mongo_Export_3(null, portiere, collection_3, 3);
+						
+						Thread thread = new Thread(update_last_season);
+						thread.start();
+						thread.join();
+						
+						System.out.println("PORTIERE: " + portiere.getNome_calciatore() + " - 'Goals_against_gk' e 'Saves' dell'ultima stagione, aggiornati.\n Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
+						
+						nano = nano + update_last_season.getNano();
+						
+						count_gioc++;
+						
+					}
+					/**--------------------------------------------*/
+				
+				ms = TimeUnit.NANOSECONDS.toMillis(nano);
+				
+				mongo.Disconnection();
+	
+				break;
+	
+			default:
+				break;
+		}
+			
+		} catch (Exception e) {
+			System.out.println("Errore in Performance_evaluation() - Update_last_season().");
+		}
+		
+		return ms;
+		
+	}
+	
 	/**
 	 * Funzione che cancella i databases e li ricrea inserendo i documenti di 'all_gioc' e 'all_por' in tutti e tre i database.
 	 * @param all_gioc
 	 * @param all_por
 	 */
 	
-	public void Delete_and_Insert(final ArrayList<Giocatore> all_gioc, final ArrayList<Portiere> all_por) {
+	public void Delete_and_Insert(ArrayList<Giocatore> all_gioc, ArrayList<Portiere> all_por) {
 		
 		    Mongo mongo = new Mongo();
 			DB1 db1 = new DB1();
@@ -425,6 +611,30 @@ public class Performance_evaluation {
 		}
 		
 	}
+	
+	public void Add_Same_Season(final ArrayList<Giocatore> all_gioc, final ArrayList<Portiere> all_por) {
+		
+		try {
+			
+			DB1 db1 = new DB1();
+			DB2 db2 = new DB2();
+			DB3 db3 = new DB3();
+			
+			System.out.println("AGGIUNTA IN 'FootballStats' DELLA STAGIONE IN COMUNE A TUTTI I CALCIATORI.\n");
+			db1.Insert_new_season(all_por, all_gioc, this.Standard_document_stagione_giocatore(), this.Standard_document_stagione_portiere());
+			
+			System.out.println("AGGIUNTA IN 'FootballStats_2' DELLA STAGIONE IN COMUNE A TUTTI I CALCIATORI.\n");
+			db2.Insert_new_season(all_por, all_gioc, this.Standard_document_stagione_giocatore(), this.Standard_document_stagione_portiere());
+			
+			System.out.println("AGGIUNTA IN 'FootballStats_3' DELLA STAGIONE IN COMUNE A TUTTI I CALCIATORI.\n");
+			db3.Insert_new_season(all_por, all_gioc, this.Standard_document_stagione_giocatore(), this.Standard_document_stagione_portiere());
+			
+		} catch (Exception e) {
+			System.out.println("Errore in Performance_evaluation() - Add_Same_Season().");
+		}
+		
+	}
+	
 	
 	/**
 	 * Funzione che restituisce il documento da aggiungere a tutti i giocatori (stagione uguale per tutti).

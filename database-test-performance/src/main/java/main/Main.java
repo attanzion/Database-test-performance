@@ -64,7 +64,7 @@ public class Main {
 			
 			for (int i = 0; i <= 2; i++) {	
 			
-			ms[i] = pe.Update_new_season(all_gioc, all_por, i+1);		
+			ms[i] = pe.Update_last_season(all_gioc, all_por, i+1);		
 				
 		}	
 						
@@ -83,7 +83,7 @@ public class Main {
 		}
 		myWriter.close();
 		
-		System.out.println("AVG 1: " + somma_1/(volte-1) + " ms");
+		System.out.println("\nAVG 1: " + somma_1/(volte-1) + " ms");
 		System.out.println("AVG 2: " + somma_2/(volte-1) + " ms");
 		System.out.println("AVG 3: " + somma_3/(volte-1) + " ms");
 		

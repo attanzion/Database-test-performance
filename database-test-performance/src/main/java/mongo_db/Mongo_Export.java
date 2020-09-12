@@ -1,5 +1,6 @@
 package mongo_db;
 
+import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.push;
 
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import org.bson.Document;
 
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Updates;
 
 import classi.Giocatore;
 import classi.Portiere;
@@ -189,6 +191,32 @@ public class Mongo_Export implements Runnable{
 					long start = System.nanoTime();
 					
 					collection.updateOne(eq("Link calciatore", this.portiere.getLink_calciatore()),  push("Stagioni", this.document));
+					
+					long end = System.nanoTime();
+					
+					this.setNano(end - start);
+					
+				}
+				
+				break;
+				
+			case 3:			/** Operazione di UPDATE ULTIMA STAGIONE. */
+				
+				if(portiere == null) {
+					
+					long start = System.nanoTime();
+					
+					collection.updateOne(and(eq("Link calciatore", this.giocatore.getLink_calciatore()), eq("Stagioni.season", "2050-2051")), Updates.combine(Updates.set("Stagioni.$.games", 222),Updates.set("Stagioni.$.games_starts", 222)));
+					
+					long end = System.nanoTime();
+					
+					this.setNano(end - start);
+					
+				} else if(giocatore == null) {
+					
+					long start = System.nanoTime();
+					
+					collection.updateOne(and(eq("Link calciatore", this.portiere.getLink_calciatore()), eq("Stagioni.season", "2050-2051")), Updates.combine(Updates.set("Stagioni.$.goals_against_gk", 222),Updates.set("Stagioni.$.saves", 222)));
 					
 					long end = System.nanoTime();
 					

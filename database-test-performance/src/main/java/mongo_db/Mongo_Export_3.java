@@ -1,5 +1,6 @@
 package mongo_db;
 
+import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.push;
 
@@ -9,6 +10,7 @@ import org.bson.Document;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Updates;
 
 import classi.Giocatore;
 import classi.Portiere;
@@ -610,6 +612,34 @@ public class Mongo_Export_3 implements Runnable {
 		            
 		            this.setNano(parziale);
 		            
+				}
+				
+				break;
+				
+			case 3:		/** Operazione di UPDATE ULTIMA STAGIONE. */
+				
+				if(portiere == null) {
+					
+					long start = System.nanoTime();
+					
+					collection.updateOne(eq("Link calciatore", this.giocatore.getLink_calciatore()), Updates.combine(Updates.popLast("goals"), Updates.popLast("assists")));
+	            	collection.updateOne(and(eq("Link calciatore", this.giocatore.getLink_calciatore())), Updates.combine(Updates.set("Ultima stagione.goals", 222), Updates.set("Ultima stagione.assists", 222), Updates.push("goals", 222), Updates.push("assists", 222)));
+					
+	            	long end = System.nanoTime();
+					
+					this.setNano(end - start);
+	            	
+				} else if(giocatore == null) {
+					
+					long start = System.nanoTime();
+					
+					collection.updateOne(eq("Link calciatore", this.portiere.getLink_calciatore()), Updates.combine(Updates.popLast("goals_against_gk"), Updates.popLast("saves")));
+	            	collection.updateOne(eq("Link calciatore", this.portiere.getLink_calciatore()), Updates.combine(Updates.set("Ultima stagione.goals_against_gk", 222),Updates.set("Ultima stagione.saves", 222), Updates.push("goals_against_gk", 222), Updates.push("saves", 222)));
+					
+					long end = System.nanoTime();
+					
+					this.setNano(end - start);
+					
 				}
 				
 				break;

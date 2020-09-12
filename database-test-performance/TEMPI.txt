@@ -1,20 +1,20 @@
-Time 0: 1447 ms
-Time 1: 3575 ms
-Time 2: 3549 ms
+Time 0: 1233 ms
+Time 1: 1206 ms
+Time 2: 1807 ms
 
-Time 0: 1010 ms
-Time 1: 3246 ms
-Time 2: 3929 ms
+Time 0: 1176 ms
+Time 1: 1145 ms
+Time 2: 1904 ms
 
-Time 0: 2728 ms
-Time 1: 7912 ms
-Time 2: 9631 ms
+Time 0: 1200 ms
+Time 1: 1189 ms
+Time 2: 1730 ms
 
-Time 0: 2790 ms
-Time 1: 8561 ms
-Time 2: 5849 ms
+Time 0: 1285 ms
+Time 1: 1151 ms
+Time 2: 1795 ms
 
-Time 0: 1145 ms
-Time 1: 2979 ms
-Time 2: 3546 ms
+Time 0: 1156 ms
+Time 1: 1183 ms
+Time 2: 1739 ms
 
