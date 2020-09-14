@@ -58,13 +58,13 @@ public class Main {
 		long somma_1 = 0;
 		long somma_2 = 0;
 		long somma_3 = 0;
-		int volte = 5;
+		int volte = 8;
 			
 		for(int j= 0 ; j < volte; j++) {
 			
 			for (int i = 0; i <= 2; i++) {	
 			
-			ms[i] = pe.Update_last_season(all_gioc, all_por, i+1);		
+			ms[i] = pe.Find_players(all_gioc, all_por, i+1);		
 				
 		}	
 						
@@ -74,18 +74,22 @@ public class Main {
 			
 		}	
 		
-		somma_1 = somma_1+ ms[0];
-		somma_2 = somma_2+ ms[1];
-		somma_3 = somma_3+ ms[2];
+		if(j>2) {
+			
+			somma_1 = somma_1+ ms[0];
+			somma_2 = somma_2+ ms[1];
+			somma_3 = somma_3+ ms[2];
+		
+		}
 		
 		myWriter.write("\n");
 		
 		}
 		myWriter.close();
 		
-		System.out.println("\nAVG 1: " + somma_1/(volte-1) + " ms");
-		System.out.println("AVG 2: " + somma_2/(volte-1) + " ms");
-		System.out.println("AVG 3: " + somma_3/(volte-1) + " ms");
+		System.out.println("\nAVG 1: " + somma_1/(volte-3) + " ms");
+		System.out.println("AVG 2: " + somma_2/(volte-3) + " ms");
+		System.out.println("AVG 3: " + somma_3/(volte-3) + " ms");
 		
 		} catch (IOException e) {
 				// TODO Auto-generated catch block

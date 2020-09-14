@@ -326,6 +326,52 @@ public class Mongo_Export_2 implements Runnable{
 				}
 				
 				break;
+				
+			case 4:		/** Operazione di RICERCA CALCIATORE. */
+				
+				if(portiere == null) {
+					
+					long start = System.nanoTime();
+					
+					ArrayList<Document> doc_gioc = collection.find(eq("Nome", this.giocatore.getNome_calciatore())).into(new ArrayList<Document>());
+					
+					long end = System.nanoTime();
+					
+					this.setNano(end - start);
+					
+					if(doc_gioc.size() != 0) {
+						
+						System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - Giocatore trovato." );
+						
+					} else {
+						
+						System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - Giocatore non trovato." );
+						
+					}
+					
+				} else if(giocatore == null) {
+					
+					long start = System.nanoTime();
+					
+					ArrayList<Document> doc_por = collection.find(eq("Nome", this.portiere.getNome_calciatore())).into(new ArrayList<Document>());
+					
+					long end = System.nanoTime();
+					
+					this.setNano(end - start);
+					
+					if(doc_por.size() != 0) {
+						
+						System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - Portiere trovato." );
+						
+					} else {
+						
+						System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - Portiere non trovato." );
+						
+					}
+					
+				}
+				
+				break;
 	
 			default:
 				break;
