@@ -5,10 +5,12 @@ import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.push;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.bson.Document;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Updates;
 
@@ -684,6 +686,60 @@ public class Mongo_Export_3 implements Runnable {
 						
 						System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - Portiere non trovato." );
 						
+					}
+					
+				}
+				
+				break;
+				
+			case 5:
+				
+				break;
+				
+			case 6:		/** Operazione di CALCOLO MEDIA. */
+				
+				if(portiere == null) {
+					
+					Document match = new Document();
+					 match.append("Nome", this.giocatore.getNome_calciatore());
+					 
+					Document proj = new Document();
+								 proj.append("avg_goals", new Document("$avg", "$goals"));
+		
+					long start = System.nanoTime();
+								 
+					AggregateIterable<Document> doc = this.collection.aggregate(Arrays.asList(
+							new Document("$match", match),
+							new Document("$project", proj)));	
+					
+					long end = System.nanoTime();
+					
+					this.setNano(end - start);
+					
+					for (Document document : doc) {
+						System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - Media goals: " + document.get("avg_goals"));
+					}
+					
+				} else if(giocatore == null) {
+					
+					Document match = new Document();
+					 match.append("Nome", this.portiere.getNome_calciatore());
+					 
+					Document proj = new Document();
+								 proj.append("avg_saves", new Document("$avg", "$saves"));
+		
+					long start = System.nanoTime();
+								 
+					AggregateIterable<Document> doc = this.collection.aggregate(Arrays.asList(
+							new Document("$match", match),
+							new Document("$project", proj)));	
+					
+					long end = System.nanoTime();
+					
+					this.setNano(end - start);
+					
+					for (Document document : doc) {
+						System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - Media saves: " + document.get("avg_saves"));
 					}
 					
 				}

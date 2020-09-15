@@ -5,10 +5,12 @@ import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.push;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.bson.Document;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Updates;
 
@@ -67,6 +69,7 @@ public class Mongo_Export_2 implements Runnable{
 	 * CODICE ESEGUITO DAL THREAD.
 	 */
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void run() {
 		
@@ -372,10 +375,257 @@ public class Mongo_Export_2 implements Runnable{
 				}
 				
 				break;
+				
+			case 5:
+				
+				break;
+				
+			case 6:		/** Operazione di CALCOLO MEDIA. */
+				
+				int seasons = this.Count_season();
+				
+				if(portiere == null) {
+					
+					 	 Document match = new Document();
+					 		  match.append("Nome", this.giocatore.getNome_calciatore());
+					
+					if(seasons == 1) {
+						
+						long start = System.nanoTime();
+						 
+						 AggregateIterable<Document> doc = this.collection.aggregate(Arrays.asList(
+								 new Document("$match", match)));
+						 
+						 long end = System.nanoTime();
+							
+						 this.setNano(end - start);
+						 
+						 for (Document document : doc) {
+							 
+							 Document docu = (Document) document.get("Ultima stagione");
+							
+							 System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - Media goals: " + docu.get("goals"));
+							 
+						}
+						
+					} else if(seasons == 2) {
+						
+						 Document proj = new Document();
+						 	  proj.append("Nome", 1);
+						 	  proj.append("runningGoals", new Document("$add", Arrays.asList("$Ultima stagione.goals", "$Penultima stagione.goals" )));
+						
+						 Document average = new Document();
+						 	  average.append("avg_goals", new Document("$divide", Arrays.asList("$runningGoals", 2)));
+						 
+						 Document proj2 = new Document();
+						 	  proj2.append("avg_goals", 1);
+						 	  proj2.append("Nome", 1);
+						 
+						 long start = System.nanoTime();
+						 
+						 AggregateIterable<Document> doc = this.collection.aggregate(Arrays.asList(
+								 new Document("$match", match),
+								 new Document("$project", proj),
+								 new Document("$addFields", average),
+								 new Document("$project", proj2)));
+						 
+						 long end = System.nanoTime();
+							
+						 this.setNano(end - start);
+						 
+						 for (Document document : doc) {
+							
+							 System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - Media goals: " + document.get("avg_goals"));
+							 
+						}
+						
+					} else if(seasons == 3) {
+			
+						 Document sums = new Document("arraySum", new Document("$sum", "$Stagioni.goals"));
+						 sums.append("arrayCount", new Document("$size", "$Stagioni"));
+				
+						 Document proj = new Document();
+						 proj.append("Nome", 1);
+						 proj.append("runningGoals", new Document("$add", Arrays.asList("$arraySum", "$Ultima stagione.goals", "$Penultima stagione.goals" )));
+						 proj.append("runningSeasons", new Document("$add", Arrays.asList("$arrayCount", 2)));
+						 
+						 Document average = new Document();
+						 average.append("avg_goals", new Document("$divide", Arrays.asList("$runningGoals", "$runningSeasons")));
+						 
+						 Document proj2 = new Document();
+						 proj2.append("avg_goals", 1);
+						 proj2.append("Nome", 1);
+						 
+						 long start = System.nanoTime();
+						 
+						 AggregateIterable<Document> doc = this.collection.aggregate(Arrays.asList(
+								 new Document("$match", match),
+								 new Document("$addFields", sums),
+								 new Document("$project", proj),
+								 new Document("$addFields", average),
+								 new Document("$project", proj2)));
+						 
+						 long end = System.nanoTime();
+							
+						 this.setNano(end - start);
+						 
+						 for (Document document : doc) {
+							
+							 System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - Media goals: " + document.get("avg_goals"));
+							 
+						}
+						 
+						}
+					
+				} else if(giocatore == null) {
+					
+					Document match = new Document();
+					 		 match.append("Nome", this.portiere.getNome_calciatore());
+					
+					if(seasons == 1) {
+						
+						long start = System.nanoTime();
+						 
+						 AggregateIterable<Document> doc = this.collection.aggregate(Arrays.asList(
+								 new Document("$match", match)));
+						 
+						 long end = System.nanoTime();
+							
+						 this.setNano(end - start);
+						 
+						 for (Document document : doc) {
+							 
+							 Document docu = (Document) document.get("Ultima stagione");
+							
+							 System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - Media goals: " + docu.get("saves"));
+							 
+						}
+						
+					} else if(seasons == 2) {
+				
+						Document proj = new Document();
+								 proj.append("Nome", 1);
+								 proj.append("runningSaves", new Document("$add", Arrays.asList("$Ultima stagione.saves", "$Penultima stagione.saves" )));
+								 
+								 
+						Document average = new Document();
+								 average.append("avg_saves", new Document("$divide", Arrays.asList("$runningSaves", 2)));
+								 
+						Document proj2 = new Document();
+								 proj2.append("avg_saves", 1);
+								 proj2.append("Nome", 1);
+		
+						long start = System.nanoTime();
+						
+						AggregateIterable<Document> doc = this.collection.aggregate(Arrays.asList(
+								new Document("$match", match),
+								new Document("$project", proj),
+								new Document("$addFields", average),
+								new Document("$project", proj2)));
+							
+						 long end = System.nanoTime();
+							
+						 this.setNano(end - start);
+						 
+						 for (Document document : doc) {
+							
+							 System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - Media saves: " + document.get("avg_saves"));
+							 
+						}
+						
+					} else if(seasons == 3) {
+						
+						Document sums = new Document("arraySum", new Document("$sum", "$Stagioni.saves"));
+								 sums.append("arrayCount", new Document("$size", "$Stagioni"));
+						
+						Document proj = new Document();
+								 proj.append("Nome", 1);
+								 proj.append("runningSaves", new Document("$add", Arrays.asList("$arraySum", "$Ultima stagione.saves", "$Penultima stagione.saves" )));
+								 proj.append("runningSeasons", new Document("$add", Arrays.asList("$arrayCount", 2)));
+								 
+						Document average = new Document();
+								 average.append("avg_saves", new Document("$divide", Arrays.asList("$runningSaves", "$runningSeasons")));
+								 
+						Document proj2 = new Document();
+								 proj2.append("avg_saves", 1);
+								 proj2.append("Nome", 1);
+		
+						long start = System.nanoTime();
+						
+						AggregateIterable<Document> doc = this.collection.aggregate(Arrays.asList(
+								new Document("$match", match),
+								new Document("$addFields", sums),
+								new Document("$project", proj),
+								new Document("$addFields", average),
+								new Document("$project", proj2)));
+							
+						 long end = System.nanoTime();
+							
+						 this.setNano(end - start);
+						 
+						 for (Document document : doc) {
+							
+							 System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - Media saves: " + document.get("avg_saves"));
+							 
+						}
+					}
+					
+				}
+				
+				break;
 	
 			default:
 				break;
 		}
+		
+	}
+	
+	/**
+	 * Funzione che calcola il numero di stagioni di un calciatore.
+	 * @param nome
+	 * @return seasons
+	 */
+	
+	@SuppressWarnings("unchecked")
+	public int Count_season() {
+		
+		int seasons = 0;
+			
+		ArrayList<Document> docs = new ArrayList<Document>();
+				
+		if(portiere == null) {
+			
+			this.collection.find(eq("Nome", this.giocatore.getNome_calciatore())).into(docs);
+			
+		} else if(giocatore == null) {
+			
+			this.collection.find(eq("Nome", this.portiere.getNome_calciatore())).into(docs);
+			
+		}
+		
+		for (Document document : docs) {
+			
+			ArrayList<Document> stagioni = (ArrayList<Document>) document.get("Stagioni");
+			Document pen = (Document) document.get("Penultima stagione");
+			
+			if(pen.isEmpty()) {
+				
+				seasons = 1;
+				
+			} else if(stagioni.size() == 0 && !pen.isEmpty()) {
+				
+				seasons = 2;
+				
+			} else {
+				
+				seasons = 3;
+				
+			}
+			
+		}
+				
+		
+		return seasons;
 		
 	}
 	

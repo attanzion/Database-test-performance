@@ -3,21 +3,30 @@ package main;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.bson.Document;
-
+import org.bson.conversions.Bson;
 
 import com.jamonapi.Monitor;
 import com.jamonapi.MonitorFactory;
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
+import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Aggregates;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.Updates;
 
+import casmi.graphics.object.Projection;
 import classi.Giocatore;
 import classi.Portiere;
 import mongo_db.Mongo;
+import mongo_db.Mongo_Export_2;
 import mongo_db.DB1;
 import mongo_db.DB2;
 import mongo_db.DB3;
@@ -29,11 +38,12 @@ import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Projections.fields;
 import static com.mongodb.client.model.Projections.include;
 import static com.mongodb.client.model.Updates.*;
+import static com.mongodb.client.model.Accumulators.*;
+import static com.mongodb.client.model.Aggregates.*;
 
 
 public class Main {
 
-	@SuppressWarnings("null")
 	public static void main(String[] args) throws InterruptedException {
 
 		
@@ -42,7 +52,7 @@ public class Main {
 		Performance_evaluation pe = new Performance_evaluation();
 		Mongo mongo = new Mongo();
 		
-		gen.Genera_Calciatori(1000);
+		gen.Genera_Calciatori(5000);
 		
 		ArrayList<Giocatore> all_gioc = gen.getAll_gioc();
 		ArrayList<Portiere> all_por = gen.getAll_por();
@@ -54,17 +64,17 @@ public class Main {
 	try {	
 		
 		FileWriter myWriter = new FileWriter("TEMPI.txt");
-		long[] ms = {0,0,0};
-		long somma_1 = 0;
-		long somma_2 = 0;
-		long somma_3 = 0;
+		double[] ms = {0,0,0};
+		double somma_1 = 0;
+		double somma_2 = 0;
+		double somma_3 = 0;
 		int volte = 8;
 			
 		for(int j= 0 ; j < volte; j++) {
 			
 			for (int i = 0; i <= 2; i++) {	
 			
-			ms[i] = pe.Find_players(all_gioc, all_por, i+1);		
+			ms[i] = pe.Average(all_gioc, all_por, i+1);		
 				
 		}	
 						
@@ -95,7 +105,6 @@ public class Main {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 		}
 		
 }
