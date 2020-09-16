@@ -52,7 +52,7 @@ public class Main {
 		Performance_evaluation pe = new Performance_evaluation();
 		Mongo mongo = new Mongo();
 		
-		gen.Genera_Calciatori(5000);
+		gen.Genera_Calciatori(500);
 		
 		ArrayList<Giocatore> all_gioc = gen.getAll_gioc();
 		ArrayList<Portiere> all_por = gen.getAll_por();
@@ -68,13 +68,13 @@ public class Main {
 		double somma_1 = 0;
 		double somma_2 = 0;
 		double somma_3 = 0;
-		int volte = 8;
+		int volte = 15;
 			
 		for(int j= 0 ; j < volte; j++) {
 			
 			for (int i = 0; i <= 2; i++) {	
 			
-			ms[i] = pe.Average(all_gioc, all_por, i+1);		
+			ms[i] = pe.Delete_players(all_gioc, all_por, i+1);		
 				
 		}	
 						

@@ -745,6 +745,39 @@ public class Mongo_Export_3 implements Runnable {
 				}
 				
 				break;
+				
+			case 7:
+				break;
+				
+			case 8:		/** Operazione di CANCELLAZIONE CALCIATORE */
+				
+				if(portiere == null) {
+					
+					long start = System.nanoTime();
+					
+					this.collection.deleteOne(eq("Link calciatore", this.giocatore.getLink_calciatore()));
+					
+					long end = System.nanoTime();
+					
+					this.setNano(end - start);
+					
+					System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - Cancellato dal database.");
+					
+				} else if(giocatore == null) {
+					
+					long start = System.nanoTime();
+					
+					this.collection.deleteOne(eq("Link calciatore", this.portiere.getLink_calciatore()));
+					
+					long end = System.nanoTime();
+					
+					this.setNano(end - start);
+					
+					System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - Cancellato dal database.");
+					
+				}
+				
+				break;
 	
 			default:
 				break;
