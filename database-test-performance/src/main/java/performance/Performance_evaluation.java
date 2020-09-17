@@ -1139,6 +1139,192 @@ public class Performance_evaluation {
 	}
 	
 	/**
+	 * Funzione che calcola i millisecondi che ci vogliono per eliminare un campo (in questo caso 'npxg_xa_per90' per i giocatore e 'goals_against_gk_per90' per i portieri) da una stagione per tutte le configurazioni.
+	 * Si sceglie l'ultima stagione in quanto è possibile fare un confronto nelle tre configurazioni perchè altrimenti l'algoritmo sarebbe lo stesso per tutte le configurazioni.
+	 * @param all_gioc
+	 * @param all_por
+	 * @param configuration
+	 * @return ms
+	 */
+	
+	public double Delete_field(final ArrayList<Giocatore> all_gioc, final ArrayList<Portiere> all_por, int configuration) {
+		
+		double ms = 0;
+		
+		Mongo mongo = new Mongo();
+		
+		try {
+			
+			int count_gioc = 1;
+	        
+	    	double nano = 0;
+	    	
+	    	if(configuration == 1) {
+	    	
+	    	this.Delete_and_Insert(all_gioc, all_por);	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
+	    	
+	    	}
+	    	
+	    	switch(configuration) {
+	    	
+	    	case 1:
+	    		
+	    		mongo.Connection("localhost", 27017, "FootballStats", "Calciatori");   //Connessione a MongoDB.
+	            
+	            MongoCollection<Document> collection = mongo.getMongoCollection();
+				
+	            /** Ricerca giocatori. */
+					for (Giocatore giocatore : all_gioc) {
+						
+						Mongo_Export delete_field = new Mongo_Export(giocatore, null, collection, 7);
+						
+						Thread thread = new Thread(delete_field);
+						thread.start();
+						thread.join();
+						
+						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
+						
+						nano = nano + delete_field.getNano();
+						
+						count_gioc++;
+						
+					}
+					/**--------------------------------------------*/
+					
+					/** Ricerca portieri. */
+					for (Portiere portiere : all_por) {
+						
+						Mongo_Export average_saves = new Mongo_Export(null, portiere, collection, 7);
+						
+						Thread thread = new Thread(average_saves);
+						thread.start();
+						thread.join();
+						
+						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
+						
+						nano = nano + average_saves.getNano();
+						
+						count_gioc++;
+						
+					}
+					/**--------------------------------------------*/
+				
+				ms = nano/1000000;
+		    	
+		    	mongo.Disconnection();
+	    		
+	    		break;
+	    		
+	    	case 2:
+	    		
+	    		mongo.Connection("localhost", 27017, "FootballStats_2", "Calciatori");   //Connessione a MongoDB.
+	            
+	            MongoCollection<Document> collection_2 = mongo.getMongoCollection();
+				
+	            	/** Ricerca giocatori. */
+					for (Giocatore giocatore : all_gioc) {
+						
+						Mongo_Export_2 delete_field = new Mongo_Export_2(giocatore, null, collection_2, 7);
+						
+						Thread thread = new Thread(delete_field);
+						thread.start();
+						thread.join();
+						
+						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
+						
+						nano = nano + delete_field.getNano();
+						
+						count_gioc++;
+						
+					}
+					/**--------------------------------------------*/
+					
+					/** Ricerca portieri. */
+					for (Portiere portiere : all_por) {
+						
+						Mongo_Export_2 delete_field = new Mongo_Export_2(null, portiere, collection_2, 7);
+						
+						Thread thread = new Thread(delete_field);
+						thread.start();
+						thread.join();
+						
+						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
+						
+						nano = nano + delete_field.getNano();
+						
+						count_gioc++;
+						
+					}
+					/**--------------------------------------------*/
+				
+				ms = nano/1000000;
+		    	
+		    	mongo.Disconnection();
+	    		
+	    		break;
+	    		
+	    	case 3:		
+	    		
+	    		mongo.Connection("localhost", 27017, "FootballStats_3", "Calciatori");   //Connessione a MongoDB.
+	            
+	            MongoCollection<Document> collection_3 = mongo.getMongoCollection();
+				
+	            	/** Ricerca giocatori. */
+					for (Giocatore giocatore : all_gioc) {
+						
+						Mongo_Export_3 delete_field = new Mongo_Export_3(giocatore, null, collection_3, 7);
+						
+						Thread thread = new Thread(delete_field);
+						thread.start();
+						thread.join();
+						
+						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
+						
+						nano = nano + delete_field.getNano();
+						
+						count_gioc++;
+						
+					}
+					/**--------------------------------------------*/
+					
+					/** Ricerca portieri. */
+					for (Portiere portiere : all_por) {
+						
+						Mongo_Export_3 delete_field = new Mongo_Export_3(null, portiere, collection_3, 7);
+						
+						Thread thread = new Thread(delete_field);
+						thread.start();
+						thread.join();
+						
+						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
+						
+						nano = nano + delete_field.getNano();
+						
+						count_gioc++;
+						
+					}
+					/**--------------------------------------------*/
+				
+				ms = nano/1000000;
+		    	
+		    	mongo.Disconnection();
+	    	
+	    		break;
+	    		
+	    	default:   		
+	    		break;
+	    		
+	    	}
+			
+		} catch (Exception e) {
+			System.out.println("Errore in Performance_evaluation() - Delete_field().");
+		}
+		
+		return ms;
+		
+	}
+	
+	/**
 	 * Funzione che calcola i millisecondi che ci vogliono per cancellare i calciatori presenti in 'all_gioc' e 'all_por', per le tre configurazioni.
 	 * @param all_gioc
 	 * @param all_por

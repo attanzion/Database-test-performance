@@ -51,7 +51,7 @@ public class Main {
 		Performance_evaluation pe = new Performance_evaluation();
 		Mongo mongo = new Mongo();
 		
-		gen.Genera_Calciatori(1000);
+		gen.Genera_Calciatori(700);
 		
 		ArrayList<Giocatore> all_gioc = gen.getAll_gioc();
 		ArrayList<Portiere> all_por = gen.getAll_por();
@@ -73,7 +73,7 @@ public class Main {
 			
 			for (int i = 0; i <= 2; i++) {	
 			
-			ms[i] = pe.Find_field(all_gioc, all_por, i+1);		
+			ms[i] = pe.Delete_field(all_gioc, all_por, i+1);		
 				
 		}	
 						
@@ -110,28 +110,14 @@ public class Main {
 //		mongo.Connection("localhost", 27017, "FootballStats_3", "Calciatori");
 //		
 //		MongoCollection<Document> collection =  mongo.getMongoCollection();
-//		
-//		Document match = new Document();
-//				 match.append("Nome", "Wera Oubre");
+//
+//		Document filter = new Document();
+//				 filter.append("Nome", "Terzio Fulford");
 //				 
-//		Document proj = new Document();
-//				 proj.append("Nome", 1);
-//				 proj.append("Ultima stagione.minutes_gk", 1);
+//		Document update = new Document();
+//				 update.append("$unset", new Document("Ultima stagione.npxg_xa_per90", 1));
 //				 
-//		AggregateIterable<Document> doc = collection.aggregate(Arrays.asList(
-//									new Document("$match", match),
-//									new Document("$project", proj)));
-//		
-//		for (Document document : doc) {
-//			
-//			@SuppressWarnings("unchecked")
-//			Document d = (Document) document.get("Ultima stagione");
-//			
-//			
-//				System.out.println(d.get("minutes_gk"));
-//			
-//			
-//		}
+//		collection.updateMany(filter, Updates.combine(update, Updates.popLast("npxg_xa_per90")));
 //		
 //		mongo.Disconnection();
 		

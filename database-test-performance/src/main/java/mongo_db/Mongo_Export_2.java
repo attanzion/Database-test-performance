@@ -630,7 +630,46 @@ public class Mongo_Export_2 implements Runnable{
 				
 				break;
 				
-			case 7:
+			case 7:		/** Operazione di CANCELLAZIONE DI UN CAMPO di una stagione */
+				
+				if(portiere == null) {
+					
+					Document filter = new Document();
+					 filter.append("Link calciatore", this.giocatore.getLink_calciatore());
+					 
+					Document update = new Document();
+							 update.append("$unset", new Document("Ultima stagione.npxg_xa_per90", 1));
+							 
+					long start = System.nanoTime();
+							 
+					collection.updateOne(filter, update);
+					
+					long end = System.nanoTime();
+					
+					this.setNano(end - start);
+					
+					System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - Il campo 'npxg_xa_per90' eliminato dalla stagione 2019-2020.");
+					
+				} else if(giocatore == null) {
+					
+					Document filter = new Document();
+					 filter.append("Link calciatore", this.portiere.getLink_calciatore());
+					 
+					Document update = new Document();
+							 update.append("$unset", new Document("Ultima stagione.goals_against_gk_per90", 1));
+				
+					long start = System.nanoTime();
+							 
+					collection.updateOne(filter, update);
+					
+					long end = System.nanoTime();
+					
+					this.setNano(end - start);
+					
+					System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - Il campo 'goals_against_gk_per90' eliminato dalla stagione 2019-2020.");
+					 
+				}
+				
 				break;
 				
 			case 8:		/** Operazione di CANCELLAZIONE CALCIATORE */
