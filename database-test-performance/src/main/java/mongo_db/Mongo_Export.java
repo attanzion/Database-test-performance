@@ -68,6 +68,7 @@ public class Mongo_Export implements Runnable{
 	 * CODICE ESEGUITO DAL THREAD.
 	 */
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void run() {
 		
@@ -76,7 +77,7 @@ public class Mongo_Export implements Runnable{
 		
 			case 1:			/** Operazione di INSERIMENTO. */		
 				
-				if(portiere == null) {	
+				if(this.portiere == null) {	
 		    		
 		    		 ArrayList<Document> stagioni = new ArrayList<Document>();
 
@@ -124,7 +125,7 @@ public class Mongo_Export implements Runnable{
 		             
 		             this.setNano(end - start);
 		    		
-		    	} else if(giocatore == null) {
+		    	} else if(this.giocatore == null) {
 		    		
 		    		ArrayList<Document> stagioni = new ArrayList<Document>();
 
@@ -178,7 +179,7 @@ public class Mongo_Export implements Runnable{
 				
 			case 2:			/** Operazione di UPDATE NUOVA STAGIONE. */
 				
-				if(portiere == null) {
+				if(this.portiere == null) {
 					
 					long start = System.nanoTime();
 					
@@ -188,7 +189,7 @@ public class Mongo_Export implements Runnable{
 					
 					this.setNano(end - start);
 					
-				} else if(giocatore == null) {
+				} else if(this.giocatore == null) {
 					
 					long start = System.nanoTime();
 					
@@ -204,7 +205,7 @@ public class Mongo_Export implements Runnable{
 				
 			case 3:			/** Operazione di UPDATE ULTIMA STAGIONE. */
 				
-				if(portiere == null) {
+				if(this.portiere == null) {
 					
 					long start = System.nanoTime();
 					
@@ -214,7 +215,7 @@ public class Mongo_Export implements Runnable{
 					
 					this.setNano(end - start);
 					
-				} else if(giocatore == null) {
+				} else if(this.giocatore == null) {
 					
 					long start = System.nanoTime();
 					
@@ -230,7 +231,7 @@ public class Mongo_Export implements Runnable{
 				
 			case 4:		/** Operazione di RICERCA CALCIATORE. */
 				
-				if(portiere == null) {
+				if(this.portiere == null) {
 					
 					long start = System.nanoTime();
 					
@@ -250,7 +251,7 @@ public class Mongo_Export implements Runnable{
 						
 					}
 					
-				} else if(giocatore == null) {
+				} else if(this.giocatore == null) {
 					
 					long start = System.nanoTime();
 					
@@ -274,13 +275,83 @@ public class Mongo_Export implements Runnable{
 				
 				break;
 				
-			case 5:
+			case 5:		/** Operazione di RICERCA DI UNA STATISTICA DI UN CALCIATORE in una certa stagione. */
+				
+				if(this.portiere == null) {
+					
+					Document match = new Document();
+					 match.append("Nome", this.giocatore.getNome_calciatore());
+					 
+					Document proj = new Document();
+							 proj.append("Nome", 1);
+							 proj.append("Stagioni", Document.parse("{ $filter : { input: '$Stagioni', as: 'stagioni', cond: { $eq: [ '$$stagioni.season', '2019-2020' ] }}}"));
+					
+					Document proj2 = new Document();
+							 proj2.append("Nome", 1);
+							 proj2.append("Stagioni.minutes", 1);
+							 
+					long start = System.nanoTime();
+							 
+					AggregateIterable<Document> doc = collection.aggregate(Arrays.asList(
+												new Document("$match", match),
+												new Document("$project", proj),
+												new Document("$project", proj2)));
+					
+					long end = System.nanoTime();
+					
+					this.setNano(end - start);
+					
+					for (Document document : doc) {
+						
+						ArrayList<Document> d = (ArrayList<Document>) document.get("Stagioni");
+						
+						for (Document d2 : d) {
+							System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - Minuti giocati nella stagione 2019-2020: " + d2.get("minutes"));
+						}
+						
+					}
+					
+				} else if(this.giocatore == null) {
+					
+					Document match = new Document();
+					 match.append("Nome", this.portiere.getNome_calciatore());
+					 
+					Document proj = new Document();
+							 proj.append("Nome", 1);
+							 proj.append("Stagioni", Document.parse("{ $filter : { input: '$Stagioni', as: 'stagioni', cond: { $eq: [ '$$stagioni.season', '2019-2020' ] }}}"));
+					
+					Document proj2 = new Document();
+							 proj2.append("Nome", 1);
+							 proj2.append("Stagioni.minutes_gk", 1);
+							 
+					long start = System.nanoTime();
+							 
+					AggregateIterable<Document> doc = collection.aggregate(Arrays.asList(
+												new Document("$match", match),
+												new Document("$project", proj),
+												new Document("$project", proj2)));
+					
+					long end = System.nanoTime();
+					
+					this.setNano(end - start);
+					
+					for (Document document : doc) {
+						
+						ArrayList<Document> d = (ArrayList<Document>) document.get("Stagioni");
+						
+						for (Document d2 : d) {
+							System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - Minuti giocati nella stagione 2019-2020: " + d2.get("minutes_gk"));
+						}
+						
+					}
+					
+				}
 				
 				break;
 				
 			case 6:		/** Operazione di CALCOLO MEDIA. */
 				
-				if(portiere == null) {
+				if(this.portiere == null) {
 					
 					Document match = new Document();
 					 match.append("Nome", this.giocatore.getNome_calciatore());
@@ -302,7 +373,7 @@ public class Mongo_Export implements Runnable{
 						System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - Media saves: " + document.get("avg_goals"));
 					}
 					
-				} else if(giocatore == null) {
+				} else if(this.giocatore == null) {
 					
 					Document match = new Document();
 					 match.append("Nome", this.portiere.getNome_calciatore());
@@ -333,7 +404,7 @@ public class Mongo_Export implements Runnable{
 				
 			case 8:		/** Operazione di CANCELLAZIONE CALCIATORE */
 				
-				if(portiere == null) {
+				if(this.portiere == null) {
 					
 					long start = System.nanoTime();
 					
@@ -345,7 +416,7 @@ public class Mongo_Export implements Runnable{
 					
 					System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - Cancellato dal database.");
 					
-				} else if(giocatore == null) {
+				} else if(this.giocatore == null) {
 					
 					long start = System.nanoTime();
 					

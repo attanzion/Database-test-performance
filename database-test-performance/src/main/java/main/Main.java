@@ -17,6 +17,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Accumulators;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
@@ -46,13 +47,11 @@ public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
 
-		
-
 		Generatore gen = new Generatore();
 		Performance_evaluation pe = new Performance_evaluation();
 		Mongo mongo = new Mongo();
 		
-		gen.Genera_Calciatori(500);
+		gen.Genera_Calciatori(1000);
 		
 		ArrayList<Giocatore> all_gioc = gen.getAll_gioc();
 		ArrayList<Portiere> all_por = gen.getAll_por();
@@ -68,13 +67,13 @@ public class Main {
 		double somma_1 = 0;
 		double somma_2 = 0;
 		double somma_3 = 0;
-		int volte = 15;
+		int volte = 8;
 			
 		for(int j= 0 ; j < volte; j++) {
 			
 			for (int i = 0; i <= 2; i++) {	
 			
-			ms[i] = pe.Delete_players(all_gioc, all_por, i+1);		
+			ms[i] = pe.Find_field(all_gioc, all_por, i+1);		
 				
 		}	
 						
@@ -105,6 +104,37 @@ public class Main {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		
+//		Mongo mongo = new Mongo();
+//		
+//		mongo.Connection("localhost", 27017, "FootballStats_3", "Calciatori");
+//		
+//		MongoCollection<Document> collection =  mongo.getMongoCollection();
+//		
+//		Document match = new Document();
+//				 match.append("Nome", "Wera Oubre");
+//				 
+//		Document proj = new Document();
+//				 proj.append("Nome", 1);
+//				 proj.append("Ultima stagione.minutes_gk", 1);
+//				 
+//		AggregateIterable<Document> doc = collection.aggregate(Arrays.asList(
+//									new Document("$match", match),
+//									new Document("$project", proj)));
+//		
+//		for (Document document : doc) {
+//			
+//			@SuppressWarnings("unchecked")
+//			Document d = (Document) document.get("Ultima stagione");
+//			
+//			
+//				System.out.println(d.get("minutes_gk"));
+//			
+//			
+//		}
+//		
+//		mongo.Disconnection();
+		
 		}
 		
 }
