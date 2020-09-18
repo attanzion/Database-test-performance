@@ -69,6 +69,7 @@ public class Mongo_Export_3 implements Runnable {
 	 * CODICE ESEGUITO DAL THREAD.
 	 */
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void run() {
 		
@@ -469,7 +470,7 @@ public class Mongo_Export_3 implements Runnable {
 				
 				break;
 				
-			case 2:
+			case 2:		/** Operazione di UPDATE NUOVA STAGIONE. */
 				
 				if(this.portiere == null) {
 					
@@ -873,10 +874,404 @@ public class Mongo_Export_3 implements Runnable {
 				}
 				
 				break;
+				
+			case 9:		/** Operazione di CANCELLAZIONE DI UNA STAGIONE.*/
+				
+				int num_s = this.Count_season();
+				
+				if(this.portiere == null) {
+								
+					Document pen_s = null; 		/** Documento penultima stagione. */
+					Document ter_s = null;		/** Documento terzultima stagione. */
+					
+					Document filter = new Document();
+							 filter.append("Link calciatore", this.giocatore.getLink_calciatore());
+					 
+					Document update = new Document();
+							 update.append("$set", new Document("Ultima stagione", null));
+					
+					Document pull = new Document();
+							 pull.append("$pull", new Document("Stagioni", new Document("season", "2017-2018")));
+							 
+					if(num_s == 1) {
+						
+						long start = System.nanoTime();
+						 
+							this.collection.updateOne(filter, Updates.combine( 	  update,
+																		          Updates.popLast("games"),
+																		          Updates.popLast("games_start"),
+																		          Updates.popLast("minutes"),
+																		          Updates.popLast("goals"),
+																		          Updates.popLast("assists"),
+																		          Updates.popLast("pens_made"),
+																		          Updates.popLast("pens_att"),
+																		          Updates.popLast("cards_yellow"),
+																		          Updates.popLast("cards_red"),
+																		          Updates.popLast("goals_per90"),
+																		          Updates.popLast("assists_per90"),
+																		          Updates.popLast("goals_assists_per90"),
+																		          Updates.popLast("goals_pens_per90"),
+																		          Updates.popLast("goals_assists_pens_per90"),
+																		          Updates.popLast("xg"),
+																		          Updates.popLast("npxg"),
+																		          Updates.popLast("xa"),
+																		          Updates.popLast("xg_per90"),
+																		          Updates.popLast("xa_per90"),
+																		          Updates.popLast("xg_xa_per90"),
+																		          Updates.popLast("npxg_per90"),
+																		          Updates.popLast("npxg_xa_per90")
+																		          ));
+						
+						long end = System.nanoTime();
+						
+						this.setNano(end - start);
+						
+					} else if(num_s == 2) {
+						
+						 long start = System.nanoTime();
+						
+						ArrayList<Document> doc_c = this.collection.find(filter).into(new ArrayList<Document>());
+						
+						long end = System.nanoTime();
+						
+						long parziale = (end - start);
+						
+						for (Document document : doc_c) {
+							
+							pen_s = (Document) document.get("Penultima stagione");
+							
+						}
+						
+						start = System.nanoTime();
+						
+						this.collection.updateOne(    filter, Updates.combine(
+																			  Updates.set("Ultima stagione", pen_s),
+																			  Updates.set("Penultima stagione", null),
+																	          Updates.popLast("games"),
+																	          Updates.popLast("games_start"),
+																	          Updates.popLast("minutes"),
+																	          Updates.popLast("goals"),
+																	          Updates.popLast("assists"),
+																	          Updates.popLast("pens_made"),
+																	          Updates.popLast("pens_att"),
+																	          Updates.popLast("cards_yellow"),
+																	          Updates.popLast("cards_red"),
+																	          Updates.popLast("goals_per90"),
+																	          Updates.popLast("assists_per90"),
+																	          Updates.popLast("goals_assists_per90"),
+																	          Updates.popLast("goals_pens_per90"),
+																	          Updates.popLast("goals_assists_pens_per90"),
+																	          Updates.popLast("xg"),
+																	          Updates.popLast("npxg"),
+																	          Updates.popLast("xa"),
+																	          Updates.popLast("xg_per90"),
+																	          Updates.popLast("xa_per90"),
+																	          Updates.popLast("xg_xa_per90"),
+																	          Updates.popLast("npxg_per90"),
+																	          Updates.popLast("npxg_xa_per90")
+																	          ));
+						
+						end = System.nanoTime();
+						
+						parziale = parziale + (end - start);
+						
+						this.setNano(parziale);
+						
+					} else if(num_s == 3) {
+					
+						long start = System.nanoTime();
+						 
+						this.collection.updateOne(filter, update);
+						
+						long end = System.nanoTime();
+						
+						long parziale = end - start;
+						
+						start = System.nanoTime();
+						
+						ArrayList<Document> doc_c = this.collection.find(filter).into(new ArrayList<Document>());
+						
+						end = System.nanoTime();
+						
+						parziale = parziale + (end - start);
+						
+						for (Document document : doc_c) {
+							
+							pen_s = (Document) document.get("Penultima stagione");
+							
+							ArrayList<Document> doc_s = (ArrayList<Document>) document.get("Stagioni");
+							
+							/** Scorrimento documenti 'Stagioni'.*/
+							for (Document document2 : doc_s) {
+								
+								if(document2.getString("season").equals("2017-2018")) {
+									
+									ter_s = document2;
+									
+								}
+								
+							}
+							/**------------------------------------*/
+							
+						}
+						
+						start = System.nanoTime();
+						
+						this.collection.updateOne(	  filter, Updates.combine(
+															  			      Updates.set("Ultima stagione", pen_s),
+																			  Updates.set("Penultima stagione", ter_s),
+																			  pull,
+																	          Updates.popLast("games"),
+																	          Updates.popLast("games_start"),
+																	          Updates.popLast("minutes"),
+																	          Updates.popLast("goals"),
+																	          Updates.popLast("assists"),
+																	          Updates.popLast("pens_made"),
+																	          Updates.popLast("pens_att"),
+																	          Updates.popLast("cards_yellow"),
+																	          Updates.popLast("cards_red"),
+																	          Updates.popLast("goals_per90"),
+																	          Updates.popLast("assists_per90"),
+																	          Updates.popLast("goals_assists_per90"),
+																	          Updates.popLast("goals_pens_per90"),
+																	          Updates.popLast("goals_assists_pens_per90"),
+																	          Updates.popLast("xg"),
+																	          Updates.popLast("npxg"),
+																	          Updates.popLast("xa"),
+																	          Updates.popLast("xg_per90"),
+																	          Updates.popLast("xa_per90"),
+																	          Updates.popLast("xg_xa_per90"),
+																	          Updates.popLast("npxg_per90"),
+																	          Updates.popLast("npxg_xa_per90")
+											          ));
+						
+						end = System.nanoTime();
+						
+						parziale = parziale + (end - start);
+						
+						this.setNano(parziale);
+					
+					}
+					
+					System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - Stagione 2019-2020 cancellata.");
+					
+				} else if(this.giocatore == null) {
+										
+					Document pen_s = null; 		/** Documento penultima stagione. */
+					Document ter_s = null;		/** Documento terzultima stagione. */
+					
+					Document filter = new Document();
+					 filter.append("Link calciatore", this.portiere.getLink_calciatore());
+			 
+					Document update = new Document();
+							 update.append("$set", new Document("Ultima stagione", null));
+					
+					Document pull = new Document();
+							 pull.append("$pull", new Document("Stagioni", new Document("season", "2017-2018")));
+							 
+					if(num_s == 1) {
+						
+						long start = System.nanoTime();
+						 
+						this.collection.updateOne(filter, Updates.combine(	update,
+																			Updates.popLast("games_gk"),
+																			Updates.popLast("games_starts_gk"),
+																			Updates.popLast("minutes_gk"),
+																			Updates.popLast("goals_against_gk"),
+																			Updates.popLast("shot_on_target_against"),
+																			Updates.popLast("saves"),
+																			Updates.popLast("save_pct"),
+																			Updates.popLast("wins_gk"),
+																			Updates.popLast("draws_gk"),
+																			Updates.popLast("losses_gk"),
+																			Updates.popLast("clean_sheets"),
+																			Updates.popLast("clean_sheets_pct"),
+																			Updates.popLast("pens_att_gk"),
+																			Updates.popLast("pens_allowed"),
+																			Updates.popLast("pens_saved"),
+																			Updates.popLast("pens_missed_gk")
+																			));
+						
+						long end = System.nanoTime();
+						
+						this.setNano(end - start);
+						
+					} else if(num_s == 2) {
+						
+						 long start = System.nanoTime();
+						
+						ArrayList<Document> doc_c = this.collection.find(filter).into(new ArrayList<Document>());
+						
+						long end = System.nanoTime();
+						
+						long parziale = (end - start);
+						
+						for (Document document : doc_c) {
+							
+							pen_s = (Document) document.get("Penultima stagione");
+							
+						}
+						
+						start = System.nanoTime();
+						
+						this.collection.updateOne(filter, Updates.combine(
+																			Updates.set("Ultima stagione", pen_s), 
+																			Updates.set("Penultima stagione", null), 
+																			Updates.popLast("games_gk"),
+																			Updates.popLast("games_starts_gk"),
+																			Updates.popLast("minutes_gk"),
+																			Updates.popLast("goals_against_gk"),
+																			Updates.popLast("shot_on_target_against"),
+																			Updates.popLast("saves"),
+																			Updates.popLast("save_pct"),
+																			Updates.popLast("wins_gk"),
+																			Updates.popLast("draws_gk"),
+																			Updates.popLast("losses_gk"),
+																			Updates.popLast("clean_sheets"),
+																			Updates.popLast("clean_sheets_pct"),
+																			Updates.popLast("pens_att_gk"),
+																			Updates.popLast("pens_allowed"),
+																			Updates.popLast("pens_saved"),
+																			Updates.popLast("pens_missed_gk")
+																			
+																			));
+						
+						end = System.nanoTime();
+						
+						parziale = parziale + (end - start);
+						
+						this.setNano(parziale);
+						
+					} else if(num_s == 3) {
+					
+						long start = System.nanoTime();
+						 
+						this.collection.updateOne(filter, update);
+						
+						long end = System.nanoTime();
+						
+						long parziale = end - start;
+						
+						start = System.nanoTime();
+						
+						ArrayList<Document> doc_c = this.collection.find(filter).into(new ArrayList<Document>());
+						
+						end = System.nanoTime();
+						
+						parziale = parziale + (end - start);
+						
+						
+						for (Document document : doc_c) {
+							
+							pen_s = (Document) document.get("Penultima stagione");
+							
+							ArrayList<Document> doc_s = (ArrayList<Document>) document.get("Stagioni");
+							
+							/** Scorrimento documenti 'Stagioni'.*/	
+							for (Document document2 : doc_s) {
+								
+								if(document2.getString("season").equals("2017-2018")) {
+									
+									ter_s = document2;
+									
+								}
+								
+							}
+							/**------------------------------------*/
+							
+						}
+							
+						
+						start = System.nanoTime();
+						
+						this.collection.updateOne(filter, Updates.combine(
+																			Updates.set("Ultima stagione", pen_s),
+																			Updates.set("Penultima stagione", ter_s), 
+																			pull,
+																			Updates.popLast("games_gk"),
+																			Updates.popLast("games_starts_gk"),
+																			Updates.popLast("minutes_gk"),
+																			Updates.popLast("goals_against_gk"),
+																			Updates.popLast("shot_on_target_against"),
+																			Updates.popLast("saves"),
+																			Updates.popLast("save_pct"),
+																			Updates.popLast("wins_gk"),
+																			Updates.popLast("draws_gk"),
+																			Updates.popLast("losses_gk"),
+																			Updates.popLast("clean_sheets"),
+																			Updates.popLast("clean_sheets_pct"),
+																			Updates.popLast("pens_att_gk"),
+																			Updates.popLast("pens_allowed"),
+																			Updates.popLast("pens_saved"),
+																			Updates.popLast("pens_missed_gk")
+																			));
+						
+						end = System.nanoTime();
+						
+						parziale = parziale + (end - start);
+						
+						this.setNano(parziale);
+					
+					}
+			
+			System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - Stagione 2019-2020 cancellata.");
+					
+				}
+				
+				break;
 	
 			default:
 				break;
 		}
+		
+	}
+	
+	/**
+	 * Funzione che calcola il numero di stagioni di un calciatore.
+	 * @param nome
+	 * @return seasons
+	 */
+	
+	@SuppressWarnings("unchecked")
+	public int Count_season() {
+		
+		int seasons = 0;
+			
+		ArrayList<Document> docs = new ArrayList<Document>();
+				
+		if(portiere == null) {
+			
+			this.collection.find(eq("Nome", this.giocatore.getNome_calciatore())).into(docs);
+			
+		} else if(giocatore == null) {
+			
+			this.collection.find(eq("Nome", this.portiere.getNome_calciatore())).into(docs);
+			
+		}
+		
+		for (Document document : docs) {
+			
+			ArrayList<Document> stagioni = (ArrayList<Document>) document.get("Stagioni");
+			Document pen = (Document) document.get("Penultima stagione");
+			
+			if(pen.isEmpty()) {
+				
+				seasons = 1;
+				
+			} else if(stagioni.size() == 0 && !pen.isEmpty()) {
+				
+				seasons = 2;
+				
+			} else {
+				
+				seasons = 3;
+				
+			}
+			
+		}
+				
+		
+		return seasons;
 		
 	}
 	

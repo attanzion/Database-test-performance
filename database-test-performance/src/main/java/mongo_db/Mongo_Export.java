@@ -472,6 +472,48 @@ public class Mongo_Export implements Runnable{
 				}
 				
 				break;
+				
+			case 9:		/** Operazione di CANCELLAZIONE DI UNA STAGIONE.*/
+				
+				if(this.portiere == null) {
+					
+					Document filter = new Document();
+					 		 filter.append("Link calciatore", this.giocatore.getLink_calciatore());
+					 
+					Document update = new Document();
+							 update.append("$pull", new Document("Stagioni", new Document("season", "2019-2020")));
+							 
+					long start = System.nanoTime();
+					 
+					this.collection.updateOne(filter, update);
+					
+					long end = System.nanoTime();
+					
+					this.setNano(end - start);
+					
+					System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - Stagione 2019-2020 cancellata.");
+					
+				} else if(this.giocatore == null) {
+					
+					Document filter = new Document();
+							 filter.append("Link calciatore", this.portiere.getLink_calciatore());
+			 
+					Document update = new Document();
+							 update.append("$pull", new Document("Stagioni", new Document("season", "2019-2020")));
+							 
+					long start = System.nanoTime();
+					 
+					this.collection.updateOne(filter, update);
+					
+					long end = System.nanoTime();
+					
+					this.setNano(end - start);
+					
+					System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - Stagione 2019-2020 cancellata.");
+					
+				}
+				
+				break;
 	
 			default:
 				break;

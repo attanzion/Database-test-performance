@@ -224,7 +224,7 @@ public class Mongo_Export_2 implements Runnable{
 				
 				break;
 				
-			case 2:
+			case 2:		/** Operazione di UPDATE NUOVA STAGIONE. */
 				
 				if(this.portiere == null) {
 					
@@ -697,6 +697,222 @@ public class Mongo_Export_2 implements Runnable{
 					this.setNano(end - start);
 					
 					System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - Cancellato dal database.");
+					
+				}
+				
+				break;
+				
+			case 9:		/** Operazione di CANCELLAZIONE DI UNA STAGIONE.*/
+				
+				int num_s = this.Count_season();
+				
+				
+				
+				if(this.portiere == null) {
+					
+					Document pen_s = null; 		/** Documento penultima stagione. */
+					Document ter_s = null;		/** Documento terzultima stagione. */
+					
+					Document filter = new Document();
+							 filter.append("Link calciatore", this.giocatore.getLink_calciatore());
+					 
+					Document update = new Document();
+							 update.append("$set", new Document("Ultima stagione", null));
+					
+					Document pull = new Document();
+							 pull.append("$pull", new Document("Stagioni", new Document("season", "2017-2018")));
+							 
+					if(num_s == 1) {
+						
+						long start = System.nanoTime();
+						 
+						this.collection.updateOne(filter, update);
+						
+						long end = System.nanoTime();
+						
+						this.setNano(end - start);
+						
+					} else if(num_s == 2) {
+						
+						 long start = System.nanoTime();
+						
+						ArrayList<Document> doc_c = this.collection.find(filter).into(new ArrayList<Document>());
+						
+						long end = System.nanoTime();
+						
+						long parziale = (end - start);
+						
+						for (Document document : doc_c) {
+							
+							pen_s = (Document) document.get("Penultima stagione");
+							
+						}
+						
+						start = System.nanoTime();
+						
+						this.collection.updateOne(filter, Updates.combine(Updates.set("Ultima stagione", pen_s), Updates.set("Penultima stagione", null)));
+						
+						end = System.nanoTime();
+						
+						parziale = parziale + (end - start);
+						
+						this.setNano(parziale);
+						
+					} else if(num_s == 3) {
+					
+						long start = System.nanoTime();
+						 
+						this.collection.updateOne(filter, update);
+						
+						long end = System.nanoTime();
+						
+						long parziale = end - start;
+						
+						start = System.nanoTime();
+						
+						ArrayList<Document> doc_c = this.collection.find(filter).into(new ArrayList<Document>());
+						
+						end = System.nanoTime();
+						
+						parziale = parziale + (end - start);
+						
+						for (Document document : doc_c) {
+							
+							pen_s = (Document) document.get("Penultima stagione");
+							
+							ArrayList<Document> doc_s = (ArrayList<Document>) document.get("Stagioni");
+							
+							/** Scorrimento documenti 'Stagioni'.*/
+							for (Document document2 : doc_s) {
+								
+								if(document2.getString("season").equals("2017-2018")) {
+									
+									ter_s = document2;
+									
+								}
+								
+							}
+							/**------------------------------------*/
+							
+						}
+						
+						start = System.nanoTime();
+						
+						this.collection.updateOne(filter, Updates.combine(Updates.set("Ultima stagione", pen_s), Updates.set("Penultima stagione", ter_s), pull));
+						
+						end = System.nanoTime();
+						
+						parziale = parziale + (end - start);
+						
+						this.setNano(parziale);
+					
+					}
+					
+					System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - Stagione 2019-2020 cancellata.");
+					
+				} else if(this.giocatore == null) {
+					
+					Document pen_s = null; 		/** Documento penultima stagione. */
+					Document ter_s = null;		/** Documento terzultima stagione. */
+					
+					Document filter = new Document();
+					 filter.append("Link calciatore", this.portiere.getLink_calciatore());
+			 
+					Document update = new Document();
+							 update.append("$set", new Document("Ultima stagione", null));
+					
+					Document pull = new Document();
+							 pull.append("$pull", new Document("Stagioni", new Document("season", "2017-2018")));
+							 
+					if(num_s == 1) {
+						
+						long start = System.nanoTime();
+						 
+						this.collection.updateOne(filter, update);
+						
+						long end = System.nanoTime();
+						
+						this.setNano(end - start);
+						
+					} else if(num_s == 2) {
+						
+						 long start = System.nanoTime();
+						
+						ArrayList<Document> doc_c = this.collection.find(filter).into(new ArrayList<Document>());
+						
+						long end = System.nanoTime();
+						
+						long parziale = (end - start);
+						
+						for (Document document : doc_c) {
+							
+							pen_s = (Document) document.get("Penultima stagione");
+							
+						}
+						
+						start = System.nanoTime();
+						
+						this.collection.updateOne(filter, Updates.combine(Updates.set("Ultima stagione", pen_s), Updates.set("Penultima stagione", null)));
+						
+						end = System.nanoTime();
+						
+						parziale = parziale + (end - start);
+						
+						this.setNano(parziale);
+						
+					} else if(num_s == 3) {
+					
+						long start = System.nanoTime();
+						 
+						this.collection.updateOne(filter, update);
+						
+						long end = System.nanoTime();
+						
+						long parziale = end - start;
+						
+						start = System.nanoTime();
+						
+						ArrayList<Document> doc_c = this.collection.find(filter).into(new ArrayList<Document>());
+						
+						end = System.nanoTime();
+						
+						parziale = parziale + (end - start);
+						
+						
+						for (Document document : doc_c) {
+							
+							pen_s = (Document) document.get("Penultima stagione");
+							
+							ArrayList<Document> doc_s = (ArrayList<Document>) document.get("Stagioni");
+							
+							/** Scorrimento documenti 'Stagioni'.*/	
+							for (Document document2 : doc_s) {
+								
+								if(document2.getString("season").equals("2017-2018")) {
+									
+									ter_s = document2;
+									
+								}
+								
+							}
+							/**------------------------------------*/
+							
+						}
+							
+						
+						start = System.nanoTime();
+						
+						this.collection.updateOne(filter, Updates.combine(Updates.set("Ultima stagione", pen_s), Updates.set("Penultima stagione", ter_s), pull));
+						
+						end = System.nanoTime();
+						
+						parziale = parziale + (end - start);
+						
+						this.setNano(parziale);
+					
+					}
+			
+			System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - Stagione 2019-2020 cancellata.");
 					
 				}
 				
