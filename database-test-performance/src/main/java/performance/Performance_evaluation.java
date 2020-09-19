@@ -1,6 +1,7 @@
 package performance;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.bson.Document;
@@ -1693,7 +1694,131 @@ public class Performance_evaluation {
 		
 		return ms;
 		
+	}
+	
+	/**
+	 * Funzione che calcola i millisecondi che ci vogliono per ricercare i giocatori che hanno una statistica (in questo caso 'goals' per i giocatori e 'saves' per i portieri) maggiore di un certo valore per una certa stagione (in questo caso stagione 2019 - 2020), per tutte le configurazioni.
+	 * Si sceglie l'ultima stagione in quanto è possibile fare un confronto nelle tre configurazioni perchè altrimenti l'algoritmo sarebbe lo stesso per tutte le configurazioni.
+	 * @param all_gioc
+	 * @param all_por
+	 * @param configuration
+	 * @return
+	 */
+	
+	public double Greater_than(final ArrayList<Giocatore> all_gioc, final ArrayList<Portiere> all_por, int configuration, final int[] random_goals, int[] random_saves) {
 		
+		double ms = 0;
+		
+		final Mongo mongo = new Mongo();
+				
+		try {
+			
+			int count_gioc = 1;
+	        
+	    	double nano = 0;
+	    	
+	    	if(configuration == 1) {
+	    	
+	    	this.Delete_and_Insert(all_gioc, all_por);	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
+	    	
+	    	}
+	    	
+	    	switch(configuration) {
+	    	
+	    	case 1:
+	    		
+	    		mongo.Connection("localhost", 27017, "FootballStats", "Calciatori");   //Connessione a MongoDB.
+	            
+	            MongoCollection<Document> collection = mongo.getMongoCollection();
+					           
+					for (int i = 0; i < (all_gioc.size() + all_por.size()); i++) {
+						
+						Mongo_Export greater_than = new Mongo_Export(collection, 10, random_goals[i], random_saves[i]);
+						
+						Thread thread = new Thread(greater_than);
+						thread.start();
+						thread.join();
+						
+						System.out.println("\nRICERCA numero: " + count_gioc + " - DATABASE: FootballStats");
+						
+						nano = nano + greater_than.getNano();
+						
+						count_gioc++;
+						
+					}
+				
+				ms = nano/1000000;
+		    	
+		    	mongo.Disconnection();
+	    		
+	    		break;
+	    		
+	    	case 2:
+	    		
+	    		mongo.Connection("localhost", 27017, "FootballStats_2", "Calciatori");   //Connessione a MongoDB.
+	            
+	            MongoCollection<Document> collection_2 = mongo.getMongoCollection();
+				
+	            for (int i = 0; i < (all_gioc.size() + all_por.size()); i++) {
+					
+					Mongo_Export_2 greater_than = new Mongo_Export_2(collection_2, 10, random_goals[i], random_saves[i]);
+					
+					Thread thread = new Thread(greater_than);
+					thread.start();
+					thread.join();
+					
+					System.out.println("\nRICERCA numero: " + count_gioc + " - DATABASE: FootballStats_2");
+					
+					nano = nano + greater_than.getNano();
+					
+					count_gioc++;
+					
+				}
+				
+				ms = nano/1000000;
+		    	
+		    	mongo.Disconnection();
+	    		
+	    		break;
+	    		
+	    	case 3:		
+	    		
+	    		mongo.Connection("localhost", 27017, "FootballStats_3", "Calciatori");   //Connessione a MongoDB.
+	            
+	            MongoCollection<Document> collection_3 = mongo.getMongoCollection();
+				
+	            for (int i = 0; i < (all_gioc.size() + all_por.size()); i++) {
+					
+					Mongo_Export_3 greater_than = new Mongo_Export_3(collection_3, 10, random_goals[i], random_saves[i]);
+					
+					Thread thread = new Thread(greater_than);
+					thread.start();
+					thread.join();
+					
+					System.out.println("\nRICERCA numero: " + count_gioc + " - DATABASE: FootballStats_3");
+					
+					nano = nano + greater_than.getNano();
+					
+					count_gioc++;
+					
+				}
+				
+				ms = nano/1000000;
+		    	
+		    	mongo.Disconnection();
+	    	
+	    		break;
+	    		
+	    	default:   		
+	    		break;
+	    	
+	    	}
+			
+		} catch (Exception e) {
+			System.out.println("Errore in Performance_evaluation() - Greater_than().");
+		}
+		
+		return ms;
 		
 	}
 	
@@ -1713,13 +1838,13 @@ public class Performance_evaluation {
 	    	
 	    	this.Delete_DB(); 
 	    	
-	    	System.out.println("INSERIMENTO IN 'FootballStats' DI " + (all_gioc.size() + all_por.size()) + " CALCIATORI.\n");
+	    	System.out.println("\nINSERIMENTO IN 'FootballStats' DI " + (all_gioc.size() + all_por.size()) + " CALCIATORI.\n");
 	    	db1.Insert_Calciatori(all_gioc, all_por);
 	    	
-	    	System.out.println("INSERIMENTO IN 'FootballStats_2' DI " + (all_gioc.size() + all_por.size()) + " CALCIATORI.\n");
+	    	System.out.println("\nINSERIMENTO IN 'FootballStats_2' DI " + (all_gioc.size() + all_por.size()) + " CALCIATORI.\n");
 	    	db2.Insert_Calciatori(all_gioc, all_por);
 	    	
-	    	System.out.println("INSERIMENTO IN 'FootballStats_3' DI " + (all_gioc.size() + all_por.size()) + " CALCIATORI.\n");
+	    	System.out.println("\nINSERIMENTO IN 'FootballStats_3' DI " + (all_gioc.size() + all_por.size()) + " CALCIATORI.\n");
 	    	db3.Insert_Calciatori(all_gioc, all_por);
 			
 		} catch (Exception e) {

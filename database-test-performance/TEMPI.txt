@@ -1,32 +1,32 @@
-Time 0: 545.3154 ms
-Time 1: 1439.9 ms
-Time 2: 1187.3633 ms
+Time 0: 5558.7485 ms
+Time 1: 3347.2296 ms
+Time 2: 4261.3284 ms
 
-Time 0: 537.2231 ms
-Time 1: 1177.6838 ms
-Time 2: 925.9226 ms
+Time 0: 4709.9243 ms
+Time 1: 3273.0205 ms
+Time 2: 3889.839 ms
 
-Time 0: 325.7736 ms
-Time 1: 818.4239 ms
-Time 2: 937.7375 ms
+Time 0: 4731.3078 ms
+Time 1: 3264.0337 ms
+Time 2: 3912.2196 ms
 
-Time 0: 333.9031 ms
-Time 1: 779.628 ms
-Time 2: 866.0207 ms
+Time 0: 4712.3356 ms
+Time 1: 3296.6418 ms
+Time 2: 4024.3081 ms
 
-Time 0: 312.3614 ms
-Time 1: 803.8649 ms
-Time 2: 882.6967 ms
+Time 0: 4540.9209 ms
+Time 1: 3260.1658 ms
+Time 2: 3944.533 ms
 
-Time 0: 362.7205 ms
-Time 1: 806.611 ms
-Time 2: 864.7196 ms
+Time 0: 4548.6909 ms
+Time 1: 3190.1448 ms
+Time 2: 3829.5959 ms
 
-Time 0: 322.0653 ms
-Time 1: 768.5633 ms
-Time 2: 861.1239 ms
+Time 0: 4611.7371 ms
+Time 1: 3300.7718 ms
+Time 2: 3989.2174 ms
 
-Time 0: 308.3368 ms
-Time 1: 755.1307 ms
-Time 2: 828.2412 ms
+Time 0: 4552.3683 ms
+Time 1: 3179.6149 ms
+Time 2: 3943.7908 ms
 

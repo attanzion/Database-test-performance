@@ -6,6 +6,7 @@ import static com.mongodb.client.model.Updates.push;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 import org.bson.Document;
 
@@ -27,6 +28,8 @@ public class Mongo_Export implements Runnable{
 	private Document document = null;
 	
 	private long nano = 0;
+	private int random_goals = 0;
+	private int random_saves = 0;
 	
 	/**
 	 * Costruttore 1 della classe 'Mongo_Export'.
@@ -61,6 +64,23 @@ public class Mongo_Export implements Runnable{
 		this.setCollection(collection_);
 		this.setOperazione(operazione_);
 		this.setDocument(document_);
+		
+	}
+	
+	/**
+	 * Costruttore 3 della classe 'Mongo_Export'.
+	 * @param collection_
+	 * @param operazione_
+	 * @param random_goals_
+	 * @param random_saves_
+	 */
+	
+	public Mongo_Export(MongoCollection<Document> collection_, int operazione_, int random_goals_, int random_saves_) {
+		
+		this.setCollection(collection_);
+		this.setOperazione(operazione_);
+		this.setRandom_goals(random_goals_);
+		this.setRandom_saves(random_saves_);
 		
 	}
 	
@@ -514,6 +534,64 @@ public class Mongo_Export implements Runnable{
 				}
 				
 				break;
+				
+			case 10:		/** Operazione di RICERCA GIOCATORE con una statistica maggiore di un certo valore in una data stagione. */
+				
+				
+				Document filter_gioc = new Document();
+				 		 filter_gioc.append("Stagioni", Document.parse("{ $elemMatch : { 'season': '2019-2020', 'goals' : { $gt : " + this.random_goals + " }}}"));
+				 
+				Document filter_por = new Document();
+				 		 filter_por.append("Stagioni", Document.parse("{ $elemMatch : { 'season': '2019-2020', 'saves' : { $gt : " + this.random_saves + " }}}"));
+				 
+				 long start = System.nanoTime();
+				 		 
+				 ArrayList<Document> doc_g = collection.find(filter_gioc).into(new ArrayList<Document>());
+				 ArrayList<Document> doc_p = collection.find(filter_por).into(new ArrayList<Document>());
+				 
+				 long end = System.nanoTime();
+				 
+				 this.setNano(end - start);
+				 
+				 System.out.println("\nTROVATI " + (doc_g.size() + doc_p.size()) + " documenti in totale.");
+				 
+				 if( doc_g.size()!=0 ) {
+					 
+					 for (Document document : doc_g) {
+						
+						System.out.println("GIOCATORI:\n\nEsempio:");
+						System.out.println(document);
+						break;
+						
+					}
+					 
+					 if( (doc_g.size()-1) != 0 ) {
+						 
+						 System.out.println("\nE altri: " + (doc_g.size()-1) + " documenti.");
+						 
+					 }
+					 
+				 }
+				 
+				 if( doc_p.size()!=0 ) {
+					 
+					 for (Document document : doc_p) {
+						
+						System.out.println("\nPORTIERI:\n\nEsempio:");
+						System.out.println(document);
+						break;
+						
+					}
+					 
+					 if( (doc_p.size()-1) != 0 ) {
+						 
+						 System.out.println("\nE altri: " + (doc_p.size()-1) + " documenti.");
+						 
+					 }
+					 
+				 }
+				 
+				break;
 	
 			default:
 				break;
@@ -651,6 +729,24 @@ public class Mongo_Export implements Runnable{
 		
 		return this.document;
 		
+	}
+
+	/**
+	 * Funzione che setta 'random_goals'.
+	 * @param random_goals
+	 */
+	
+	public void setRandom_goals(int random_goals_) {
+		this.random_goals = random_goals_;
+	}
+
+	/**
+	 * Funzione che setta 'random_saves'.
+	 * @param random_saves
+	 */
+	
+	public void setRandom_saves(int random_saves_) {
+		this.random_saves = random_saves_;
 	}
 
 }
