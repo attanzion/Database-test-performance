@@ -2137,6 +2137,191 @@ public class Performance_evaluation {
 	}
 	
 	/**
+	 * Funzione che calcola i millisecondi che ci vogliono per calcolare la somma di un campo per ogni stagione del calciatore, per i giocatori si calcolerà la somma dei 'goals', per i portieri si calcolerà la somma dei 'saves', per le tre configurazioni dei database.
+	 * @param all_gioc
+	 * @param all_por
+	 * @param configuration
+	 * @return ms
+	 */
+	
+	public double Sum(final ArrayList<Giocatore> all_gioc, final ArrayList<Portiere> all_por, int configuration) {
+		
+		double ms = 0;
+		
+		final Mongo mongo = new Mongo();
+		
+		try {
+		
+		int count_gioc = 1;
+        
+    	double nano = 0;
+    	
+    	if(configuration == 1) {
+    	
+    	this.Delete_and_Insert(all_gioc, all_por);	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
+    	
+    	}
+    	
+    	switch(configuration) {
+    	
+    	case 1:
+    		
+    		mongo.Connection("localhost", 27017, "FootballStats", "Calciatori");   //Connessione a MongoDB.
+            
+            MongoCollection<Document> collection = mongo.getMongoCollection();
+			
+            /** Ricerca giocatori. */
+				for (Giocatore giocatore : all_gioc) {
+					
+					Mongo_Export sum_goals = new Mongo_Export(giocatore, null, collection, 13);
+					
+					Thread thread = new Thread(sum_goals);
+					thread.start();
+					thread.join();
+					
+					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
+					
+					nano = nano + sum_goals.getNano();
+					
+					count_gioc++;
+					
+				}
+				/**--------------------------------------------*/
+				
+				/** Ricerca portieri. */
+				for (Portiere portiere : all_por) {
+					
+					Mongo_Export sum_saves = new Mongo_Export(null, portiere, collection, 13);
+					
+					Thread thread = new Thread(sum_saves);
+					thread.start();
+					thread.join();
+					
+					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
+					
+					nano = nano + sum_saves.getNano();
+					
+					count_gioc++;
+					
+				}
+				/**--------------------------------------------*/
+			
+			ms = nano/1000000;
+	    	
+	    	mongo.Disconnection();
+    		
+    		break;
+    		
+    	case 2:
+    		
+    		mongo.Connection("localhost", 27017, "FootballStats_2", "Calciatori");   //Connessione a MongoDB.
+            
+            MongoCollection<Document> collection_2 = mongo.getMongoCollection();
+			
+            	/** Ricerca giocatori. */
+				for (Giocatore giocatore : all_gioc) {
+					
+					Mongo_Export_2 sum_goals = new Mongo_Export_2(giocatore, null, collection_2, 13);
+					
+					Thread thread = new Thread(sum_goals);
+					thread.start();
+					thread.join();
+					
+					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
+					
+					nano = nano + sum_goals.getNano();
+					
+					count_gioc++;
+					
+				}
+				/**--------------------------------------------*/
+				
+				/** Ricerca portieri. */
+				for (Portiere portiere : all_por) {
+					
+					Mongo_Export_2 sum_saves = new Mongo_Export_2(null, portiere, collection_2, 13);
+					
+					Thread thread = new Thread(sum_saves);
+					thread.start();
+					thread.join();
+					
+					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
+					
+					nano = nano + sum_saves.getNano();
+					
+					count_gioc++;
+					
+				}
+				/**--------------------------------------------*/
+			
+			ms = nano/1000000;
+	    	
+	    	mongo.Disconnection();
+    		
+    		break;
+    		
+    	case 3:		
+    		
+    		mongo.Connection("localhost", 27017, "FootballStats_3", "Calciatori");   //Connessione a MongoDB.
+            
+            MongoCollection<Document> collection_3 = mongo.getMongoCollection();
+			
+            	/** Ricerca giocatori. */
+				for (Giocatore giocatore : all_gioc) {
+					
+					Mongo_Export_3 sum_goals = new Mongo_Export_3(giocatore, null, collection_3, 13);
+					
+					Thread thread = new Thread(sum_goals);
+					thread.start();
+					thread.join();
+					
+					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
+					
+					nano = nano + sum_goals.getNano();
+					
+					count_gioc++;
+					
+				}
+				/**--------------------------------------------*/
+				
+				/** Ricerca portieri. */
+				for (Portiere portiere : all_por) {
+					
+					Mongo_Export_3 sum_saves = new Mongo_Export_3(null, portiere, collection_3, 13);
+					
+					Thread thread = new Thread(sum_saves);
+					thread.start();
+					thread.join();
+					
+					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
+					
+					nano = nano + sum_saves.getNano();
+					
+					count_gioc++;
+					
+				}
+				/**--------------------------------------------*/
+			
+			ms = nano/1000000;
+	    	
+	    	mongo.Disconnection();
+    	
+    		break;
+    		
+    	default:   		
+    		break;
+    		
+    	}
+    	
+		}catch (Exception e) {
+			System.out.println("Errore in Performance_evaluation() - Average().");
+		}
+		
+		return ms;	
+		
+	}
+	
+	/**
 	 * Funzione che cancella i databases e li ricrea inserendo i documenti di 'all_gioc' e 'all_por' in tutti e tre i database.
 	 * @param all_gioc
 	 * @param all_por

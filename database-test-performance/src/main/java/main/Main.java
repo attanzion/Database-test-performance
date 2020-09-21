@@ -51,7 +51,7 @@ public class Main {
 		Generatore gen = new Generatore();
 		Performance_evaluation pe = new Performance_evaluation();
 		
-		gen.Genera_Calciatori(1000);
+		gen.Genera_Calciatori(500);
 		
 		ArrayList<Giocatore> all_gioc = gen.getAll_gioc();
 		ArrayList<Portiere> all_por = gen.getAll_por();			
@@ -63,16 +63,13 @@ public class Main {
 		double somma_1 = 0;
 		double somma_2 = 0;
 		double somma_3 = 0;
-		int volte = 8;
+		int volte = 20;
 			
 		for(int j= 0 ; j < volte; j++) {
 			
-//			Menu menu = new Menu();
-//			String[] s = menu.Random_squad(all_gioc, all_por);
-			
 			for (int i = 0; i <= 2; i++) {	
 			
-			ms[i] = pe.View_season(all_gioc, all_por, i+1);		
+			ms[i] = pe.Update_new_season(all_gioc, all_por, i+1);		
 				
 		}	
 						
@@ -110,12 +107,15 @@ public class Main {
 //		
 //		MongoCollection<Document> collection =  mongo.getMongoCollection();
 //
-//		Document filter = new Document();
-//				 filter.append("Stagioni", Document.parse("{ $elemMatch : { 'season': '2019-2020', 'squad' : 'Willem II' }}"));
+//		Document match = new Document();
+//		 match.append("Nome", "Zena Thrower");
+//		 
+//		Document proj = new Document();
+//					 proj.append("sum_saves", new Document("$sum", "$Stagioni.goals"));
 //				 
-//		
-//				 
-//		ArrayList<Document> doc = collection.find(filter).into(new ArrayList<Document>());
+//		 AggregateIterable<Document> doc = collection.aggregate(Arrays.asList(
+//								new Document("$match", match),
+//								new Document("$project", proj)));
 //		
 //		
 //		

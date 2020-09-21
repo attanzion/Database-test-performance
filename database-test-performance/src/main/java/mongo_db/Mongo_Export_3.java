@@ -317,13 +317,13 @@ public class Mongo_Export_3 implements Runnable {
 		             doc_giocatore.put("npxg_xa_per90", npxg_xa_per90);
 		             doc_giocatore.put("Stagioni", stagioni);
 		             
-		             long start = System.nanoTime();
+		             long start1 = System.nanoTime();
 					
 		             collection.insertOne(doc_giocatore);
 						
-						long end = System.nanoTime();
+						long end1 = System.nanoTime();
 						
-						this.setNano(end - start);
+						this.setNano(end1 - start1);
 						
 		    	} else if(this.giocatore == null) {		
 		    		
@@ -497,13 +497,13 @@ public class Mongo_Export_3 implements Runnable {
 		               doc_portiere.put("pens_missed_gk", pens_missed_gk);
 		               doc_portiere.put("Stagioni", stagioni);
 		               
-		               long start = System.nanoTime();
+		               long start1 = System.nanoTime();
 		  			
 		               collection.insertOne(doc_portiere);
 						
-						long end = System.nanoTime();
+						long end1 = System.nanoTime();
 						
-						this.setNano(end - start);
+						this.setNano(end1 - start1);
 		    	}
 				
 				break;
@@ -512,13 +512,13 @@ public class Mongo_Export_3 implements Runnable {
 				
 				if(this.portiere == null) {
 					
-					long start = System.nanoTime();
+					long start2 = System.nanoTime();
 					
 					ArrayList<Document> doc_list = collection.find(eq("Link calciatore", this.giocatore.getLink_calciatore())).into(new ArrayList<Document>());
 					
-					long end = System.nanoTime();
+					long end2 = System.nanoTime();
 					
-					this.setNano(end - start);
+					this.setNano(end2 - start2);
 		            
 		            Document ultima_stagione = new Document();
 		            Document penultima_stagione = new Document();
@@ -536,16 +536,16 @@ public class Mongo_Export_3 implements Runnable {
 		            BasicDBObject setQuery = new BasicDBObject();
 		            setQuery.append("$set", updateFields);
 		            
-		            start = System.nanoTime();
+		            start2 = System.nanoTime();
 		            
 		            collection.updateOne(eq("Link calciatore", giocatore.getLink_calciatore()),  push("Stagioni", penultima_stagione));
 		            collection.updateOne(eq("Link calciatore", giocatore.getLink_calciatore()), setQuery);
 		            
-		            end = System.nanoTime();
+		            end2 = System.nanoTime();
 		            
-		            long parziale = this.nano + (end - start);
+		            long parziale2 = this.nano + (end2 - start2);
 		            
-		            this.setNano(parziale);
+		            this.setNano(parziale2);
 		            		            
 		            BasicDBObject updateArray = new BasicDBObject();
 		            updateArray.append("games", this.document.getInteger("games"));
@@ -574,25 +574,25 @@ public class Mongo_Export_3 implements Runnable {
 		            BasicDBObject setQuery_array = new BasicDBObject();
 		            setQuery_array.append("$push", updateArray);
 		            
-		            start = System.nanoTime();
+		            start2 = System.nanoTime();
 		            
 		            collection.updateOne(eq("Link calciatore", giocatore.getLink_calciatore()), setQuery_array);
 		            
-		            end = System.nanoTime();
+		            end2 = System.nanoTime();
 		            
-		            parziale = this.nano + (end - start);
+		            parziale2 = this.nano + (end2 - start2);
 		            
-		            this.setNano(parziale);
+		            this.setNano(parziale2);
 					
 				} else if(this.giocatore == null) {
 					
-					long start = System.nanoTime();
+					long start2 = System.nanoTime();
 					
 					ArrayList<Document> doc_list = collection.find(eq("Link calciatore", this.portiere.getLink_calciatore())).into(new ArrayList<Document>());
 		            
-					long end = System.nanoTime();
+					long end2 = System.nanoTime();
 					
-					this.setNano(end - start);
+					this.setNano(end2 - start2);
 					
 		            Document ultima_stagione = new Document();
 		            Document penultima_stagione = new Document();
@@ -610,14 +610,14 @@ public class Mongo_Export_3 implements Runnable {
 		            BasicDBObject setQuery = new BasicDBObject();
 		            setQuery.append("$set", updateFields);
 		            
-		            start = System.nanoTime();
+		            start2 = System.nanoTime();
 		            
 		            collection.updateOne(eq("Link calciatore", this.portiere.getLink_calciatore()),  push("Stagioni", penultima_stagione));
 		            collection.updateOne(eq("Link calciatore", this.portiere.getLink_calciatore()), setQuery);
 		            
-		            end = System.nanoTime();
+		            end2 = System.nanoTime();
 		            
-		            long parziale = this.nano + (start - end);
+		            long parziale = this.nano + (start2 - end2);
 		            
 		            this.setNano(parziale);
 		            
@@ -643,13 +643,13 @@ public class Mongo_Export_3 implements Runnable {
 		            BasicDBObject setQuery_array = new BasicDBObject();
 		            setQuery_array.append("$push", updateArray);
 		            
-		            start = System.nanoTime();
+		            start2 = System.nanoTime();
 		            
 		            collection.updateOne(eq("Link calciatore", this.portiere.getLink_calciatore()), setQuery_array);
 					
-		            end = System.nanoTime();
+		            end2 = System.nanoTime();
 
-		            parziale = this.nano + (end - start);
+		            parziale = this.nano + (end2 - start2);
 		            
 		            this.setNano(parziale);
 		            
@@ -661,25 +661,25 @@ public class Mongo_Export_3 implements Runnable {
 				
 				if(this.portiere == null) {
 					
-					long start = System.nanoTime();
+					long start3 = System.nanoTime();
 					
 					collection.updateOne(eq("Link calciatore", this.giocatore.getLink_calciatore()), Updates.combine(Updates.popLast("goals"), Updates.popLast("assists")));
 	            	collection.updateOne(and(eq("Link calciatore", this.giocatore.getLink_calciatore())), Updates.combine(Updates.set("Ultima stagione.goals", 222), Updates.set("Ultima stagione.assists", 222), Updates.push("goals", 222), Updates.push("assists", 222)));
 					
-	            	long end = System.nanoTime();
+	            	long end3 = System.nanoTime();
 					
-					this.setNano(end - start);
+					this.setNano(end3 - start3);
 	            	
 				} else if(this.giocatore == null) {
 					
-					long start = System.nanoTime();
+					long start3 = System.nanoTime();
 					
 					collection.updateOne(eq("Link calciatore", this.portiere.getLink_calciatore()), Updates.combine(Updates.popLast("goals_against_gk"), Updates.popLast("saves")));
 	            	collection.updateOne(eq("Link calciatore", this.portiere.getLink_calciatore()), Updates.combine(Updates.set("Ultima stagione.goals_against_gk", 222),Updates.set("Ultima stagione.saves", 222), Updates.push("goals_against_gk", 222), Updates.push("saves", 222)));
 					
-					long end = System.nanoTime();
+					long end3 = System.nanoTime();
 					
-					this.setNano(end - start);
+					this.setNano(end3 - start3);
 					
 				}
 				
@@ -689,13 +689,13 @@ public class Mongo_Export_3 implements Runnable {
 				
 				if(this.portiere == null) {
 					
-					long start = System.nanoTime();
+					long start4 = System.nanoTime();
 					
 					ArrayList<Document> doc_gioc = collection.find(eq("Nome", this.giocatore.getNome_calciatore())).into(new ArrayList<Document>());
 					
-					long end = System.nanoTime();
+					long end4 = System.nanoTime();
 					
-					this.setNano(end - start);
+					this.setNano(end4 - start4);
 					
 					if(doc_gioc.size() != 0) {
 						
@@ -709,13 +709,13 @@ public class Mongo_Export_3 implements Runnable {
 					
 				} else if(this.giocatore == null) {
 					
-					long start = System.nanoTime();
+					long start4 = System.nanoTime();
 					
 					ArrayList<Document> doc_por = collection.find(eq("Nome", this.portiere.getNome_calciatore())).into(new ArrayList<Document>());
 					
-					long end = System.nanoTime();
+					long end4 = System.nanoTime();
 					
-					this.setNano(end - start);
+					this.setNano(end4 - start4);
 					
 					if(doc_por.size() != 0) {
 						
@@ -742,15 +742,15 @@ public class Mongo_Export_3 implements Runnable {
 							 proj.append("Nome", 1);
 							 proj.append("Ultima stagione.minutes", 1);
 							 
-					long start = System.nanoTime();
+					long start5 = System.nanoTime();
 							 
 					AggregateIterable<Document> doc = collection.aggregate(Arrays.asList(
 												new Document("$match", match),
 												new Document("$project", proj)));
 					
-					long end = System.nanoTime();
+					long end5 = System.nanoTime();
 					
-					this.setNano(end - start);
+					this.setNano(end5 - start5);
 					
 					for (Document document : doc) {
 						
@@ -769,15 +769,15 @@ public class Mongo_Export_3 implements Runnable {
 							 proj.append("Nome", 1);
 							 proj.append("Ultima stagione.minutes_gk", 1);
 							 
-					long start = System.nanoTime();
+					long start5 = System.nanoTime();
 							 
 					AggregateIterable<Document> doc = collection.aggregate(Arrays.asList(
 												new Document("$match", match),
 												new Document("$project", proj)));
 					
-					long end = System.nanoTime();
+					long end5 = System.nanoTime();
 					
-					this.setNano(end - start);
+					this.setNano(end5 - start5);
 					
 					for (Document document : doc) {
 						
@@ -801,15 +801,15 @@ public class Mongo_Export_3 implements Runnable {
 					Document proj = new Document();
 								 proj.append("avg_goals", new Document("$avg", "$goals"));
 		
-					long start = System.nanoTime();
+					long start6 = System.nanoTime();
 								 
 					AggregateIterable<Document> doc = this.collection.aggregate(Arrays.asList(
 							new Document("$match", match),
 							new Document("$project", proj)));	
 					
-					long end = System.nanoTime();
+					long end6 = System.nanoTime();
 					
-					this.setNano(end - start);
+					this.setNano(end6 - start6);
 					
 					for (Document document : doc) {
 						System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - Media goals: " + document.get("avg_goals"));
@@ -823,15 +823,15 @@ public class Mongo_Export_3 implements Runnable {
 					Document proj = new Document();
 								 proj.append("avg_saves", new Document("$avg", "$saves"));
 		
-					long start = System.nanoTime();
+					long start6 = System.nanoTime();
 								 
 					AggregateIterable<Document> doc = this.collection.aggregate(Arrays.asList(
 							new Document("$match", match),
 							new Document("$project", proj)));	
 					
-					long end = System.nanoTime();
+					long end6 = System.nanoTime();
 					
-					this.setNano(end - start);
+					this.setNano(end6 - start6);
 					
 					for (Document document : doc) {
 						System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - Media saves: " + document.get("avg_saves"));
@@ -851,13 +851,13 @@ public class Mongo_Export_3 implements Runnable {
 					Document update = new Document();
 							 update.append("$unset", new Document("Ultima stagione.npxg_xa_per90", 1));
 							 
-					long start = System.nanoTime();
+					long start7 = System.nanoTime();
 							 
 					collection.updateOne(filter, Updates.combine(update, Updates.popLast("npxg_xa_per90")));				
 					
-					long end = System.nanoTime();
+					long end7 = System.nanoTime();
 					
-					this.setNano(end - start);
+					this.setNano(end7 - start7);
 					
 					System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - Il campo 'npxg_xa_per90' eliminato dalla stagione 2019-2020.");
 					
@@ -869,13 +869,13 @@ public class Mongo_Export_3 implements Runnable {
 					Document update = new Document();
 							 update.append("$unset", new Document("Ultima stagione.goals_against_gk_per90", 1));
 				
-					long start = System.nanoTime();
+					long start7 = System.nanoTime();
 							 
 					collection.updateOne(filter, Updates.combine(update, Updates.popLast("goals_against_gk_per90")));
 					
-					long end = System.nanoTime();
+					long end7 = System.nanoTime();
 					
-					this.setNano(end - start);
+					this.setNano(end7 - start7);
 					
 					System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - Il campo 'goals_against_gk_per90' eliminato dalla stagione 2019-2020.");
 					 
@@ -887,25 +887,25 @@ public class Mongo_Export_3 implements Runnable {
 				
 				if(this.portiere == null) {
 					
-					long start = System.nanoTime();
+					long start8 = System.nanoTime();
 					
 					this.collection.deleteOne(eq("Link calciatore", this.giocatore.getLink_calciatore()));
 					
-					long end = System.nanoTime();
+					long end8 = System.nanoTime();
 					
-					this.setNano(end - start);
+					this.setNano(end8 - start8);
 					
 					System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - Cancellato dal database.");
 					
 				} else if(this.giocatore == null) {
 					
-					long start = System.nanoTime();
+					long start8 = System.nanoTime();
 					
 					this.collection.deleteOne(eq("Link calciatore", this.portiere.getLink_calciatore()));
 					
-					long end = System.nanoTime();
+					long end8 = System.nanoTime();
 					
-					this.setNano(end - start);
+					this.setNano(end8 - start8);
 					
 					System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - Cancellato dal database.");
 					
@@ -933,7 +933,7 @@ public class Mongo_Export_3 implements Runnable {
 							 
 					if(num_s == 1) {
 						
-						long start = System.nanoTime();
+						long start9 = System.nanoTime();
 						 
 							this.collection.updateOne(filter, Updates.combine( 	  update,
 																		          Updates.popLast("games"),
@@ -960,19 +960,19 @@ public class Mongo_Export_3 implements Runnable {
 																		          Updates.popLast("npxg_xa_per90")
 																		          ));
 						
-						long end = System.nanoTime();
+						long end9 = System.nanoTime();
 						
-						this.setNano(end - start);
+						this.setNano(end9 - start9);
 						
 					} else if(num_s == 2) {
 						
-						 long start = System.nanoTime();
+						 long start9 = System.nanoTime();
 						
 						ArrayList<Document> doc_c = this.collection.find(filter).into(new ArrayList<Document>());
 						
-						long end = System.nanoTime();
+						long end9 = System.nanoTime();
 						
-						long parziale = (end - start);
+						long parziale9 = (end9 - start9);
 						
 						for (Document document : doc_c) {
 							
@@ -980,7 +980,7 @@ public class Mongo_Export_3 implements Runnable {
 							
 						}
 						
-						start = System.nanoTime();
+						start9 = System.nanoTime();
 						
 						this.collection.updateOne(    filter, Updates.combine(
 																			  Updates.set("Ultima stagione", pen_s),
@@ -1009,29 +1009,29 @@ public class Mongo_Export_3 implements Runnable {
 																	          Updates.popLast("npxg_xa_per90")
 																	          ));
 						
-						end = System.nanoTime();
+						end9 = System.nanoTime();
 						
-						parziale = parziale + (end - start);
+						parziale9 = parziale9 + (end9 - start9);
 						
-						this.setNano(parziale);
+						this.setNano(parziale9);
 						
 					} else if(num_s == 3) {
 					
-						long start = System.nanoTime();
+						long start9 = System.nanoTime();
 						 
 						this.collection.updateOne(filter, update);
 						
-						long end = System.nanoTime();
+						long end9 = System.nanoTime();
 						
-						long parziale = end - start;
+						long parziale9 = end9 - start9;
 						
-						start = System.nanoTime();
+						start9 = System.nanoTime();
 						
 						ArrayList<Document> doc_c = this.collection.find(filter).into(new ArrayList<Document>());
 						
-						end = System.nanoTime();
+						end9 = System.nanoTime();
 						
-						parziale = parziale + (end - start);
+						parziale9 = parziale9 + (end9 - start9);
 						
 						for (Document document : doc_c) {
 							
@@ -1053,7 +1053,7 @@ public class Mongo_Export_3 implements Runnable {
 							
 						}
 						
-						start = System.nanoTime();
+						start9 = System.nanoTime();
 						
 						this.collection.updateOne(	  filter, Updates.combine(
 															  			      Updates.set("Ultima stagione", pen_s),
@@ -1083,11 +1083,11 @@ public class Mongo_Export_3 implements Runnable {
 																	          Updates.popLast("npxg_xa_per90")
 											          ));
 						
-						end = System.nanoTime();
+						end9 = System.nanoTime();
 						
-						parziale = parziale + (end - start);
+						parziale9 = parziale9 + (end9 - start9);
 						
-						this.setNano(parziale);
+						this.setNano(parziale9);
 					
 					}
 					
@@ -1109,7 +1109,7 @@ public class Mongo_Export_3 implements Runnable {
 							 
 					if(num_s == 1) {
 						
-						long start = System.nanoTime();
+						long start9 = System.nanoTime();
 						 
 						this.collection.updateOne(filter, Updates.combine(	update,
 																			Updates.popLast("games_gk"),
@@ -1130,19 +1130,19 @@ public class Mongo_Export_3 implements Runnable {
 																			Updates.popLast("pens_missed_gk")
 																			));
 						
-						long end = System.nanoTime();
+						long end9 = System.nanoTime();
 						
-						this.setNano(end - start);
+						this.setNano(end9 - start9);
 						
 					} else if(num_s == 2) {
 						
-						 long start = System.nanoTime();
+						 long start9 = System.nanoTime();
 						
 						ArrayList<Document> doc_c = this.collection.find(filter).into(new ArrayList<Document>());
 						
-						long end = System.nanoTime();
+						long end9 = System.nanoTime();
 						
-						long parziale = (end - start);
+						long parziale9 = (end9 - start9);
 						
 						for (Document document : doc_c) {
 							
@@ -1150,7 +1150,7 @@ public class Mongo_Export_3 implements Runnable {
 							
 						}
 						
-						start = System.nanoTime();
+						start9 = System.nanoTime();
 						
 						this.collection.updateOne(filter, Updates.combine(
 																			Updates.set("Ultima stagione", pen_s), 
@@ -1174,29 +1174,29 @@ public class Mongo_Export_3 implements Runnable {
 																			
 																			));
 						
-						end = System.nanoTime();
+						end9 = System.nanoTime();
 						
-						parziale = parziale + (end - start);
+						parziale9 = parziale9 + (end9 - start9);
 						
-						this.setNano(parziale);
+						this.setNano(parziale9);
 						
 					} else if(num_s == 3) {
 					
-						long start = System.nanoTime();
+						long start9 = System.nanoTime();
 						 
 						this.collection.updateOne(filter, update);
 						
-						long end = System.nanoTime();
+						long end9 = System.nanoTime();
 						
-						long parziale = end - start;
+						long parziale9 = end9 - start9;
 						
-						start = System.nanoTime();
+						start9 = System.nanoTime();
 						
 						ArrayList<Document> doc_c = this.collection.find(filter).into(new ArrayList<Document>());
 						
-						end = System.nanoTime();
+						end9 = System.nanoTime();
 						
-						parziale = parziale + (end - start);
+						parziale9 = parziale9 + (end9 - start9);
 						
 						
 						for (Document document : doc_c) {
@@ -1220,7 +1220,7 @@ public class Mongo_Export_3 implements Runnable {
 						}
 							
 						
-						start = System.nanoTime();
+						start9 = System.nanoTime();
 						
 						this.collection.updateOne(filter, Updates.combine(
 																			Updates.set("Ultima stagione", pen_s),
@@ -1244,11 +1244,11 @@ public class Mongo_Export_3 implements Runnable {
 																			Updates.popLast("pens_missed_gk")
 																			));
 						
-						end = System.nanoTime();
+						end9 = System.nanoTime();
 						
-						parziale = parziale + (end - start);
+						parziale9 = parziale9 + (end9 - start9);
 						
-						this.setNano(parziale);
+						this.setNano(parziale9);
 					
 					}
 			
@@ -1266,14 +1266,14 @@ public class Mongo_Export_3 implements Runnable {
 				Document filter_por = new Document();
 				 		 filter_por.append("Ultima stagione.saves", new Document("$gt", this.random_saves));
 				 
-				 long start = System.nanoTime();
+				 long start10 = System.nanoTime();
 				 		 
 				 ArrayList<Document> doc_g = collection.find(filter_gioc).into(new ArrayList<Document>());
 				 ArrayList<Document> doc_p = collection.find(filter_por).into(new ArrayList<Document>());
 				 
-				 long end = System.nanoTime();
+				 long end10 = System.nanoTime();
 				 
-				 this.setNano(end - start);
+				 this.setNano(end10 - start10);
 				 
 				 System.out.println("\nTROVATI " + (doc_g.size() + doc_p.size()) + " documenti in totale.");
 				 
@@ -1319,13 +1319,13 @@ public class Mongo_Export_3 implements Runnable {
 				Document filter_squad = new Document();
 		 		 		 filter_squad.append("Ultima stagione.squad", this.random_squad);		 
 				 
-				 long start_ = System.nanoTime();
+				 long start11 = System.nanoTime();
 				 		 
 				 ArrayList<Document> doc_c = collection.find(filter_squad).into(new ArrayList<Document>());
 				 			 
-				 long end_ = System.nanoTime();
+				 long end11 = System.nanoTime();
 				 
-				 this.setNano(end_ - start_);
+				 this.setNano(end11 - start11);
 				 
 				 System.out.println("\nTROVATI " + (doc_c.size()) + " documenti in totale.");
 				 
@@ -1360,15 +1360,15 @@ public class Mongo_Export_3 implements Runnable {
 							 proj.append("Nome", 1);
 							 proj.append("Ultima stagione", 1);
 					
-					long start__ = System.nanoTime();
+					long start12 = System.nanoTime();
 							 
 					AggregateIterable<Document> doc = this.collection.aggregate(Arrays.asList(
 																								new Document("$match", match),
 																								new Document("$project", proj)));
 					
-					long end__ = System.nanoTime();
+					long end12 = System.nanoTime();
 					 
-					this.setNano(end__ - start__);
+					this.setNano(end12 - start12);
 					
 					for (Document document : doc) {
 						System.out.println("\nGIOCATORE: " + this.giocatore.getNome_calciatore() + "\nSTAGIONE TROVATA: " + document);
@@ -1383,18 +1383,68 @@ public class Mongo_Export_3 implements Runnable {
 							 proj.append("Nome", 1);
 							 proj.append("Ultima stagione", 1);
 					
-					long start__ = System.nanoTime();
+					long start12 = System.nanoTime();
 							 
 					AggregateIterable<Document> doc = this.collection.aggregate(Arrays.asList(
 																								new Document("$match", match),
 																								new Document("$project", proj)));
 					
-					long end__ = System.nanoTime();
+					long end12 = System.nanoTime();
 					 
-					this.setNano(end__ - start__);
+					this.setNano(end12 - start12);
 					
 					for (Document document : doc) {
 						System.out.println("\nPORTIERE: " + this.portiere.getNome_calciatore() + "\nSTAGIONE TROVATA: " + document);
+					}
+					
+				}
+				
+				break;
+				
+			case 13:		/** Operazione CALCOLO SOMMA di una statistica per tutte le stagioni. */
+				
+				if(this.portiere == null) {
+					
+					Document match = new Document();
+					 match.append("Link calciatore", this.giocatore.getLink_calciatore());
+					 
+					Document proj = new Document();
+								 proj.append("sum_goals", new Document("$sum", "$goals"));
+		
+					long start13 = System.nanoTime();
+								 
+					AggregateIterable<Document> doc = this.collection.aggregate(Arrays.asList(
+							new Document("$match", match),
+							new Document("$project", proj)));	
+					
+					long end13 = System.nanoTime();
+					
+					this.setNano(end13 - start13);
+					
+					for (Document document : doc) {
+						System.out.println("\nGIOCATORE: " + this.giocatore.getNome_calciatore() + " - Somma goals: " + document.get("sum_goals"));
+					}
+					
+				} else if(this.giocatore == null) {
+					
+					Document match = new Document();
+					 match.append("Link calciatore", this.portiere.getLink_calciatore());
+					 
+					Document proj = new Document();
+								 proj.append("sum_saves", new Document("$sum", "$saves"));
+		
+					long start13 = System.nanoTime();
+								 
+					AggregateIterable<Document> doc = this.collection.aggregate(Arrays.asList(
+							new Document("$match", match),
+							new Document("$project", proj)));	
+					
+					long end13 = System.nanoTime();
+					
+					this.setNano(end13 - start13);
+					
+					for (Document document : doc) {
+						System.out.println("\nPORTIERE: " + this.portiere.getNome_calciatore() + " - Somma saves: " + document.get("sum_saves"));
 					}
 					
 				}
