@@ -1823,6 +1823,320 @@ public class Performance_evaluation {
 	}
 	
 	/**
+	 * Funzione che calcola i millisecondi che ci vogliono per ricercare i giocatori che in una certa stagione (in questo caso la stagione 2019-2020) hanno militato in una certa squadra, per le tre configurazioni.
+	 * Si sceglie l'ultima stagione in quanto è possibile fare un confronto nelle tre configurazioni perchè altrimenti l'algoritmo sarebbe lo stesso per tutte le configurazioni.
+	 * @param all_gioc
+	 * @param all_por
+	 * @param configuration
+	 * @param random_squad
+	 * @return ms
+	 */
+	
+	public double Find_by_Squad(final ArrayList<Giocatore> all_gioc, final ArrayList<Portiere> all_por, int configuration, final String[] random_squad) {
+		
+		double ms = 0;
+		
+		final Mongo mongo = new Mongo();
+				
+		try {
+			
+			int count_gioc = 1;
+	        
+	    	double nano = 0;
+	    	
+	    	if(configuration == 1) {
+	    	
+	    	this.Delete_and_Insert(all_gioc, all_por);	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
+	    	
+	    	}
+	    	
+	    	switch(configuration) {
+	    	
+	    	case 1:
+	    		
+	    		mongo.Connection("localhost", 27017, "FootballStats", "Calciatori");   //Connessione a MongoDB.
+	            
+	            MongoCollection<Document> collection = mongo.getMongoCollection();
+					           
+					for (int i = 0; i < (all_gioc.size() + all_por.size()); i++) {
+						
+						Mongo_Export find_by_squad = new Mongo_Export(collection, 11, random_squad[i]);
+						
+						Thread thread = new Thread(find_by_squad);
+						thread.start();
+						thread.join();
+						
+						System.out.println("\nRICERCA numero: " + count_gioc + " - DATABASE: FootballStats");
+						
+						nano = nano + find_by_squad.getNano();
+						
+						count_gioc++;
+						
+					}
+				
+				ms = nano/1000000;
+		    	
+		    	mongo.Disconnection();
+	    		
+	    		break;
+	    		
+	    	case 2:
+	    		
+	    		mongo.Connection("localhost", 27017, "FootballStats_2", "Calciatori");   //Connessione a MongoDB.
+	            
+	            MongoCollection<Document> collection_2 = mongo.getMongoCollection();
+				
+	            for (int i = 0; i < (all_gioc.size() + all_por.size()); i++) {
+					
+					Mongo_Export_2 find_by_squad = new Mongo_Export_2(collection_2, 11, random_squad[i]);
+					
+					Thread thread = new Thread(find_by_squad);
+					thread.start();
+					thread.join();
+					
+					System.out.println("\nRICERCA numero: " + count_gioc + " - DATABASE: FootballStats_2");
+					
+					nano = nano + find_by_squad.getNano();
+					
+					count_gioc++;
+					
+				}
+				
+				ms = nano/1000000;
+		    	
+		    	mongo.Disconnection();
+	    		
+	    		break;
+	    		
+	    	case 3:		
+	    		
+	    		mongo.Connection("localhost", 27017, "FootballStats_3", "Calciatori");   //Connessione a MongoDB.
+	            
+	            MongoCollection<Document> collection_3 = mongo.getMongoCollection();
+				
+	            for (int i = 0; i < (all_gioc.size() + all_por.size()); i++) {
+					
+					Mongo_Export_3 find_by_squad = new Mongo_Export_3(collection_3, 11, random_squad[i]);
+					
+					Thread thread = new Thread(find_by_squad);
+					thread.start();
+					thread.join();
+					
+					System.out.println("\nRICERCA numero: " + count_gioc + " - DATABASE: FootballStats_3");
+					
+					nano = nano + find_by_squad.getNano();
+					
+					count_gioc++;
+					
+				}
+				
+				ms = nano/1000000;
+		    	
+		    	mongo.Disconnection();
+	    	
+	    		break;
+	    		
+	    	default:   		
+	    		break;
+	    	
+	    	}
+			
+		} catch (Exception e) {
+			System.out.println("Errore in Performance_evaluation() - Find_by_squad().");
+		}
+		
+		return ms;
+		
+	}
+	
+	/**
+	 * Funzione che calcola i millisecondi che ci vogliono per visualizzare una data stagione (in questo caso la stagione 2019-2020) di un calciatore, per tutte le configurazioni.
+	 * Si sceglie l'ultima stagione in quanto è possibile fare un confronto nelle tre configurazioni perchè altrimenti l'algoritmo sarebbe lo stesso per tutte le configurazioni.
+	 * @param all_gioc
+	 * @param all_por
+	 * @param configuration
+	 * @return ms
+	 */
+	
+	public double View_season(final ArrayList<Giocatore> all_gioc, final ArrayList<Portiere> all_por, int configuration) {
+		
+		
+		double ms = 0;
+		
+		final Mongo mongo = new Mongo();
+				
+		try {
+			
+			int count_gioc = 1;
+	        
+	    	double nano = 0;
+	    	
+	    	if(configuration == 1) {
+	    	
+	    	this.Delete_and_Insert(all_gioc, all_por);	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
+	    	
+	    	}
+	    	
+	    	switch(configuration) {
+	    	
+	    	case 1:
+	    		
+	    		mongo.Connection("localhost", 27017, "FootballStats", "Calciatori");   //Connessione a MongoDB.
+	            
+	            MongoCollection<Document> collection = mongo.getMongoCollection();
+				
+	            /** Ricerca giocatori. */
+					for (Giocatore giocatore : all_gioc) {
+						
+						Mongo_Export view_season = new Mongo_Export(giocatore, null, collection, 12);
+						
+						Thread thread = new Thread(view_season);
+						thread.start();
+						thread.join();
+						
+						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
+						
+						nano = nano + view_season.getNano();
+						
+						count_gioc++;
+						
+					}
+					/**--------------------------------------------*/
+					
+					/** Ricerca portieri. */
+					for (Portiere portiere : all_por) {
+						
+						Mongo_Export view_season = new Mongo_Export(null, portiere, collection, 12);
+						
+						Thread thread = new Thread(view_season);
+						thread.start();
+						thread.join();
+						
+						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
+						
+						nano = nano + view_season.getNano();
+						
+						count_gioc++;
+						
+					}
+					/**--------------------------------------------*/
+				
+				ms = nano/1000000;
+		    	
+		    	mongo.Disconnection();
+	    		
+	    		break;
+	    		
+	    	case 2:
+	    		
+	    		mongo.Connection("localhost", 27017, "FootballStats_2", "Calciatori");   //Connessione a MongoDB.
+	            
+	            MongoCollection<Document> collection_2 = mongo.getMongoCollection();
+				
+	            	/** Ricerca giocatori. */
+					for (Giocatore giocatore : all_gioc) {
+						
+						Mongo_Export_2 view_season = new Mongo_Export_2(giocatore, null, collection_2, 12);
+						
+						Thread thread = new Thread(view_season);
+						thread.start();
+						thread.join();
+						
+						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
+						
+						nano = nano + view_season.getNano();
+						
+						count_gioc++;
+						
+					}
+					/**--------------------------------------------*/
+					
+					/** Ricerca portieri. */
+					for (Portiere portiere : all_por) {
+						
+						Mongo_Export_2 view_season = new Mongo_Export_2(null, portiere, collection_2, 12);
+						
+						Thread thread = new Thread(view_season);
+						thread.start();
+						thread.join();
+						
+						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
+						
+						nano = nano + view_season.getNano();
+						
+						count_gioc++;
+						
+					}
+					/**--------------------------------------------*/
+				
+				ms = nano/1000000;
+		    	
+		    	mongo.Disconnection();
+	    		
+	    		break;
+	    		
+	    	case 3:		
+	    		
+	    		mongo.Connection("localhost", 27017, "FootballStats_3", "Calciatori");   //Connessione a MongoDB.
+	            
+	            MongoCollection<Document> collection_3 = mongo.getMongoCollection();
+				
+	            	/** Ricerca giocatori. */
+					for (Giocatore giocatore : all_gioc) {
+						
+						Mongo_Export_3 view_season = new Mongo_Export_3(giocatore, null, collection_3, 12);
+						
+						Thread thread = new Thread(view_season);
+						thread.start();
+						thread.join();
+						
+						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
+						
+						nano = nano + view_season.getNano();
+						
+						count_gioc++;
+						
+					}
+					/**--------------------------------------------*/
+					
+					/** Ricerca portieri. */
+					for (Portiere portiere : all_por) {
+						
+						Mongo_Export_3 view_season = new Mongo_Export_3(null, portiere, collection_3, 12);
+						
+						Thread thread = new Thread(view_season);
+						thread.start();
+						thread.join();
+						
+						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
+						
+						nano = nano + view_season.getNano();
+						
+						count_gioc++;
+						
+					}
+					/**--------------------------------------------*/
+				
+				ms = nano/1000000;
+		    	
+		    	mongo.Disconnection();
+	    	
+	    		break;
+	    		
+	    	default:   		
+	    		break;
+	    	
+	    	}
+			
+		} catch (Exception e) {
+			System.out.println("Errore in Performance_evaluation() - Delete_season().");
+		}
+		
+		return ms;
+		
+	}
+	
+	/**
 	 * Funzione che cancella i databases e li ricrea inserendo i documenti di 'all_gioc' e 'all_por' in tutti e tre i database.
 	 * @param all_gioc
 	 * @param all_por

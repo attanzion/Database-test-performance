@@ -51,7 +51,7 @@ public class Main {
 		Generatore gen = new Generatore();
 		Performance_evaluation pe = new Performance_evaluation();
 		
-		gen.Genera_Calciatori(500);
+		gen.Genera_Calciatori(1000);
 		
 		ArrayList<Giocatore> all_gioc = gen.getAll_gioc();
 		ArrayList<Portiere> all_por = gen.getAll_por();			
@@ -67,26 +67,12 @@ public class Main {
 			
 		for(int j= 0 ; j < volte; j++) {
 			
-			int[] random_goals = new int[(all_por.size() + all_gioc.size())];
-			int[] random_saves = new int[(all_por.size() + all_gioc.size())];
-			
-			Random r = new Random();	
-		
-		for (int i = 0; i < random_goals.length; i++) {
-			
-			random_goals[i] = r.ints(1, 25).findFirst().getAsInt();
-			
-		}
-		
-		for (int i = 0; i < random_saves.length; i++) {
-			
-			random_saves[i] = r.ints(1, 30).findFirst().getAsInt();
-			
-		}
+//			Menu menu = new Menu();
+//			String[] s = menu.Random_squad(all_gioc, all_por);
 			
 			for (int i = 0; i <= 2; i++) {	
 			
-			ms[i] = pe.Greater_than(all_gioc, all_por, i+1, random_goals, random_saves);		
+			ms[i] = pe.View_season(all_gioc, all_por, i+1);		
 				
 		}	
 						
@@ -117,15 +103,15 @@ public class Main {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
+ 		
 //		Mongo mongo = new Mongo();
 //		
-//		mongo.Connection("localhost", 27017, "FootballStats_2", "Calciatori");
+//		mongo.Connection("localhost", 27017, "FootballStats", "Calciatori");
 //		
 //		MongoCollection<Document> collection =  mongo.getMongoCollection();
 //
 //		Document filter = new Document();
-//				 filter.append("Ultima stagione.goals", new Document("$gt",1));
+//				 filter.append("Stagioni", Document.parse("{ $elemMatch : { 'season': '2019-2020', 'squad' : 'Willem II' }}"));
 //				 
 //		
 //				 

@@ -30,6 +30,7 @@ public class Mongo_Export implements Runnable{
 	private long nano = 0;
 	private int random_goals = 0;
 	private int random_saves = 0;
+	private String random_squad = null;
 	
 	/**
 	 * Costruttore 1 della classe 'Mongo_Export'.
@@ -85,6 +86,21 @@ public class Mongo_Export implements Runnable{
 	}
 	
 	/**
+	 * Costruttore 4 della classe 'Mongo_Export'.
+	 * @param collection_
+	 * @param operazione_
+	 * @param random_squad_
+	 */
+	
+	public Mongo_Export(MongoCollection<Document> collection_, int operazione_, String random_squad_) {
+		
+		this.setCollection(collection_);
+		this.setOperazione(operazione_);
+		this.setRandom_squad(random_squad_);
+		
+	}
+	
+	/**
 	 * CODICE ESEGUITO DAL THREAD.
 	 */
 
@@ -92,6 +108,7 @@ public class Mongo_Export implements Runnable{
 	@Override
 	public void run() {
 		
+		try {
 		/** Lo switch sceglie quale operazione sul database 'FootballStats' eseguire in base al valore di 'operazione'. */
 		switch (this.operazione) {
 		
@@ -592,9 +609,101 @@ public class Mongo_Export implements Runnable{
 				 }
 				 
 				break;
+				
+			case 11:		/**Operazione di RICERCA TRAMITE SQUADRA in una cera stagione.*/
+				
+				Document filter_squad = new Document();
+		 		 		 filter_squad.append("Stagioni", Document.parse("{ $elemMatch : { 'season': '2019-2020', 'squad' : '" + this.random_squad + "' }}"));
+		 
+				 
+				 long start_ = System.nanoTime();
+				 		 
+				 ArrayList<Document> doc_c = collection.find(filter_squad).into(new ArrayList<Document>());
+				 			 
+				 long end_ = System.nanoTime();
+				 
+				 this.setNano(end_ - start_);
+				 
+				 System.out.println("\nTROVATI " + (doc_c.size()) + " documenti in totale.");
+				 
+				 if( doc_c.size()!=0 ) {
+					 
+					 for (Document document : doc_c) {
+						
+						System.out.println("\nEsempio:");
+						System.out.println(document);
+						break;
+						
+					}
+					
+					 if( (doc_c.size()-1) != 0 ) {
+						 
+						 System.out.println("\nE altri: " + (doc_c.size()-1) + " documenti.");
+						 
+					 }
+					 
+				 }
+				
+				break;
+				
+			case 12:		/** Operazione di VISUALIZZAZIONE DI UNA STAGIONE. */
+				
+				if(portiere == null) {
+					
+					Document match = new Document();
+							 match.append("Link calciatore", this.giocatore.getLink_calciatore());
+							 
+					Document proj = new Document();
+							 proj.append("Nome", 1);
+							 proj.append("Stagioni", Document.parse("{ $filter : { input: '$Stagioni', as: 'stagioni', cond: { $eq: [ '$$stagioni.season', '2019-2020' ] }}}"));
+					
+					long start__ = System.nanoTime();
+							 
+					AggregateIterable<Document> doc = this.collection.aggregate(Arrays.asList(
+																								new Document("$match", match),
+																								new Document("$project", proj)));
+					
+					long end__ = System.nanoTime();
+					 
+					this.setNano(end__ - start__);
+					
+					for (Document document : doc) {
+						System.out.println("\nGIOCATORE: " + this.giocatore.getNome_calciatore() + "\nSTAGIONE TROVATA: " + document);
+					}
+							 
+				}else if(giocatore == null){
+					
+					Document match = new Document();
+					 match.append("Link calciatore", this.portiere.getLink_calciatore());
+					 
+					Document proj = new Document();
+							 proj.append("Nome", 1);
+							 proj.append("Stagioni", Document.parse("{ $filter : { input: '$Stagioni', as: 'stagioni', cond: { $eq: [ '$$stagioni.season', '2019-2020' ] }}}"));
+					
+					long start__ = System.nanoTime();
+							 
+					AggregateIterable<Document> doc = this.collection.aggregate(Arrays.asList(
+																								new Document("$match", match),
+																								new Document("$project", proj)));
+					
+					long end__ = System.nanoTime();
+					 
+					this.setNano(end__ - start__);
+					
+					for (Document document : doc) {
+						System.out.println("\nPORTIERE: " + this.portiere.getNome_calciatore() + "\nSTAGIONE TROVATA: " + document);
+					}
+					
+				}
+				
+				break;
 	
 			default:
 				break;
+		}
+		}
+		catch (Exception e) {
+			System.out.println(e);
 		}
 		
 	}
@@ -747,6 +856,15 @@ public class Mongo_Export implements Runnable{
 	
 	public void setRandom_saves(int random_saves_) {
 		this.random_saves = random_saves_;
+	}
+
+	/**
+	 * Funzione che setta 'random_squad'.
+	 * @param random_squad 
+	 */
+	
+	public void setRandom_squad(String random_squad) {
+		this.random_squad = random_squad;
 	}
 
 }
