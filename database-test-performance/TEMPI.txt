@@ -1,80 +1,40 @@
-Time 0: 718.0862 ms
-Time 1: 1775.1892 ms
-Time 2: 1672.5746 ms
+Time 0: 1469.0878 ms
+Time 1: 1236.7115 ms
+Time 2: 1296.8118 ms
 
-Time 0: 581.0729 ms
-Time 1: 1491.2939 ms
-Time 2: 1234.0855 ms
+Time 0: 1264.7198 ms
+Time 1: 886.6682 ms
+Time 2: 960.4944 ms
 
-Time 0: 363.9741 ms
-Time 1: 1033.7299 ms
-Time 2: 1223.5651 ms
+Time 0: 936.7157 ms
+Time 1: 902.9643 ms
+Time 2: 956.9956 ms
 
-Time 0: 348.5716 ms
-Time 1: 1003.9339 ms
-Time 2: 1207.245 ms
+Time 0: 930.2714 ms
+Time 1: 909.8749 ms
+Time 2: 1001.4671 ms
 
-Time 0: 354.5093 ms
-Time 1: 1041.7623 ms
-Time 2: 1195.9997 ms
+Time 0: 901.617 ms
+Time 1: 906.3925 ms
+Time 2: 929.1093 ms
 
-Time 0: 349.8725 ms
-Time 1: 968.3615 ms
-Time 2: 1152.9085 ms
+Time 0: 957.8444 ms
+Time 1: 877.0261 ms
+Time 2: 964.7469 ms
 
-Time 0: 410.052 ms
-Time 1: 972.3527 ms
-Time 2: 1155.1868 ms
+Time 0: 904.4387 ms
+Time 1: 907.1721 ms
+Time 2: 944.9874 ms
 
-Time 0: 344.6886 ms
-Time 1: 985.1995 ms
-Time 2: 1129.0562 ms
+Time 0: 909.0246 ms
+Time 1: 916.5768 ms
+Time 2: 970.8232 ms
 
-Time 0: 355.9387 ms
-Time 1: 965.2371 ms
-Time 2: 1153.8077 ms
+Time 0: 914.6085 ms
+Time 1: 872.5487 ms
+Time 2: 915.6981 ms
 
-Time 0: 359.1731 ms
-Time 1: 976.1765 ms
-Time 2: 1171.4855 ms
-
-Time 0: 352.7283 ms
-Time 1: 950.5617 ms
-Time 2: 1161.2019 ms
-
-Time 0: 354.5111 ms
-Time 1: 954.6628 ms
-Time 2: 1139.849 ms
-
-Time 0: 350.546 ms
-Time 1: 951.3044 ms
-Time 2: 1146.5007 ms
-
-Time 0: 341.8975 ms
-Time 1: 953.8779 ms
-Time 2: 1128.4969 ms
-
-Time 0: 343.5739 ms
-Time 1: 996.3677 ms
-Time 2: 1147.186 ms
-
-Time 0: 361.1702 ms
-Time 1: 956.2302 ms
-Time 2: 1152.2897 ms
-
-Time 0: 361.7763 ms
-Time 1: 954.9721 ms
-Time 2: 1137.5506 ms
-
-Time 0: 341.4092 ms
-Time 1: 957.7887 ms
-Time 2: 1165.5546 ms
-
-Time 0: 351.3734 ms
-Time 1: 956.3742 ms
-Time 2: 1144.7398 ms
-
-Time 0: 345.8299 ms
-Time 1: 1016.371 ms
-Time 2: 1149.3388 ms
+Time 0: 922.9625 ms
+Time 1: 907.6726 ms
+Time 2: 928.518 ms
 

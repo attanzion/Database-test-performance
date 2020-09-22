@@ -1451,12 +1451,41 @@ public class Mongo_Export_3 implements Runnable {
 				
 				break;
 	
+			case 14:		/** Operazione AGGIUNTA NUOVO FIELD	*/
+				
+				if(portiere == null) {
+					
+					long start14 = System.nanoTime();
+					
+					this.collection.updateOne(eq("Link calciatore", this.giocatore.getLink_calciatore()), Updates.combine(Updates.set("Ultima stagione.mileage", 222), Updates.set("mileage", Arrays.asList(222))));
+					
+					long end14 = System.nanoTime();
+					
+					this.setNano(end14 - start14);
+					
+					System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - 'mileage' aggiunto all'ultima stagione.");
+					
+				} else if(giocatore == null) {
+					
+					long start14 = System.nanoTime();
+					
+					this.collection.updateOne(eq("Link calciatore", this.portiere.getLink_calciatore()), Updates.combine(Updates.set("Ultima stagione.mistakes", 222), Updates.set("mistakes", Arrays.asList(222))));
+					
+					long end14 = System.nanoTime();
+					
+					this.setNano(end14 - start14);
+					
+					System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - 'mistakes' aggiunto all'ultima stagione.");
+					
+				} 
+				
+				break;
+				
 			default:
 				break;
 		}
 		
-		}
-		catch (Exception e) {
+		}catch (Exception e) {
 			System.out.println(e);
 		}
 	}

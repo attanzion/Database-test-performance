@@ -399,7 +399,7 @@ public class Performance_evaluation {
 	
 	  /**
      * Funzione che calcola i millisecondi che ci son voluti per aggiornare alcuni valori dell'ultima stagione di un calciatore, per il portiere 'goals_against_gk' e 'saves', per il giocatore 'goals' e 'assists', per tutte le configurazioni.
-     * I valori vengono modificati da 111 a 222.
+     * I valori vengono settati a 222.
      * @param all_por
      * @param all_gioc
      * @param configuration
@@ -420,8 +420,6 @@ public class Performance_evaluation {
     	if(configuration == 1) {
     	
     	this.Delete_and_Insert(all_gioc, all_por);	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
-    	
-    	this.Add_Same_Season(all_gioc, all_por); 	/**Aggiunta stessa stagione a tutti i calciatori.*/
     	
     	} 
     	
@@ -982,7 +980,7 @@ public class Performance_evaluation {
     	
     	switch(configuration) {
     	
-    	case 1:
+case 1:
     		
     		mongo.Connection("localhost", 27017, "FootballStats", "Calciatori");   //Connessione a MongoDB.
             
@@ -1125,6 +1123,8 @@ public class Performance_evaluation {
 	    	mongo.Disconnection();
     	
     		break;
+    		
+    	
     		
     	default:   		
     		break;
@@ -2314,7 +2314,192 @@ public class Performance_evaluation {
     	}
     	
 		}catch (Exception e) {
-			System.out.println("Errore in Performance_evaluation() - Average().");
+			System.out.println("Errore in Performance_evaluation() - Sum().");
+		}
+		
+		return ms;	
+		
+	}
+	
+	/**
+	 * Funzione che calcola i millisecondi che ci vogliono per aggiungere un nuovo field ('mileage' per i giocatori, 'mistakes' per i portieri) all'ultima stagione (2019-2020), per tutte le configurazioni.
+	 * @param all_gioc
+	 * @param all_por
+	 * @param configuration
+	 * @return ms
+	 */
+	
+	public double Add_field(final ArrayList<Giocatore> all_gioc, final ArrayList<Portiere> all_por, int configuration) {
+		
+		double ms = 0;
+		
+		final Mongo mongo = new Mongo();
+		
+		try {
+		
+		int count_gioc = 1;
+        
+    	double nano = 0;
+    	
+    	if(configuration == 1) {
+    	
+    	this.Delete_and_Insert(all_gioc, all_por);	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
+    	
+    	}
+    	
+    	switch(configuration) {
+    	
+    	case 1:
+    		
+    		mongo.Connection("localhost", 27017, "FootballStats", "Calciatori");   //Connessione a MongoDB.
+            
+            MongoCollection<Document> collection = mongo.getMongoCollection();
+			
+            /** Ricerca giocatori. */
+				for (Giocatore giocatore : all_gioc) {
+					
+					Mongo_Export add_field = new Mongo_Export(giocatore, null, collection, 14);
+					
+					Thread thread = new Thread(add_field);
+					thread.start();
+					thread.join();
+					
+					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
+					
+					nano = nano + add_field.getNano();
+					
+					count_gioc++;
+					
+				}
+				/**--------------------------------------------*/
+				
+				/** Ricerca portieri. */
+				for (Portiere portiere : all_por) {
+					
+					Mongo_Export add_field = new Mongo_Export(null, portiere, collection, 14);
+					
+					Thread thread = new Thread(add_field);
+					thread.start();
+					thread.join();
+					
+					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
+					
+					nano = nano + add_field.getNano();
+					
+					count_gioc++;
+					
+				}
+				/**--------------------------------------------*/
+			
+			ms = nano/1000000;
+	    	
+	    	mongo.Disconnection();
+    		
+    		break;
+    		
+    	case 2:
+    		
+    		mongo.Connection("localhost", 27017, "FootballStats_2", "Calciatori");   //Connessione a MongoDB.
+            
+            MongoCollection<Document> collection_2 = mongo.getMongoCollection();
+			
+            	/** Ricerca giocatori. */
+				for (Giocatore giocatore : all_gioc) {
+					
+					Mongo_Export_2 add_field = new Mongo_Export_2(giocatore, null, collection_2, 14);
+					
+					Thread thread = new Thread(add_field);
+					thread.start();
+					thread.join();
+					
+					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
+					
+					nano = nano + add_field.getNano();
+					
+					count_gioc++;
+					
+				}
+				/**--------------------------------------------*/
+				
+				/** Ricerca portieri. */
+				for (Portiere portiere : all_por) {
+					
+					Mongo_Export_2 add_field = new Mongo_Export_2(null, portiere, collection_2, 14);
+					
+					Thread thread = new Thread(add_field);
+					thread.start();
+					thread.join();
+					
+					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
+					
+					nano = nano + add_field.getNano();
+					
+					count_gioc++;
+					
+				}
+				/**--------------------------------------------*/
+			
+			ms = nano/1000000;
+	    	
+	    	mongo.Disconnection();
+    		
+    		break;
+    		
+    	case 3:		
+    		
+    		mongo.Connection("localhost", 27017, "FootballStats_3", "Calciatori");   //Connessione a MongoDB.
+            
+            MongoCollection<Document> collection_3 = mongo.getMongoCollection();
+			
+            	/** Ricerca giocatori. */
+				for (Giocatore giocatore : all_gioc) {
+					
+					Mongo_Export_3 add_field = new Mongo_Export_3(giocatore, null, collection_3, 14);
+					
+					Thread thread = new Thread(add_field);
+					thread.start();
+					thread.join();
+					
+					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
+					
+					nano = nano + add_field.getNano();
+					
+					count_gioc++;
+					
+				}
+				/**--------------------------------------------*/
+				
+				/** Ricerca portieri. */
+				for (Portiere portiere : all_por) {
+					
+					Mongo_Export_3 add_field = new Mongo_Export_3(null, portiere, collection_3, 14);
+					
+					Thread thread = new Thread(add_field);
+					thread.start();
+					thread.join();
+					
+					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
+					
+					nano = nano + add_field.getNano();
+					
+					count_gioc++;
+					
+				}
+				/**--------------------------------------------*/
+			
+			ms = nano/1000000;
+	    	
+	    	mongo.Disconnection();
+    	
+    		break;
+    		
+    	default:   		
+    		break;
+    		
+    	}
+    	
+		}catch (Exception e) {
+			System.out.println("Errore in Performance_evaluation() - Add_field().");
 		}
 		
 		return ms;	

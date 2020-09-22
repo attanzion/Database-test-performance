@@ -246,7 +246,7 @@ public class Mongo_Export implements Runnable{
 					
 					long start3 = System.nanoTime();
 					
-					collection.updateOne(and(eq("Link calciatore", this.giocatore.getLink_calciatore()), eq("Stagioni.season", "2050-2051")), Updates.combine(Updates.set("Stagioni.$.games", 222),Updates.set("Stagioni.$.games_starts", 222)));
+					collection.updateOne(and(eq("Link calciatore", this.giocatore.getLink_calciatore()), eq("Stagioni.season", "2019-2020")), Updates.combine(Updates.set("Stagioni.$.games", 222),Updates.set("Stagioni.$.games_starts", 222)));
 					
 					long end3 = System.nanoTime();
 					
@@ -256,7 +256,7 @@ public class Mongo_Export implements Runnable{
 					
 					long start3 = System.nanoTime();
 					
-					collection.updateOne(and(eq("Link calciatore", this.portiere.getLink_calciatore()), eq("Stagioni.season", "2050-2051")), Updates.combine(Updates.set("Stagioni.$.goals_against_gk", 222),Updates.set("Stagioni.$.saves", 222)));
+					collection.updateOne(and(eq("Link calciatore", this.portiere.getLink_calciatore()), eq("Stagioni.season", "2019-2020")), Updates.combine(Updates.set("Stagioni.$.goals_against_gk", 222),Updates.set("Stagioni.$.saves", 222)));
 					
 					long end3 = System.nanoTime();
 					
@@ -747,14 +747,46 @@ public class Mongo_Export implements Runnable{
 				}
 				
 				break;
+				
+			case 14:		/** Operazione AGGIUNTA NUOVO FIELD	*/
+				
+				if(portiere == null) {
+					
+					long start14 = System.nanoTime();
+					
+					this.collection.updateOne(and(eq("Link calciatore", this.giocatore.getLink_calciatore()), eq("Stagioni.season", "2019-2020")), Updates.set("Stagioni.$.mileage", 222));
+					
+					long end14 = System.nanoTime();
+					
+					this.setNano(end14 - start14);
+					
+					System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - 'mileage' aggiunto all'ultima stagione.");
+					
+				} else if(giocatore == null) {
+					
+					long start14 = System.nanoTime();
+					
+					this.collection.updateOne(and(eq("Link calciatore", this.portiere.getLink_calciatore()), eq("Stagioni.season", "2019-2020")), Updates.set("Stagioni.$.mistakes", 222));
+					
+					long end14 = System.nanoTime();
+					
+					this.setNano(end14 - start14);
+					
+					System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - 'mistakes' aggiunto all'ultima stagione.");
+					
+				} 
+				
+				break;
 	
 			default:
 				break;
 		}
-		}
-		catch (Exception e) {
-			System.out.println(e);
-		}
+		
+			}catch (Exception e) {
+				
+				System.out.println("Errore in Mongo_Export - run()");
+				
+			}
 		
 	}
 	

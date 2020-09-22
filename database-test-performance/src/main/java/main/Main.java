@@ -51,7 +51,7 @@ public class Main {
 		Generatore gen = new Generatore();
 		Performance_evaluation pe = new Performance_evaluation();
 		
-		gen.Genera_Calciatori(500);
+		gen.Genera_Calciatori(1000);
 		
 		ArrayList<Giocatore> all_gioc = gen.getAll_gioc();
 		ArrayList<Portiere> all_por = gen.getAll_por();			
@@ -63,13 +63,13 @@ public class Main {
 		double somma_1 = 0;
 		double somma_2 = 0;
 		double somma_3 = 0;
-		int volte = 20;
+		int volte = 10;
 			
 		for(int j= 0 ; j < volte; j++) {
 			
 			for (int i = 0; i <= 2; i++) {	
 			
-			ms[i] = pe.Update_new_season(all_gioc, all_por, i+1);		
+			ms[i] = pe.Add_field(all_gioc, all_por, i+1);		
 				
 		}	
 						
@@ -103,29 +103,18 @@ public class Main {
  		
 //		Mongo mongo = new Mongo();
 //		
-//		mongo.Connection("localhost", 27017, "FootballStats", "Calciatori");
+//		mongo.Connection("localhost", 27017, "FootballStats_2", "Calciatori");
 //		
 //		MongoCollection<Document> collection =  mongo.getMongoCollection();
 //
 //		Document match = new Document();
-//		 match.append("Nome", "Zena Thrower");
+//		 match.append("Nome", "Novenio Chunn");
 //		 
 //		Document proj = new Document();
 //					 proj.append("sum_saves", new Document("$sum", "$Stagioni.goals"));
 //				 
-//		 AggregateIterable<Document> doc = collection.aggregate(Arrays.asList(
-//								new Document("$match", match),
-//								new Document("$project", proj)));
-//		
-//		
-//		
-//		for (Document document : doc) {
-//			
-//			System.out.println(document);
-//			
-//		}
-//		
-//		
+//		collection.updateOne(eq("Nome", "Settimo Thorne"), Updates.combine(Updates.set("Ultima stagione.mileage", 222), Updates.set("mileage", Arrays.asList(222))));
+//				
 //		mongo.Disconnection();
 		
 		}
