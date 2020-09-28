@@ -48,74 +48,62 @@ public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
 
-		Generatore gen = new Generatore();
-		Performance_evaluation pe = new Performance_evaluation();
-		
-		gen.Genera_Calciatori(1000);
-		
-		ArrayList<Giocatore> all_gioc = gen.getAll_gioc();
-		ArrayList<Portiere> all_por = gen.getAll_por();			
-		
-	try {	
-		
-		FileWriter myWriter = new FileWriter("TEMPI.txt");
-		double[] ms = {0,0,0};
-		double somma_1 = 0;
-		double somma_2 = 0;
-		double somma_3 = 0;
-		int volte = 10;
-			
-		for(int j= 0 ; j < volte; j++) {
-			
-			for (int i = 0; i <= 2; i++) {	
-			
-			ms[i] = pe.Add_field(all_gioc, all_por, i+1);		
-				
-		}	
-						
-		for (int i = 0; i < ms.length; i++) {
-			
-				myWriter.write("Time " + (i) + ": " + ms[i] + " ms\n");					
-			
-		}	
-		
-		if(j>2) {
-			
-			somma_1 = somma_1+ ms[0];
-			somma_2 = somma_2+ ms[1];
-			somma_3 = somma_3+ ms[2];
-		
-		}
-		
-		myWriter.write("\n");
-		
-		}
-		myWriter.close();
-		
-		System.out.println("\nAVG 1: " + somma_1/(volte-3) + " ms");
-		System.out.println("AVG 2: " + somma_2/(volte-3) + " ms");
-		System.out.println("AVG 3: " + somma_3/(volte-3) + " ms");
-		
-		} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
- 		
-//		Mongo mongo = new Mongo();
+//		Generatore gen = new Generatore();
+//		Performance_evaluation pe = new Performance_evaluation();
 //		
-//		mongo.Connection("localhost", 27017, "FootballStats_2", "Calciatori");
+//		gen.Genera_Calciatori(100);
 //		
-//		MongoCollection<Document> collection =  mongo.getMongoCollection();
-//
-//		Document match = new Document();
-//		 match.append("Nome", "Novenio Chunn");
-//		 
-//		Document proj = new Document();
-//					 proj.append("sum_saves", new Document("$sum", "$Stagioni.goals"));
-//				 
-//		collection.updateOne(eq("Nome", "Settimo Thorne"), Updates.combine(Updates.set("Ultima stagione.mileage", 222), Updates.set("mileage", Arrays.asList(222))));
+//		ArrayList<Giocatore> all_gioc = gen.getAll_gioc();
+//		ArrayList<Portiere> all_por = gen.getAll_por();			
+//		
+//	try {	
+//		
+//		FileWriter myWriter = new FileWriter("TEMPI.txt");
+//		double[] ms = {0,0,0};
+//		double somma_1 = 0;
+//		double somma_2 = 0;
+//		double somma_3 = 0;
+//		int volte = 10;
+//			
+//		for(int j= 0 ; j < volte; j++) {
+//			
+//			for (int i = 0; i <= 2; i++) {	
+//			
+//			ms[i] = pe.Insert(all_gioc, all_por, i+1);		
 //				
-//		mongo.Disconnection();
+//		}	
+//						
+//		for (int i = 0; i < ms.length; i++) {
+//			
+//				myWriter.write("Time " + (i) + ": " + ms[i] + " ms\n");					
+//			
+//		}	
+//		
+//		if(j>2) {
+//			
+//			somma_1 = somma_1+ ms[0];
+//			somma_2 = somma_2+ ms[1];
+//			somma_3 = somma_3+ ms[2];
+//		
+//		}
+//		
+//		myWriter.write("\n");
+//		
+//		}
+//		myWriter.close();
+//		
+//		System.out.println("\n AVG 1: " + somma_1/(volte-3) + " ms");
+//		System.out.println("AVG 2: " + somma_2/(volte-3) + " ms");
+//		System.out.println("AVG 3: " + somma_3/(volte-3) + " ms");
+//		
+//		} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+// 		
+
+		Menu menu = new Menu();
+		
 		
 		}
 		
