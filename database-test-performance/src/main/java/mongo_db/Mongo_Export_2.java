@@ -971,13 +971,13 @@ public class Mongo_Export_2 implements Runnable{
 				 
 				 this.setNano(end10 - start10);
 				 
-				 System.out.println("\nTROVATI " + (doc_g.size() + doc_p.size()) + " documenti in totale.");
+				 System.out.println("TROVATI " + (doc_g.size() + doc_p.size()) + " documenti in totale.");
 				 
 				 if( doc_g.size()!=0 ) {
 					 
 					 for (Document document : doc_g) {
 						
-						System.out.println("GIOCATORI:\n\nEsempio:");
+						System.out.println("\n\nGIOCATORI:\n\nEsempio:");
 						System.out.println(document);
 						break;
 						

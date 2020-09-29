@@ -20,10 +20,16 @@ public class Menu {
 	
 	int operazione = 0;
 	int numero_calciatori = 0;
+	String scelta = null;
+	
 	double ms[] = {0, 0, 0};
 	double somma_DB1 = 0;
 	double somma_DB2 = 0;
 	double somma_DB3 = 0;
+	
+	int[] random_goals = null;
+	int[] random_saves = null;
+	String[] random_squad = null;
 	
 	ArrayList<Giocatore> all_gioc = null;
 	ArrayList<Portiere> all_por = null;
@@ -51,7 +57,7 @@ public class Menu {
 		this.setMs(1, 0);
 		this.setMs(2, 0);
 		
-		System.out.println("OPERAZIONI:\n\n");
+		System.out.println("\nOPERAZIONI:\n\n");
 		System.out.println("1. Inserimento calciatori (Insert).\n");
 		System.out.println("2. Aggiunta nuova stagione (Update_new_season).\n");
 		System.out.println("3. Aggiornamento campi ultima stagione (Update_last_season).\n");
@@ -172,6 +178,17 @@ public class Menu {
 		int tentativi = 8;
 		int configurazioni = 3;
 		
+		if(this.operazione == 10) {
+			
+			this.setRandom_goals(this.Random_goals(this.all_gioc, this.all_por));
+			this.setRandom_saves(this.Random_goals(this.all_gioc, this.all_por));
+			
+		} else if(this.operazione == 11) {
+			
+			this.setRandom_squad(this.Random_squad(this.all_gioc, this.all_por));
+			
+		}
+		
 		for (int i = 0; i < tentativi; i++) {
 			
 			for (int j = 1; j <= configurazioni; j++) {	
@@ -204,9 +221,11 @@ public class Menu {
 		double avg2 = this.somma_DB2/5;
 		double avg3 = this.somma_DB3/5;
 		
-		System.out.println("\nMEDIA CONFIGURAZIONE 1: " + avg1 + " ms.");
-		System.out.println("\nMEDIA CONFIGURAZIONE 2: " + avg2 + " ms.");
-		System.out.println("\nMEDIA CONFIGURAZIONE 3: " + avg3 + " ms.");
+		System.out.println("\nMEDIA TEMPI DATABASE 1: " + avg1 + " ms.");
+		System.out.println("MEDIA TEMPI DATABASE 2: " + avg2 + " ms.");
+		System.out.println("MEDIA TEMPI DATABASE 3: " + avg3 + " ms.");
+		
+		this.Ripetizione();
 		
 	}
 	
@@ -220,53 +239,110 @@ public class Menu {
 		
 		switch (this.operazione) {
 		
-		case 1:
+		case 1: 	/** Operazione di INSERIMENTO. */
 			
 			this.setMs(config-1, pe.Insert(this.all_gioc, this.all_por, config));
 			
 			break;
-		case 2:
+		case 2:		/** Operazione di UPDATE NUOVA STAGIONE. */
+			
+			this.setMs(config-1, pe.Update_new_season(this.all_gioc, this.all_por, config));
 			
 			break;
-		case 3:
+		case 3:		/** Operazione di UPDATE DELLA VECCHIA STAGIONE */
+			
+			this.setMs(config-1, pe.Update_last_season(this.all_gioc, this.all_por, config));
 	
 			break;
-		case 4:
+		case 4:		/** Operazione di RICERCA GIOCATORI. */
+			
+			this.setMs(config-1, pe.Find_players(this.all_gioc, this.all_por, config));
 	
 			break;
-		case 5:
+		case 5:		/** Operazione di RICERCA DI UNA STATISTICA. */
+			
+			this.setMs(config-1, pe.Find_field(this.all_gioc, this.all_por, config));
 	
 			break;
-		case 6:
+		case 6:		/** Operazione di CALCOLO MEDIA. */
+			
+			this.setMs(config-1, pe.Average(this.all_gioc, this.all_por, config));
 	
 			break;
-		case 7:
+		case 7: 	/** Operazione di CANCELLAZIONE STATISTICA. */
+			
+			this.setMs(config-1, pe.Delete_field(this.all_gioc, this.all_por, config));
 	
 			break;
-		case 8:
+		case 8:		/** Operazione di CANCELLAZIONE CALCIATORE. */
+			
+			this.setMs(config-1, pe.Delete_players(this.all_gioc, this.all_por, config));
 	
 			break;
-		case 9:
+		case 9:		/** Operazione di CANCELLAZIONE STAGIONE. */
+			
+			this.setMs(config-1, pe.Delete_season(this.all_gioc, this.all_por, config));
 	
 			break;
-		case 10:
+		case 10:	/** Operazione di RICERCA CALCIATORE CON STATISTICA PIU' GRANDE DI UN CERTO VALORE. */
+					
+			this.setMs(config-1, pe.Greater_than(this.all_gioc, this.all_por, config, this.random_goals, this.random_saves));
 	
 			break;
-		case 11:
+		case 11:	/** Operazione di RICERCA GIOCATORI PER SQUADRA. */
+			
+			this.setMs(config-1, pe.Find_by_Squad(this.all_gioc, this.all_por, config, this.random_squad));
 	
 			break;
-		case 12:
+		case 12:	/** Operazione di VISUALIZZAZIONE STAGIONE. */
+			
+			this.setMs(config-1, pe.View_season(this.all_gioc, this.all_por, config));
 	
 			break;
-		case 13:
+		case 13:	/** Operazione di SOMMA. */
+			
+			this.setMs(config-1, pe.Sum(this.all_gioc, this.all_por, config));
 	
 			break;
-		case 14:
+		case 14:	/** Operazione di AGGIUNTA STATISTICA. */
+			
+			this.setMs(config-1, pe.Add_field(this.all_gioc, this.all_por, config));
 	
 			break;
 			
 		default:
 			break;
+		}
+		
+	}
+	
+	/**
+	 * Funzione che gestisce la chiusura o una nuova esecuzione dell'applicazione.
+	 */
+	
+	public void Ripetizione() {
+		
+		System.out.println("\nVUOI ESEGUIRE UNA NUOVA OPERAZIONE? [Y/N]");
+		
+		this.setInput();
+		this.setScelta();
+		
+		if(this.scelta.toUpperCase().equals("Y")) {
+			
+			this.Home();
+			
+		} else if(this.scelta.toUpperCase().equals("N")) {
+			
+			System.out.println("\nAPPLICAZIONE TERMINATA.");
+			
+			System.exit(1); 	/** Uscita dal programma.*/
+			
+		} else {
+			
+			System.out.println("\nInserimento errato. Inserire Y per YES, N per NO.\n");
+			
+			this.Ripetizione();
+			
 		}
 		
 	}
@@ -496,6 +572,62 @@ public class Menu {
 	 */
 	public void setSomma_DB3(double somma_DB3) {
 		this.somma_DB3 = this.somma_DB3 + somma_DB3;
+	}
+
+	/**
+	 * @return the random_goals
+	 */
+	public int[] getRandom_goals() {
+		return this.random_goals;
+	}
+
+	/**
+	 * @return the random_saves
+	 */
+	public int[] getRandom_saves() {
+		return this.random_saves;
+	}
+
+	/**
+	 * @param random_goals the random_goals to set
+	 */
+	public void setRandom_goals(int[] random_goals) {
+		this.random_goals = random_goals;
+	}
+
+	/**
+	 * @param random_saves the random_saves to set
+	 */
+	public void setRandom_saves(int[] random_saves) {
+		this.random_saves = random_saves;
+	}
+
+	/**
+	 * @return the random_squad
+	 */
+	public String[] getRandom_squad() {
+		return random_squad;
+	}
+
+	/**
+	 * @param random_squad the random_squad to set
+	 */
+	public void setRandom_squad(String[] random_squad) {
+		this.random_squad = random_squad;
+	}
+
+	/**
+	 * @return the scelta
+	 */
+	public String getScelta() {
+		return this.scelta;
+	}
+
+	/**
+	 * @param scelta the scelta to set
+	 */
+	public void setScelta() {
+		this.scelta = this.input.nextLine();
 	}
 
 }

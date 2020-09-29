@@ -980,7 +980,7 @@ public class Performance_evaluation {
     	
     	switch(configuration) {
     	
-case 1:
+    	case 1:
     		
     		mongo.Connection("localhost", 27017, "FootballStats", "Calciatori");   //Connessione a MongoDB.
             
@@ -1739,7 +1739,7 @@ case 1:
 						thread.start();
 						thread.join();
 						
-						System.out.println("\nRICERCA numero: " + count_gioc + " - DATABASE: FootballStats");
+						System.out.println("RICERCA numero: " + count_gioc + " - DATABASE: FootballStats");
 						
 						nano = nano + greater_than.getNano();
 						
@@ -1767,7 +1767,7 @@ case 1:
 					thread.start();
 					thread.join();
 					
-					System.out.println("\nRICERCA numero: " + count_gioc + " - DATABASE: FootballStats_2");
+					System.out.println("RICERCA numero: " + count_gioc + " - DATABASE: FootballStats_2");
 					
 					nano = nano + greater_than.getNano();
 					
@@ -1795,7 +1795,7 @@ case 1:
 					thread.start();
 					thread.join();
 					
-					System.out.println("\nRICERCA numero: " + count_gioc + " - DATABASE: FootballStats_3");
+					System.out.println("RICERCA numero: " + count_gioc + " - DATABASE: FootballStats_3");
 					
 					nano = nano + greater_than.getNano();
 					
