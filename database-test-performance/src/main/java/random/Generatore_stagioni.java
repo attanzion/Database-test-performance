@@ -146,7 +146,7 @@ public class Generatore_stagioni {
 			
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Random_stagione().");
+			//System.out.println("Errore in Generatore_stagioni - Random_stagione().");
 			
 		}
 		
@@ -228,7 +228,7 @@ public class Generatore_stagioni {
 			
 		}catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Random_lg_finish().");
+			//System.out.println("Errore in Generatore_stagioni - Random_lg_finish().");
 			
 		}
 		
@@ -254,7 +254,7 @@ public class Generatore_stagioni {
 			
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Random_games().");
+			//System.out.println("Errore in Generatore_stagioni - Random_games().");
 			
 		}
 		
@@ -284,7 +284,7 @@ public class Generatore_stagioni {
 			
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Random_games_starts().");
+			//System.out.println("Errore in Generatore_stagioni - Random_games_starts().");
 			
 		}
 			
@@ -326,7 +326,7 @@ public class Generatore_stagioni {
 			
 		} catch (Exception e) {
 				
-			System.out.println("Errore in Generatore_stagioni - Random_minutes().");
+			//System.out.println("Errore in Generatore_stagioni - Random_minutes().");
 			
 		}
 				
@@ -369,7 +369,7 @@ public class Generatore_stagioni {
 			
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Random_goals().");
+			//System.out.println("Errore in Generatore_stagioni - Random_goals().");
 			
 		}	
 		
@@ -412,7 +412,7 @@ public class Generatore_stagioni {
 		
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Random_assists().");
+			//System.out.println("Errore in Generatore_stagioni - Random_assists().");
 			
 		}
 		
@@ -442,7 +442,7 @@ public class Generatore_stagioni {
 		
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Random_pens_made().");
+			//System.out.println("Errore in Generatore_stagioni - Random_pens_made().");
 			
 		}
 		
@@ -485,7 +485,7 @@ public class Generatore_stagioni {
 			
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Random_pens_att().");
+			//System.out.println("Errore in Generatore_stagioni - Random_pens_att().");
 			
 		}
 		
@@ -532,7 +532,7 @@ public class Generatore_stagioni {
 		
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Random_cards_yellow().");
+			//System.out.println("Errore in Generatore_stagioni - Random_cards_yellow().");
 			
 		}
 		
@@ -579,7 +579,7 @@ public class Generatore_stagioni {
 		
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Random_cards_red().");
+			//System.out.println("Errore in Generatore_stagioni - Random_cards_red().");
 			
 		}		
 		
@@ -645,7 +645,7 @@ public class Generatore_stagioni {
 		
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Assists_per90().");
+			//System.out.println("Errore in Generatore_stagioni - Assists_per90().");
 			
 		}
 		
@@ -680,7 +680,7 @@ public class Generatore_stagioni {
 		
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Goals_pens_per90().");
+			//System.out.println("Errore in Generatore_stagioni - Goals_pens_per90().");
 			
 		}
 		
@@ -716,7 +716,7 @@ public class Generatore_stagioni {
 		
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Goals_assists_pens_per90().");
+			//System.out.println("Errore in Generatore_stagioni - Goals_assists_pens_per90().");
 			
 		}
 		
@@ -758,7 +758,7 @@ public class Generatore_stagioni {
 			
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Random_xG().");
+			//System.out.println("Errore in Generatore_stagioni - Random_xG().");
 			
 		}
 		
@@ -810,7 +810,7 @@ public class Generatore_stagioni {
 		
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Random_npxG().");
+			//System.out.println("Errore in Generatore_stagioni - Random_npxG().");
 			
 		}
 				
@@ -852,7 +852,7 @@ public class Generatore_stagioni {
 			
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Random_xA().");
+			//System.out.println("Errore in Generatore_stagioni - Random_xA().");
 			
 		}
 		
@@ -886,7 +886,7 @@ public class Generatore_stagioni {
 		
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - xG_per90().");
+			//System.out.println("Errore in Generatore_stagioni - xG_per90().");
 			
 		}
 		
@@ -920,7 +920,7 @@ public class Generatore_stagioni {
 		
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - xA_per90().");
+			//System.out.println("Errore in Generatore_stagioni - xA_per90().");
 			
 		}
 		
@@ -954,7 +954,7 @@ public class Generatore_stagioni {
 		
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - npxG_per90().");
+			//System.out.println("Errore in Generatore_stagioni - npxG_per90().");
 			
 		}
 		
@@ -1007,7 +1007,7 @@ public class Generatore_stagioni {
 			
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Random_goals_against().");
+			//System.out.println("Errore in Generatore_stagioni - Random_goals_against().");
 			
 		}
 		
@@ -1040,7 +1040,7 @@ public class Generatore_stagioni {
 			
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Goals_against_per90().");
+			//System.out.println("Errore in Generatore_stagioni - Goals_against_per90().");
 			
 		}
 		
@@ -1070,7 +1070,7 @@ public class Generatore_stagioni {
 			
 		}catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Shot_on_target_against().");
+			//System.out.println("Errore in Generatore_stagioni - Shot_on_target_against().");
 			
 		}
 		
@@ -1099,7 +1099,7 @@ public class Generatore_stagioni {
 			
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Save_pct().");
+			//System.out.println("Errore in Generatore_stagioni - Save_pct().");
 			
 		}
 		
@@ -1167,7 +1167,7 @@ public class Generatore_stagioni {
 			
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Random_wins().");
+			//System.out.println("Errore in Generatore_stagioni - Random_wins().");
 			
 		}
 		
@@ -1216,7 +1216,7 @@ public class Generatore_stagioni {
 			
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Random_draws().");
+			//System.out.println("Errore in Generatore_stagioni - Random_draws().");
 			
 		}
 		
@@ -1246,7 +1246,7 @@ public class Generatore_stagioni {
 			
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Random_clean_sheets().");
+			//System.out.println("Errore in Generatore_stagioni - Random_clean_sheets().");
 			
 		}
 		
@@ -1278,7 +1278,7 @@ public class Generatore_stagioni {
 			
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Clean_sheets_pct().");
+			//System.out.println("Errore in Generatore_stagioni - Clean_sheets_pct().");
 			
 		}
 		
@@ -1304,7 +1304,7 @@ public class Generatore_stagioni {
 			
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Random_pens_att_gk().");
+			//System.out.println("Errore in Generatore_stagioni - Random_pens_att_gk().");
 			
 		}
 		
@@ -1334,7 +1334,7 @@ public class Generatore_stagioni {
 			
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Random_pens_att_gk().");
+			//System.out.println("Errore in Generatore_stagioni - Random_pens_att_gk().");
 			
 		}
 		
@@ -1369,7 +1369,7 @@ public class Generatore_stagioni {
 			
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Random_pens_saved().");
+			//System.out.println("Errore in Generatore_stagioni - Random_pens_saved().");
 			
 		}
 		
@@ -1399,7 +1399,7 @@ public class Generatore_stagioni {
 			
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Random_pens_missed_gk().");
+			//System.out.println("Errore in Generatore_stagioni - Random_pens_missed_gk().");
 			
 		}
 		
@@ -1445,7 +1445,7 @@ public class Generatore_stagioni {
 		
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Tronca_double(" + funz +").");
+			//System.out.println("Errore in Generatore_stagioni - Tronca_double(" + funz +").");
 			
 		}
 		
@@ -1473,7 +1473,7 @@ public class Generatore_stagioni {
 			
 		} catch (Exception e) {
 			
-			System.out.println("Errore in Generatore_stagioni - Random_info().");
+			//System.out.println("Errore in Generatore_stagioni - Random_info().");
 			
 		}
 		

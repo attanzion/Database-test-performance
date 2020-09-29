@@ -3,6 +3,8 @@ package main;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -329,7 +331,7 @@ public class Menu {
 		
 		if(this.scelta.toUpperCase().equals("Y")) {
 			
-			this.Home();
+			new Menu();
 			
 		} else if(this.scelta.toUpperCase().equals("N")) {
 			
@@ -411,7 +413,11 @@ public class Menu {
 		
 		try {
 			
-			BufferedReader reader_info_squad = new BufferedReader(new FileReader("C:\\Users\\andre\\git\\database-test-performace\\Database-test-performance\\database-test-performance\\Info squadre.txt"));
+//			BufferedReader reader_info_squad = new BufferedReader(new FileReader("C:\\Users\\andre\\git\\database-test-performace\\Database-test-performance\\database-test-performance\\Info squadre.txt"));
+			
+			InputStream is = getClass().getResourceAsStream("/Info squadre.txt");
+		    InputStreamReader isr = new InputStreamReader(is);
+		    BufferedReader reader_info_squad = new BufferedReader(isr);
 			
 			String line_info = reader_info_squad.readLine();
 			

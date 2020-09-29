@@ -2,10 +2,14 @@ package random;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 
 import classi.Giocatore;
 import classi.Portiere;
+import jogamp.opengl.SharedResourceRunner.Resource;
 
 public class Generatore {
 	
@@ -40,6 +44,8 @@ public class Generatore {
 	
 	public void Genera_Calciatori(int numero_calciatori) {
 		
+		System.out.println("\nGENERAZIONE DI " + numero_calciatori + " CALCIATORI in corso..........\n");
+		
 		Generatore_calciatore gc = new Generatore_calciatore(this.nomi, this.cognomi, this.nazionalità, this.all_gioc, this.all_por, this.info_squad);
 		
 		while((this.all_gioc.size() + this.all_por.size()) < numero_calciatori) {
@@ -50,7 +56,7 @@ public class Generatore {
 				
 			}catch (Exception e) {
 				
-				System.out.println("Errore in Generatore - Genera_Calciatori().");
+				//System.out.println("Errore in Generatore - Genera_Calciatori().");
 				
 			}
 			
@@ -66,10 +72,14 @@ public class Generatore {
 		
 		try {
 			
-			BufferedReader reader_nomi = new BufferedReader(new FileReader("C:\\Users\\andre\\git\\database-test-performace\\Database-test-performance\\database-test-performance\\Nomi.txt"));
-			BufferedReader reader_cognomi = new BufferedReader(new FileReader("C:\\Users\\andre\\git\\database-test-performace\\Database-test-performance\\database-test-performance\\Cognomi.txt"));
-			BufferedReader reader_nazionalità = new BufferedReader(new FileReader("C:\\Users\\andre\\git\\database-test-performace\\Database-test-performance\\database-test-performance\\Nazionali.txt"));
-			BufferedReader reader_info_squad = new BufferedReader(new FileReader("C:\\Users\\andre\\git\\database-test-performace\\Database-test-performance\\database-test-performance\\Info squadre.txt"));
+//			BufferedReader reader_nomi = new BufferedReader(new FileReader("C:\\Users\\andre\\git\\database-test-performace\\Database-test-performance\\database-test-performance\\Nomi.txt"));
+//			BufferedReader reader_cognomi = new BufferedReader(new FileReader("C:\\Users\\andre\\git\\database-test-performace\\Database-test-performance\\database-test-performance\\Cognomi.txt"));
+//			BufferedReader reader_nazionalità = new BufferedReader(new FileReader("C:\\Users\\andre\\git\\database-test-performace\\Database-test-performance\\database-test-performance\\Nazionali.txt"));
+//			BufferedReader reader_info_squad = new BufferedReader(new FileReader("C:\\Users\\andre\\git\\database-test-performace\\Database-test-performance\\database-test-performance\\Info squadre.txt"));
+			
+			InputStream is = getClass().getResourceAsStream("/Nomi.txt");
+		    InputStreamReader isr = new InputStreamReader(is);
+		    BufferedReader reader_nomi = new BufferedReader(isr);
 			
 			String line_nomi = reader_nomi.readLine();
 			
@@ -83,6 +93,10 @@ public class Generatore {
 	            
 	        }
 	        
+	        is = getClass().getResourceAsStream("/Cognomi.txt");
+		    isr = new InputStreamReader(is);
+		    BufferedReader reader_cognomi = new BufferedReader(isr);
+	        
 	        String line_cognomi = reader_cognomi.readLine();
 	        
 	        while(line_cognomi != null) {
@@ -95,6 +109,10 @@ public class Generatore {
 	            
 	        }
 	        
+	        is = getClass().getResourceAsStream("/Nazionali.txt");
+		    isr = new InputStreamReader(is);
+		    BufferedReader reader_nazionalità = new BufferedReader(isr);
+	        
 	        String line_nazionalità = reader_nazionalità.readLine();
 			
 			while(line_nazionalità != null) {
@@ -104,6 +122,10 @@ public class Generatore {
 				line_nazionalità = reader_nazionalità.readLine();
 				
 			}
+			
+			is = getClass().getResourceAsStream("/Info squadre.txt");
+		    isr = new InputStreamReader(is);
+		    BufferedReader reader_info_squad = new BufferedReader(isr);
 			
 			String line_info = reader_info_squad.readLine();
 			

@@ -362,7 +362,7 @@ public class Generatore_calciatore {
 			}
 			
 		} catch (Exception e) {
-			System.out.println("Errore in Generatore_calciatore - Random_numero_stagioni");
+			//System.out.println("Errore in Generatore_calciatore - Random_numero_stagioni");
 		}
 		
 		return numero_stagioni;
