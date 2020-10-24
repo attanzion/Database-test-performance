@@ -11,6 +11,7 @@ import classi.Stats;
 
 import java.util.ArrayList;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Indexes;
 import com.mongodb.client.model.Updates;
 
 import static com.mongodb.client.model.Filters.and;
@@ -91,7 +92,7 @@ public class DB1 {
              
              collection.insertOne(doc_giocatore);   //Si memorizza il documento nel database
              
-             System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - Inserito.");
+             
     		
     }
     		for(Portiere portiere : all_por) {
@@ -136,7 +137,7 @@ public class DB1 {
             
             collection.insertOne(doc_portiere);    //Si memorizza il documento nel database
             
-            System.out.println("PORTIERE: " + portiere.getNome_calciatore() + " - Inserito.");
+            
             
 }
 
@@ -342,6 +343,20 @@ public class DB1 {
 			System.out.println("Errore in Mongo_Export - Find_by_name");
 			
 		}
+    	
+    }
+    
+    public void Create_index(String field) {
+    	
+    	Mongo mongo = new Mongo();
+        
+        mongo.Connection("localhost", 27017, "FootballStats", "Calciatori");   //Connessione a MongoDB.
+        
+        MongoCollection<Document> collection = mongo.getMongoCollection();
+        
+        collection.createIndex(Indexes.ascending(field));
+        
+        mongo.Disconnection();
     	
     }
 

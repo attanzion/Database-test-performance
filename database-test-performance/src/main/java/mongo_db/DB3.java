@@ -10,6 +10,7 @@ import org.bson.Document;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Indexes;
 import com.mongodb.client.model.Updates;
 
 import classi.Giocatore;
@@ -246,7 +247,7 @@ public class DB3 {
 			
              collection.insertOne(doc_giocatore);
              
-             System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - Inserito.");
+             
     		
     	} 
     		
@@ -422,7 +423,7 @@ public class DB3 {
                doc_portiere.put("Stagioni", stagioni);
   			
                collection.insertOne(doc_portiere);
-               System.out.println("PORTIERE: " + portiere.getNome_calciatore() + " - Inserito.");
+               
     		
     	}
 				
@@ -685,6 +686,20 @@ public class DB3 {
 			System.out.println("Errore in Mongo_Export - Find_by_name");
 			
 		}
+    	
+    }
+    
+ public void Create_index(String field) {
+    	
+    	Mongo mongo = new Mongo();
+        
+        mongo.Connection("localhost", 27017, "FootballStats_3", "Calciatori");   //Connessione a MongoDB.
+        
+        MongoCollection<Document> collection = mongo.getMongoCollection();
+        
+        collection.createIndex(Indexes.ascending(field));
+        
+        mongo.Disconnection();
     	
     }
     

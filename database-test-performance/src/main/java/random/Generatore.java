@@ -15,7 +15,7 @@ public class Generatore {
 	
 	private ArrayList<String> nomi = null;
 	private ArrayList<String> cognomi = null;
-	private ArrayList<String> nazionalità = null;
+	private ArrayList<String> nazionalita = null;
 	private ArrayList<Giocatore> all_gioc = null;
 	private ArrayList<Portiere> all_por = null;
 	private ArrayList<String> info_squad = null;
@@ -28,7 +28,7 @@ public class Generatore {
 		
 		this.setNomi();
 		this.setCognomi();
-		this.setNazionalità();
+		this.setNazionalita();
 		this.setAll_gioc();
 		this.setAll_por();
 		this.setInfo_squad();
@@ -46,7 +46,7 @@ public class Generatore {
 		
 		System.out.println("\nGENERAZIONE DI " + numero_calciatori + " CALCIATORI in corso..........\n");
 		
-		Generatore_calciatore gc = new Generatore_calciatore(this.nomi, this.cognomi, this.nazionalità, this.all_gioc, this.all_por, this.info_squad);
+		Generatore_calciatore gc = new Generatore_calciatore(this.nomi, this.cognomi, this.nazionalita, this.all_gioc, this.all_por, this.info_squad);
 		
 		while((this.all_gioc.size() + this.all_por.size()) < numero_calciatori) {
 			
@@ -74,7 +74,7 @@ public class Generatore {
 			
 //			BufferedReader reader_nomi = new BufferedReader(new FileReader("C:\\Users\\andre\\git\\database-test-performace\\Database-test-performance\\database-test-performance\\Nomi.txt"));
 //			BufferedReader reader_cognomi = new BufferedReader(new FileReader("C:\\Users\\andre\\git\\database-test-performace\\Database-test-performance\\database-test-performance\\Cognomi.txt"));
-//			BufferedReader reader_nazionalità = new BufferedReader(new FileReader("C:\\Users\\andre\\git\\database-test-performace\\Database-test-performance\\database-test-performance\\Nazionali.txt"));
+//			BufferedReader reader_nazionalita = new BufferedReader(new FileReader("C:\\Users\\andre\\git\\database-test-performace\\Database-test-performance\\database-test-performance\\Nazionali.txt"));
 //			BufferedReader reader_info_squad = new BufferedReader(new FileReader("C:\\Users\\andre\\git\\database-test-performace\\Database-test-performance\\database-test-performance\\Info squadre.txt"));
 			
 			InputStream is = getClass().getResourceAsStream("/Nomi.txt");
@@ -111,15 +111,15 @@ public class Generatore {
 	        
 	        is = getClass().getResourceAsStream("/Nazionali.txt");
 		    isr = new InputStreamReader(is);
-		    BufferedReader reader_nazionalità = new BufferedReader(isr);
+		    BufferedReader reader_nazionalita = new BufferedReader(isr);
 	        
-	        String line_nazionalità = reader_nazionalità.readLine();
+	        String line_nazionalita = reader_nazionalita.readLine();
 			
-			while(line_nazionalità != null) {
+			while(line_nazionalita != null) {
 				
-				this.nazionalità.add(line_nazionalità.trim());
+				this.nazionalita.add(line_nazionalita.trim());
 				
-				line_nazionalità = reader_nazionalità.readLine();
+				line_nazionalita = reader_nazionalita.readLine();
 				
 			}
 			
@@ -189,22 +189,22 @@ public class Generatore {
 	}
 
 	/**
-	 * Funzione che ritorna 'nazionalità'.
-	 * @return nazionalità
+	 * Funzione che ritorna 'nazionalita'.
+	 * @return nazionalita
 	 */
-	public ArrayList<String> getNazionalità() {
+	public ArrayList<String> getNazionalita() {
 		
-		return this.nazionalità;
+		return this.nazionalita;
 		
 	}
 
 	/**
-	 * Funzione che setta 'nazionalità', inizializzando un nuovo arraylist.
+	 * Funzione che setta 'nazionalita', inizializzando un nuovo arraylist.
 	 */
 	
-	public void setNazionalità() {
+	public void setNazionalita() {
 		
-		this.nazionalità = new ArrayList<String>();
+		this.nazionalita = new ArrayList<String>();
 		
 	}
 

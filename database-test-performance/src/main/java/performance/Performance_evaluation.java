@@ -73,8 +73,6 @@ public class Performance_evaluation {
 				    		thread.start();
 				    		thread.join();
 				    		
-				    		System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - Inserito nel db 'FootballStats'. \nCalciatore numero:  " + count_gioc);
-				    		
 				    		nano = nano + insert.getNano();
 				    		
 				    		count_gioc++;
@@ -90,8 +88,6 @@ public class Performance_evaluation {
 				    		Thread thread = new Thread(insert);
 				    		thread.start();
 				    		thread.join();
-				    		
-				    		System.out.println("PORTIERE: " + portiere.getNome_calciatore() + " - Inserito nel db 'FootballStats'. \nCalciatore numero:  " + count_gioc);
 				    		
 				    		nano = nano + insert.getNano();
 				    		
@@ -121,8 +117,6 @@ public class Performance_evaluation {
 		    		thread.start();
 		    		thread.join();
 		    		
-		    		System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - Inserito nel db 'FootballStats_2'. \nCalciatore numero:  " + count_gioc);
-		    		
 		    		nano = nano + insert.getNano();
 		    		
 		    		count_gioc++;
@@ -138,8 +132,6 @@ public class Performance_evaluation {
 		    		Thread thread = new Thread(insert);
 		    		thread.start();
 		    		thread.join();
-		    		
-		    		System.out.println("PORTIERE: " + portiere.getNome_calciatore() + " - Inserito nel db 'FootballStats'. \nCalciatore numero:  " + count_gioc);
 		    		
 		    		nano = nano + insert.getNano();
 		    		
@@ -169,8 +161,6 @@ public class Performance_evaluation {
 		    		thread.start();
 		    		thread.join();
 		    		
-		    		System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - Inserito nel db 'FootballStats_3'. \nCalciatore numero:  " + count_gioc);
-		    		
 		    		nano = nano + insert.getNano();
 		    		
 		    		count_gioc++;
@@ -186,8 +176,6 @@ public class Performance_evaluation {
 		    		Thread thread = new Thread(insert);
 		    		thread.start();
 		    		thread.join();
-		    		
-		    		System.out.println("PORTIERE: " + portiere.getNome_calciatore() + " - Inserito nel db 'FootballStats_3'. \nCalciatore numero:  " + count_gioc);
 		    		
 		    		nano = nano + insert.getNano();
 		    		
@@ -234,7 +222,7 @@ public class Performance_evaluation {
 	    	
 	    	if(configuration == 1) {
 	    	
-	    	this.Delete_and_Insert(all_gioc, all_por);	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */    
+	    	this.Delete_and_Insert(all_gioc, all_por, "Link calciatore");	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */    
 	    	
 	    	}
 			
@@ -255,8 +243,6 @@ public class Performance_evaluation {
 						thread.start();
 						thread.join();
 						
-						System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - Nuova stagione inserita.\n Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
-						
 						nano = nano + update_new_season.getNano();
 						
 						count_gioc++;
@@ -272,8 +258,6 @@ public class Performance_evaluation {
 						Thread thread = new Thread(update_new_season);
 						thread.start();
 						thread.join();
-						
-						System.out.println("PORTIERE: " + portiere.getNome_calciatore() + " - Nuova stagione inserita.\n Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
 						
 						nano = nano + update_new_season.getNano();
 						
@@ -303,8 +287,6 @@ public class Performance_evaluation {
 						thread.start();
 						thread.join();
 						
-						System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - Nuova stagione inserita.\n Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
-						
 						nano = nano + update_new_season.getNano();
 						
 						count_gioc++;
@@ -320,8 +302,6 @@ public class Performance_evaluation {
 						Thread thread = new Thread(update_new_season);
 						thread.start();
 						thread.join();
-						
-						System.out.println("PORTIERE: " + portiere.getNome_calciatore() + " - Nuova stagione inserita.\n Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
 						
 						nano = nano + update_new_season.getNano();
 						
@@ -351,8 +331,6 @@ public class Performance_evaluation {
 						thread.start();
 						thread.join();
 						
-						System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - Nuova stagione inserita.\n Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
-						
 						nano = nano + update_new_season.getNano();
 						
 						count_gioc++;
@@ -368,8 +346,6 @@ public class Performance_evaluation {
 						Thread thread = new Thread(update_new_season);
 						thread.start();
 						thread.join();
-						
-						System.out.println("PORTIERE: " + portiere.getNome_calciatore() + " - Nuova stagione inserita.\n Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
 						
 						nano = nano + update_new_season.getNano();
 						
@@ -419,7 +395,7 @@ public class Performance_evaluation {
     	
     	if(configuration == 1) {
     	
-    	this.Delete_and_Insert(all_gioc, all_por);	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
+    	this.Delete_and_Insert(all_gioc, all_por, "Link calciatore");	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
     	
     	} 
     	
@@ -440,8 +416,6 @@ public class Performance_evaluation {
 						thread.start();
 						thread.join();
 						
-						System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - 'Goals' e 'Assists' dell'ultima stagione, aggiornati.\n Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
-						
 						nano = nano + update_last_season.getNano();
 						
 						count_gioc++;
@@ -457,8 +431,6 @@ public class Performance_evaluation {
 						Thread thread = new Thread(update_last_season);
 						thread.start();
 						thread.join();
-						
-						System.out.println("PORTIERE: " + portiere.getNome_calciatore() + " - 'Goals_against_gk' e 'Saves' dell'ultima stagione, aggiornati.\n Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
 						
 						nano = nano + update_last_season.getNano();
 						
@@ -488,8 +460,6 @@ public class Performance_evaluation {
 						thread.start();
 						thread.join();
 						
-						System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - 'Goals' e 'Assists' dell'ultima stagione, aggiornati.\n Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
-						
 						nano = nano + update_last_season.getNano();
 						
 						count_gioc++;
@@ -505,8 +475,6 @@ public class Performance_evaluation {
 						Thread thread = new Thread(update_last_season);
 						thread.start();
 						thread.join();
-						
-						System.out.println("PORTIERE: " + portiere.getNome_calciatore() + " - 'Goals_against_gk' e 'Saves' dell'ultima stagione, aggiornati.\n Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
 						
 						nano = nano + update_last_season.getNano();
 						
@@ -536,8 +504,6 @@ public class Performance_evaluation {
 						thread.start();
 						thread.join();
 						
-						System.out.println("GIOCATORE: " + giocatore.getNome_calciatore() + " - 'Goals' e 'Assists' dell'ultima stagione, aggiornati.\n Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
-						
 						nano = nano + update_last_season.getNano();
 						
 						count_gioc++;
@@ -553,8 +519,6 @@ public class Performance_evaluation {
 						Thread thread = new Thread(update_last_season);
 						thread.start();
 						thread.join();
-						
-						System.out.println("PORTIERE: " + portiere.getNome_calciatore() + " - 'Goals_against_gk' e 'Saves' dell'ultima stagione, aggiornati.\n Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
 						
 						nano = nano + update_last_season.getNano();
 						
@@ -603,7 +567,7 @@ public class Performance_evaluation {
     	
     	if(configuration == 1) {
     	
-    	this.Delete_and_Insert(all_gioc, all_por);	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
+    	this.Delete_and_Insert(all_gioc, all_por, "Nome");	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
     	
     	}
     	
@@ -624,8 +588,6 @@ public class Performance_evaluation {
 					thread.start();
 					thread.join();
 					
-					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
-					
 					nano = nano + find_players.getNano();
 					
 					count_gioc++;
@@ -641,8 +603,6 @@ public class Performance_evaluation {
 					Thread thread = new Thread(find_players);
 					thread.start();
 					thread.join();
-					
-					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
 					
 					nano = nano + find_players.getNano();
 					
@@ -672,8 +632,6 @@ public class Performance_evaluation {
 					thread.start();
 					thread.join();
 					
-					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
-					
 					nano = nano + find_players.getNano();
 					
 					count_gioc++;
@@ -689,8 +647,6 @@ public class Performance_evaluation {
 					Thread thread = new Thread(find_players);
 					thread.start();
 					thread.join();
-					
-					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
 					
 					nano = nano + find_players.getNano();
 					
@@ -720,8 +676,6 @@ public class Performance_evaluation {
 					thread.start();
 					thread.join();
 					
-					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
-					
 					nano = nano + find_players.getNano();
 					
 					count_gioc++;
@@ -737,8 +691,6 @@ public class Performance_evaluation {
 					Thread thread = new Thread(find_players);
 					thread.start();
 					thread.join();
-					
-					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
 					
 					nano = nano + find_players.getNano();
 					
@@ -789,7 +741,7 @@ public class Performance_evaluation {
 	    	
 	    	if(configuration == 1) {
 	    	
-	    	this.Delete_and_Insert(all_gioc, all_por);	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
+	    	this.Delete_and_Insert(all_gioc, all_por, "Link calciatore");	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
 	    	
 	    	}
 	    	
@@ -810,8 +762,6 @@ public class Performance_evaluation {
 						thread.start();
 						thread.join();
 						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
-						
 						nano = nano + find_field.getNano();
 						
 						count_gioc++;
@@ -827,8 +777,6 @@ public class Performance_evaluation {
 						Thread thread = new Thread(find_field);
 						thread.start();
 						thread.join();
-						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
 						
 						nano = nano + find_field.getNano();
 						
@@ -858,8 +806,6 @@ public class Performance_evaluation {
 						thread.start();
 						thread.join();
 						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
-						
 						nano = nano + find_field.getNano();
 						
 						count_gioc++;
@@ -875,8 +821,6 @@ public class Performance_evaluation {
 						Thread thread = new Thread(delete_players);
 						thread.start();
 						thread.join();
-						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
 						
 						nano = nano + delete_players.getNano();
 						
@@ -906,8 +850,6 @@ public class Performance_evaluation {
 						thread.start();
 						thread.join();
 						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
-						
 						nano = nano + find_field.getNano();
 						
 						count_gioc++;
@@ -923,8 +865,6 @@ public class Performance_evaluation {
 						Thread thread = new Thread(find_field);
 						thread.start();
 						thread.join();
-						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
 						
 						nano = nano + find_field.getNano();
 						
@@ -974,7 +914,7 @@ public class Performance_evaluation {
     	
     	if(configuration == 1) {
     	
-    	this.Delete_and_Insert(all_gioc, all_por);	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
+    	this.Delete_and_Insert(all_gioc, all_por, "Link calciatore");	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
     	
     	}
     	
@@ -995,8 +935,6 @@ public class Performance_evaluation {
 					thread.start();
 					thread.join();
 					
-					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
-					
 					nano = nano + average_goals.getNano();
 					
 					count_gioc++;
@@ -1012,8 +950,6 @@ public class Performance_evaluation {
 					Thread thread = new Thread(average_saves);
 					thread.start();
 					thread.join();
-					
-					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
 					
 					nano = nano + average_saves.getNano();
 					
@@ -1043,8 +979,6 @@ public class Performance_evaluation {
 					thread.start();
 					thread.join();
 					
-					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
-					
 					nano = nano + average_goals.getNano();
 					
 					count_gioc++;
@@ -1060,8 +994,6 @@ public class Performance_evaluation {
 					Thread thread = new Thread(average_saves);
 					thread.start();
 					thread.join();
-					
-					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
 					
 					nano = nano + average_saves.getNano();
 					
@@ -1091,8 +1023,6 @@ public class Performance_evaluation {
 					thread.start();
 					thread.join();
 					
-					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
-					
 					nano = nano + average_goals.getNano();
 					
 					count_gioc++;
@@ -1108,8 +1038,6 @@ public class Performance_evaluation {
 					Thread thread = new Thread(average_saves);
 					thread.start();
 					thread.join();
-					
-					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
 					
 					nano = nano + average_saves.getNano();
 					
@@ -1162,7 +1090,7 @@ public class Performance_evaluation {
 	    	
 	    	if(configuration == 1) {
 	    	
-	    	this.Delete_and_Insert(all_gioc, all_por);	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
+	    	this.Delete_and_Insert(all_gioc, all_por, "Link calciatore");	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
 	    	
 	    	}
 	    	
@@ -1183,8 +1111,6 @@ public class Performance_evaluation {
 						thread.start();
 						thread.join();
 						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
-						
 						nano = nano + delete_field.getNano();
 						
 						count_gioc++;
@@ -1200,8 +1126,6 @@ public class Performance_evaluation {
 						Thread thread = new Thread(average_saves);
 						thread.start();
 						thread.join();
-						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
 						
 						nano = nano + average_saves.getNano();
 						
@@ -1231,8 +1155,6 @@ public class Performance_evaluation {
 						thread.start();
 						thread.join();
 						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
-						
 						nano = nano + delete_field.getNano();
 						
 						count_gioc++;
@@ -1248,8 +1170,6 @@ public class Performance_evaluation {
 						Thread thread = new Thread(delete_field);
 						thread.start();
 						thread.join();
-						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
 						
 						nano = nano + delete_field.getNano();
 						
@@ -1279,8 +1199,6 @@ public class Performance_evaluation {
 						thread.start();
 						thread.join();
 						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
-						
 						nano = nano + delete_field.getNano();
 						
 						count_gioc++;
@@ -1296,8 +1214,6 @@ public class Performance_evaluation {
 						Thread thread = new Thread(delete_field);
 						thread.start();
 						thread.join();
-						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
 						
 						nano = nano + delete_field.getNano();
 						
@@ -1347,7 +1263,7 @@ public class Performance_evaluation {
 	    	
 	    	if(configuration == 1) {
 	    	
-	    	this.Delete_and_Insert(all_gioc, all_por);	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
+	    	this.Delete_and_Insert(all_gioc, all_por, "Link calciatore");	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
 	    	
 	    	}
 	    	
@@ -1368,8 +1284,6 @@ public class Performance_evaluation {
 						thread.start();
 						thread.join();
 						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
-						
 						nano = nano + delete_players.getNano();
 						
 						count_gioc++;
@@ -1385,8 +1299,6 @@ public class Performance_evaluation {
 						Thread thread = new Thread(delete_players);
 						thread.start();
 						thread.join();
-						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
 						
 						nano = nano + delete_players.getNano();
 						
@@ -1416,8 +1328,6 @@ public class Performance_evaluation {
 						thread.start();
 						thread.join();
 						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
-						
 						nano = nano + delete_players.getNano();
 						
 						count_gioc++;
@@ -1433,8 +1343,6 @@ public class Performance_evaluation {
 						Thread thread = new Thread(delete_players);
 						thread.start();
 						thread.join();
-						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
 						
 						nano = nano + delete_players.getNano();
 						
@@ -1464,8 +1372,6 @@ public class Performance_evaluation {
 						thread.start();
 						thread.join();
 						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
-						
 						nano = nano + delete_players.getNano();
 						
 						count_gioc++;
@@ -1481,8 +1387,6 @@ public class Performance_evaluation {
 						Thread thread = new Thread(delete_players);
 						thread.start();
 						thread.join();
-						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
 						
 						nano = nano + delete_players.getNano();
 						
@@ -1533,7 +1437,7 @@ public class Performance_evaluation {
 	    	
 	    	if(configuration == 1) {
 	    	
-	    	this.Delete_and_Insert(all_gioc, all_por);	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
+	    	this.Delete_and_Insert(all_gioc, all_por, "Link calciatore");	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
 	    	
 	    	}
 	    	
@@ -1554,8 +1458,6 @@ public class Performance_evaluation {
 						thread.start();
 						thread.join();
 						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
-						
 						nano = nano + delete_season.getNano();
 						
 						count_gioc++;
@@ -1571,8 +1473,6 @@ public class Performance_evaluation {
 						Thread thread = new Thread(delete_season);
 						thread.start();
 						thread.join();
-						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
 						
 						nano = nano + delete_season.getNano();
 						
@@ -1602,8 +1502,6 @@ public class Performance_evaluation {
 						thread.start();
 						thread.join();
 						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
-						
 						nano = nano + delete_season.getNano();
 						
 						count_gioc++;
@@ -1619,8 +1517,6 @@ public class Performance_evaluation {
 						Thread thread = new Thread(delete_season);
 						thread.start();
 						thread.join();
-						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
 						
 						nano = nano + delete_season.getNano();
 						
@@ -1650,8 +1546,6 @@ public class Performance_evaluation {
 						thread.start();
 						thread.join();
 						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
-						
 						nano = nano + delete_season.getNano();
 						
 						count_gioc++;
@@ -1667,8 +1561,6 @@ public class Performance_evaluation {
 						Thread thread = new Thread(delete_season);
 						thread.start();
 						thread.join();
-						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
 						
 						nano = nano + delete_season.getNano();
 						
@@ -1719,7 +1611,7 @@ public class Performance_evaluation {
 	    	
 	    	if(configuration == 1) {
 	    	
-	    	this.Delete_and_Insert(all_gioc, all_por);	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
+	    	this.Delete_and_Insert(all_gioc, all_por, "Stagioni");	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
 	    	
 	    	}
 	    	
@@ -1738,8 +1630,6 @@ public class Performance_evaluation {
 						Thread thread = new Thread(greater_than);
 						thread.start();
 						thread.join();
-						
-						System.out.println("RICERCA numero: " + count_gioc + " - DATABASE: FootballStats");
 						
 						nano = nano + greater_than.getNano();
 						
@@ -1767,8 +1657,6 @@ public class Performance_evaluation {
 					thread.start();
 					thread.join();
 					
-					System.out.println("RICERCA numero: " + count_gioc + " - DATABASE: FootballStats_2");
-					
 					nano = nano + greater_than.getNano();
 					
 					count_gioc++;
@@ -1794,8 +1682,6 @@ public class Performance_evaluation {
 					Thread thread = new Thread(greater_than);
 					thread.start();
 					thread.join();
-					
-					System.out.println("RICERCA numero: " + count_gioc + " - DATABASE: FootballStats_3");
 					
 					nano = nano + greater_than.getNano();
 					
@@ -1846,7 +1732,7 @@ public class Performance_evaluation {
 	    	
 	    	if(configuration == 1) {
 	    	
-	    	this.Delete_and_Insert(all_gioc, all_por);	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
+	    	this.Delete_and_Insert(all_gioc, all_por, "Stagioni");	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
 	    	
 	    	}
 	    	
@@ -1865,8 +1751,6 @@ public class Performance_evaluation {
 						Thread thread = new Thread(find_by_squad);
 						thread.start();
 						thread.join();
-						
-						System.out.println("\nRICERCA numero: " + count_gioc + " - DATABASE: FootballStats");
 						
 						nano = nano + find_by_squad.getNano();
 						
@@ -1894,8 +1778,6 @@ public class Performance_evaluation {
 					thread.start();
 					thread.join();
 					
-					System.out.println("\nRICERCA numero: " + count_gioc + " - DATABASE: FootballStats_2");
-					
 					nano = nano + find_by_squad.getNano();
 					
 					count_gioc++;
@@ -1921,8 +1803,6 @@ public class Performance_evaluation {
 					Thread thread = new Thread(find_by_squad);
 					thread.start();
 					thread.join();
-					
-					System.out.println("\nRICERCA numero: " + count_gioc + " - DATABASE: FootballStats_3");
 					
 					nano = nano + find_by_squad.getNano();
 					
@@ -1973,7 +1853,7 @@ public class Performance_evaluation {
 	    	
 	    	if(configuration == 1) {
 	    	
-	    	this.Delete_and_Insert(all_gioc, all_por);	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
+	    	this.Delete_and_Insert(all_gioc, all_por, "Link calciatore");	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
 	    	
 	    	}
 	    	
@@ -1994,8 +1874,6 @@ public class Performance_evaluation {
 						thread.start();
 						thread.join();
 						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
-						
 						nano = nano + view_season.getNano();
 						
 						count_gioc++;
@@ -2011,8 +1889,6 @@ public class Performance_evaluation {
 						Thread thread = new Thread(view_season);
 						thread.start();
 						thread.join();
-						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
 						
 						nano = nano + view_season.getNano();
 						
@@ -2042,8 +1918,6 @@ public class Performance_evaluation {
 						thread.start();
 						thread.join();
 						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
-						
 						nano = nano + view_season.getNano();
 						
 						count_gioc++;
@@ -2059,8 +1933,6 @@ public class Performance_evaluation {
 						Thread thread = new Thread(view_season);
 						thread.start();
 						thread.join();
-						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
 						
 						nano = nano + view_season.getNano();
 						
@@ -2090,8 +1962,6 @@ public class Performance_evaluation {
 						thread.start();
 						thread.join();
 						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
-						
 						nano = nano + view_season.getNano();
 						
 						count_gioc++;
@@ -2107,8 +1977,6 @@ public class Performance_evaluation {
 						Thread thread = new Thread(view_season);
 						thread.start();
 						thread.join();
-						
-						System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
 						
 						nano = nano + view_season.getNano();
 						
@@ -2158,7 +2026,7 @@ public class Performance_evaluation {
     	
     	if(configuration == 1) {
     	
-    	this.Delete_and_Insert(all_gioc, all_por);	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
+    	this.Delete_and_Insert(all_gioc, all_por, "Link calciatore");	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
     	
     	}
     	
@@ -2179,8 +2047,6 @@ public class Performance_evaluation {
 					thread.start();
 					thread.join();
 					
-					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
-					
 					nano = nano + sum_goals.getNano();
 					
 					count_gioc++;
@@ -2196,8 +2062,6 @@ public class Performance_evaluation {
 					Thread thread = new Thread(sum_saves);
 					thread.start();
 					thread.join();
-					
-					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
 					
 					nano = nano + sum_saves.getNano();
 					
@@ -2227,8 +2091,6 @@ public class Performance_evaluation {
 					thread.start();
 					thread.join();
 					
-					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
-					
 					nano = nano + sum_goals.getNano();
 					
 					count_gioc++;
@@ -2244,8 +2106,6 @@ public class Performance_evaluation {
 					Thread thread = new Thread(sum_saves);
 					thread.start();
 					thread.join();
-					
-					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
 					
 					nano = nano + sum_saves.getNano();
 					
@@ -2275,8 +2135,6 @@ public class Performance_evaluation {
 					thread.start();
 					thread.join();
 					
-					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
-					
 					nano = nano + sum_goals.getNano();
 					
 					count_gioc++;
@@ -2292,8 +2150,6 @@ public class Performance_evaluation {
 					Thread thread = new Thread(sum_saves);
 					thread.start();
 					thread.join();
-					
-					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
 					
 					nano = nano + sum_saves.getNano();
 					
@@ -2343,7 +2199,7 @@ public class Performance_evaluation {
     	
     	if(configuration == 1) {
     	
-    	this.Delete_and_Insert(all_gioc, all_por);	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
+    	this.Delete_and_Insert(all_gioc, all_por, "Link calciatore");	/**Cancellazione databases e ricreazione databases con i nuovi documenti. */   
     	
     	}
     	
@@ -2364,8 +2220,6 @@ public class Performance_evaluation {
 					thread.start();
 					thread.join();
 					
-					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
-					
 					nano = nano + add_field.getNano();
 					
 					count_gioc++;
@@ -2381,8 +2235,6 @@ public class Performance_evaluation {
 					Thread thread = new Thread(add_field);
 					thread.start();
 					thread.join();
-					
-					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats.");
 					
 					nano = nano + add_field.getNano();
 					
@@ -2412,8 +2264,6 @@ public class Performance_evaluation {
 					thread.start();
 					thread.join();
 					
-					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
-					
 					nano = nano + add_field.getNano();
 					
 					count_gioc++;
@@ -2429,8 +2279,6 @@ public class Performance_evaluation {
 					Thread thread = new Thread(add_field);
 					thread.start();
 					thread.join();
-					
-					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_2.");
 					
 					nano = nano + add_field.getNano();
 					
@@ -2460,8 +2308,6 @@ public class Performance_evaluation {
 					thread.start();
 					thread.join();
 					
-					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
-					
 					nano = nano + add_field.getNano();
 					
 					count_gioc++;
@@ -2477,8 +2323,6 @@ public class Performance_evaluation {
 					Thread thread = new Thread(add_field);
 					thread.start();
 					thread.join();
-					
-					System.out.println("Calciatore numero: " + count_gioc + " - DATABASE: FootballStats_3.");
 					
 					nano = nano + add_field.getNano();
 					
@@ -2512,7 +2356,7 @@ public class Performance_evaluation {
 	 * @param all_por
 	 */
 	
-	public void Delete_and_Insert(ArrayList<Giocatore> all_gioc, ArrayList<Portiere> all_por) {
+	public void Delete_and_Insert(ArrayList<Giocatore> all_gioc, ArrayList<Portiere> all_por, String field) {
 		
 			DB1 db1 = new DB1();
 			DB2 db2 = new DB2();
@@ -2524,12 +2368,23 @@ public class Performance_evaluation {
 	    	
 	    	System.out.println("\nINSERIMENTO IN 'FootballStats' DI " + (all_gioc.size() + all_por.size()) + " CALCIATORI.\n");
 	    	db1.Insert_Calciatori(all_gioc, all_por);
+	    	db1.Create_index(field);
 	    	
 	    	System.out.println("\nINSERIMENTO IN 'FootballStats_2' DI " + (all_gioc.size() + all_por.size()) + " CALCIATORI.\n");
 	    	db2.Insert_Calciatori(all_gioc, all_por);
 	    	
+	    	if(field.equals("Stagioni"))
+	    		db2.Create_index("Ultima stagione");
+	    	else
+	    		db2.Create_index(field);
+	    	
 	    	System.out.println("\nINSERIMENTO IN 'FootballStats_3' DI " + (all_gioc.size() + all_por.size()) + " CALCIATORI.\n");
 	    	db3.Insert_Calciatori(all_gioc, all_por);
+	    	
+	    	if(field.equals("Stagioni"))
+	    		db3.Create_index("Ultima stagione");
+	    	else
+	    		db3.Create_index(field);
 			
 		} catch (Exception e) {
 			System.out.println("Errore in Performance_evaluation() - Delete_and_Insert().");

@@ -380,16 +380,6 @@ public class Mongo_Export_2 implements Runnable{
 					
 					this.setNano(end4 - start4);
 					
-					if(doc_gioc.size() != 0) {
-						
-						System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - Giocatore trovato." );
-						
-					} else {
-						
-						System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - Giocatore non trovato." );
-						
-					}
-					
 				} else if(this.giocatore == null) {
 					
 					long start4 = System.nanoTime();
@@ -400,16 +390,6 @@ public class Mongo_Export_2 implements Runnable{
 					
 					this.setNano(end4 - start4);
 					
-					if(doc_por.size() != 0) {
-						
-						System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - Portiere trovato." );
-						
-					} else {
-						
-						System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - Portiere non trovato." );
-						
-					}
-					
 				}
 				
 				break;
@@ -419,7 +399,7 @@ public class Mongo_Export_2 implements Runnable{
 				if(this.portiere == null) {
 					
 					Document match = new Document();
-					 match.append("Nome", this.giocatore.getNome_calciatore());
+					 match.append("Link calciatore", this.giocatore.getLink_calciatore());
 					 
 					Document proj = new Document();
 							 proj.append("Nome", 1);
@@ -435,18 +415,10 @@ public class Mongo_Export_2 implements Runnable{
 					
 					this.setNano(end5 - start5);
 					
-					for (Document document : doc) {
-						
-						Document d = (Document) document.get("Ultima stagione");						
-						
-						System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - Minuti giocati nella stagione 2019-2020: " + d.get("minutes"));						
-						
-					}
-					
 				} else if(this.giocatore == null) {
 					
 					Document match = new Document();
-					 match.append("Nome", this.portiere.getNome_calciatore());
+					 match.append("Link calciatore", this.portiere.getLink_calciatore());
 					 
 					Document proj = new Document();
 							 proj.append("Nome", 1);
@@ -462,14 +434,6 @@ public class Mongo_Export_2 implements Runnable{
 					
 					this.setNano(end5 - start5);
 					
-					for (Document document : doc) {
-						
-						Document d = (Document) document.get("Ultima stagione");						
-						
-						System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - Minuti giocati nella stagione 2019-2020: " + d.get("minutes_gk"));						
-						
-					}
-					
 				}
 				
 				break;
@@ -481,7 +445,7 @@ public class Mongo_Export_2 implements Runnable{
 				if(this.portiere == null) {
 					
 					 	 Document match = new Document();
-					 		  match.append("Nome", this.giocatore.getNome_calciatore());
+					 	 		match.append("Link calciatore", this.giocatore.getLink_calciatore());
 					
 					if(seasons == 1) {
 						
@@ -493,14 +457,6 @@ public class Mongo_Export_2 implements Runnable{
 						 long end6 = System.nanoTime();
 							
 						 this.setNano(end6 - start6);
-						 
-						 for (Document document : doc) {
-							 
-							 Document docu = (Document) document.get("Ultima stagione");
-							
-							 System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - Media goals: " + docu.get("goals"));
-							 
-						}
 						
 					} else if(seasons == 2) {
 						
@@ -526,12 +482,6 @@ public class Mongo_Export_2 implements Runnable{
 						 long end6 = System.nanoTime();
 							
 						 this.setNano(end6 - start6);
-						 
-						 for (Document document : doc) {
-							
-							 System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - Media goals: " + document.get("avg_goals"));
-							 
-						}
 						
 					} else if(seasons == 3) {
 			
@@ -563,18 +513,12 @@ public class Mongo_Export_2 implements Runnable{
 							
 						 this.setNano(end6 - start6);
 						 
-						 for (Document document : doc) {
-							
-							 System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - Media goals: " + document.get("avg_goals"));
-							 
-						}
-						 
 						}
 					
 				} else if(this.giocatore == null) {
 					
 					Document match = new Document();
-					 		 match.append("Nome", this.portiere.getNome_calciatore());
+						match.append("Link calciatore", this.portiere.getLink_calciatore());
 					
 					if(seasons == 1) {
 						
@@ -586,14 +530,6 @@ public class Mongo_Export_2 implements Runnable{
 						 long end6 = System.nanoTime();
 							
 						 this.setNano(end6 - start6);
-						 
-						 for (Document document : doc) {
-							 
-							 Document docu = (Document) document.get("Ultima stagione");
-							
-							 System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - Media goals: " + docu.get("saves"));
-							 
-						}
 						
 					} else if(seasons == 2) {
 				
@@ -620,12 +556,6 @@ public class Mongo_Export_2 implements Runnable{
 						 long end6 = System.nanoTime();
 							
 						 this.setNano(end6 - start6);
-						 
-						 for (Document document : doc) {
-							
-							 System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - Media saves: " + document.get("avg_saves"));
-							 
-						}
 						
 					} else if(seasons == 3) {
 						
@@ -656,12 +586,6 @@ public class Mongo_Export_2 implements Runnable{
 						 long end6 = System.nanoTime();
 							
 						 this.setNano(end6 - start6);
-						 
-						 for (Document document : doc) {
-							
-							 System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - Media saves: " + document.get("avg_saves"));
-							 
-						}
 					}
 					
 				}
@@ -686,8 +610,6 @@ public class Mongo_Export_2 implements Runnable{
 					
 					this.setNano(end7 - start7);
 					
-					System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - Il campo 'npxg_xa_per90' eliminato dalla stagione 2019-2020.");
-					
 				} else if(giocatore == null) {
 					
 					Document filter = new Document();
@@ -704,8 +626,6 @@ public class Mongo_Export_2 implements Runnable{
 					
 					this.setNano(end7 - start7);
 					
-					System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - Il campo 'goals_against_gk_per90' eliminato dalla stagione 2019-2020.");
-					 
 				}
 				
 				break;
@@ -722,8 +642,6 @@ public class Mongo_Export_2 implements Runnable{
 					
 					this.setNano(end8 - start8);
 					
-					System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - Cancellato dal database.");
-					
 				} else if(this.giocatore == null) {
 					
 					long start8 = System.nanoTime();
@@ -733,8 +651,6 @@ public class Mongo_Export_2 implements Runnable{
 					long end8 = System.nanoTime();
 					
 					this.setNano(end8 - start8);
-					
-					System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - Cancellato dal database.");
 					
 				}
 				
@@ -844,8 +760,6 @@ public class Mongo_Export_2 implements Runnable{
 					
 					}
 					
-					System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - Stagione 2019-2020 cancellata.");
-					
 				} else if(this.giocatore == null) {
 					
 					Document pen_s = null; 		/** Documento penultima stagione. */
@@ -947,8 +861,6 @@ public class Mongo_Export_2 implements Runnable{
 						this.setNano(parziale9);
 					
 					}
-			
-			System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - Stagione 2019-2020 cancellata.");
 					
 				}
 				
@@ -970,44 +882,6 @@ public class Mongo_Export_2 implements Runnable{
 				 long end10 = System.nanoTime();
 				 
 				 this.setNano(end10 - start10);
-				 
-				 System.out.println("TROVATI " + (doc_g.size() + doc_p.size()) + " documenti in totale.");
-				 
-				 if( doc_g.size()!=0 ) {
-					 
-					 for (Document document : doc_g) {
-						
-						System.out.println("\n\nGIOCATORI:\n\nEsempio:");
-						System.out.println(document);
-						break;
-						
-					}
-					 
-					 if( (doc_g.size()-1) != 0 ) {
-						 
-						 System.out.println("\nE altri: " + (doc_g.size()-1) + " documenti.");
-						 
-					 }
-					 
-				 }
-				 
-				 if( doc_p.size()!=0 ) {
-					 
-					 for (Document document : doc_p) {
-						
-						System.out.println("\nPORTIERI:\n\nEsempio:");
-						System.out.println(document);
-						break;
-						
-					}
-					 
-					 if( (doc_p.size()-1) != 0 ) {
-						 
-						 System.out.println("\nE altri: " + (doc_p.size()-1) + " documenti.");
-						 
-					 }
-					 
-				 }
 				
 				break;
 				
@@ -1023,26 +897,6 @@ public class Mongo_Export_2 implements Runnable{
 				 long end11 = System.nanoTime();
 				 
 				 this.setNano(end11 - start11);
-				 
-				 System.out.println("\nTROVATI " + (doc_c.size()) + " documenti in totale.");
-				 
-				 if( doc_c.size()!=0 ) {
-					 
-					 for (Document document : doc_c) {
-						
-						System.out.println("\nEsempio:");
-						System.out.println(document);
-						break;
-						
-					}
-					 
-					 if( (doc_c.size()-1) != 0 ) {
-						 
-						 System.out.println("\nE altri: " + (doc_c.size()-1) + " documenti.");
-						 
-					 }
-					 
-				 }
 				
 				break;
 				
@@ -1066,10 +920,6 @@ public class Mongo_Export_2 implements Runnable{
 					long end12 = System.nanoTime();
 					 
 					this.setNano(end12 - start12);
-					
-					for (Document document : doc) {
-						System.out.println("\nGIOCATORE: " + this.giocatore.getNome_calciatore() + "\nSTAGIONE TROVATA: " + document);
-					}
 							 
 				}else if(giocatore == null){
 					
@@ -1089,11 +939,7 @@ public class Mongo_Export_2 implements Runnable{
 					long end12 = System.nanoTime();
 					 
 					this.setNano(end12 - start12);
-					
-					for (Document document : doc) {
-						System.out.println("\nPORTIERE: " + this.portiere.getNome_calciatore() + "\nSTAGIONE TROVATA: " + document);
-					}
-					
+				
 				}
 				
 				break;
@@ -1117,14 +963,6 @@ public class Mongo_Export_2 implements Runnable{
 						 long end13 = System.nanoTime();
 							
 						 this.setNano(end13 - start13);
-						 
-						 for (Document document : doc) {
-							 
-							 Document docu = (Document) document.get("Ultima stagione");
-							
-							 System.out.println("\nGIOCATORE: " + this.giocatore.getNome_calciatore() + " - Somma goals: " + docu.get("goals"));
-							 
-						}
 						
 					} else if(seasons_ == 2) {
 						
@@ -1141,12 +979,6 @@ public class Mongo_Export_2 implements Runnable{
 						 long end13 = System.nanoTime();
 							
 						 this.setNano(end13 - start13);
-						 
-						 for (Document document : doc) {
-							
-							 System.out.println("\nGIOCATORE: " + this.giocatore.getNome_calciatore() + " - Somma goals: " + document.get("sum_goals"));
-							 
-						}
 						
 					} else if(seasons_ == 3) {
 			
@@ -1167,12 +999,6 @@ public class Mongo_Export_2 implements Runnable{
 							
 						 this.setNano(end13 - start13);
 						 
-						 for (Document document : doc) {
-							
-							 System.out.println("\nGIOCATORE: " + this.giocatore.getNome_calciatore() + " - Somma goals: " + document.get("sum_goals"));
-							 
-						}
-						 
 						}
 					
 				} else if(this.giocatore == null) {
@@ -1190,14 +1016,6 @@ public class Mongo_Export_2 implements Runnable{
 						 long end13 = System.nanoTime();
 							
 						 this.setNano(end13 - start13);
-						 
-						 for (Document document : doc) {
-							 
-							 Document docu = (Document) document.get("Ultima stagione");
-							
-							 System.out.println("\nPORTIERE: " + this.portiere.getNome_calciatore() + " - Somma goals: " + docu.get("saves"));
-							 
-						}
 						
 					} else if(seasons_ == 2) {
 				
@@ -1214,12 +1032,6 @@ public class Mongo_Export_2 implements Runnable{
 						 long end13 = System.nanoTime();
 							
 						 this.setNano(end13 - start13);
-						 
-						 for (Document document : doc) {
-							
-							 System.out.println("\nPORTIERE: " + this.portiere.getNome_calciatore() + " - Somma saves: " + document.get("sum_saves"));
-							 
-						}
 						
 					} else if(seasons_ == 3) {
 						
@@ -1240,11 +1052,6 @@ public class Mongo_Export_2 implements Runnable{
 							
 						 this.setNano(end13 - start13);
 						 
-						 for (Document document : doc) {
-							
-							 System.out.println("\nPORTIERE: " + this.portiere.getNome_calciatore() + " - Somma saves: " + document.get("sum_saves"));
-							 
-						}
 					}
 					
 				}
@@ -1263,8 +1070,6 @@ public class Mongo_Export_2 implements Runnable{
 					
 					this.setNano(end14 - start14);
 					
-					System.out.println("GIOCATORE: " + this.giocatore.getNome_calciatore() + " - 'mileage' aggiunto all'ultima stagione.");
-					
 				} else if(giocatore == null) {
 					
 					long start14 = System.nanoTime();
@@ -1274,8 +1079,6 @@ public class Mongo_Export_2 implements Runnable{
 					long end14 = System.nanoTime();
 					
 					this.setNano(end14 - start14);
-					
-					System.out.println("PORTIERE: " + this.portiere.getNome_calciatore() + " - 'mistakes' aggiunto all'ultima stagione.");
 					
 				} 
 				

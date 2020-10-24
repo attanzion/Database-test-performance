@@ -191,9 +191,19 @@ public class Menu {
 			
 		}
 		
-		for (int i = 0; i < tentativi; i++) {
+		for (int i = 1; i <= tentativi; i++) {
 			
+			if(i<4)
+				System.out.println("WARMUP " + i + ".\n");
+			else {
+				int t = i - 3;
+				System.out.println("TENTATIVO " + t +".\n");
+			}
+				
+				
 			for (int j = 1; j <= configurazioni; j++) {	
+				
+				System.out.println("  Operazione su DATABASE " + j + ".\n");
 				
 				this.Switch(j);
 				
